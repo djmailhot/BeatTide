@@ -1,4 +1,20 @@
 BeatTide::Application.routes.draw do
+  get "grooveshark/getInfo"
+
+  get "grooveshark/findSong"
+
+  get "grooveshark/playSong"
+
+  get "grooveshark_controller/getInfo"
+
+  get "grooveshark_controller/findSong"
+
+  get "grooveshark_controller/playSong"
+
+  get "get_info/findSong"
+
+  get "get_info/playSong"
+
   resources :users
 
   # The priority is based upon order of creation:
