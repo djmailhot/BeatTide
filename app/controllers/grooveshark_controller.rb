@@ -4,9 +4,7 @@ class GroovesharkController < ApplicationController
     session = client.session
     render :text => session
     songs = client.search_songs('Nirvana')
-    songs.each do |s|
-      s.name
-    end
+#    render :text => songs
   end
 
   def findSong
