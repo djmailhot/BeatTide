@@ -25,8 +25,5 @@ class GroovesharkController < ApplicationController
   end
 
   def playSong
-  end
-
-
-  
+  end  
 end
