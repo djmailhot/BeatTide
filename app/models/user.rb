@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :subscriptions, :foreign_key => "subscriber_id",
                            :dependent => :destroy
-  has_many :reverse_subscriptions, :dependent => :destory,
+  has_many :reverse_subscriptions, :dependent => :destroy,
                                    :foreign_key => "subscribed_id",
                                    :class_name => "Subscription"
 
@@ -22,5 +22,11 @@ class User < ActiveRecord::Base
   validates :username, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+
+  after_initialize :init
+
+  def init
+    self.likes ||= 0
+  end
 
 end
