@@ -39,29 +39,16 @@ function displaySong(json){
     var content = "<table><tr><th></th><th>Song Name</th><th>Artist</th></tr>";
     for(var i = 0; i < json.length; i++){
 	content += "<tr>";
-	content += "<td>" + json[i].SongID + "</td>";
+	content += "<td id=" + json[i].SongID + "><img height='30' width='30' src='http://students.washington.edu/hsingh09/BeatTide/img/play.png'></td>";
 	content += "<td>" + json[i].SongName + "</td>";
 	content += "<td>" + json[i].ArtistName + "</td>";
 	content += "</tr>";
-/*
-	$('#results').append("<tr>");
-	$('#results').append("<td>" + json[i].SongID + "</td>");
-	$('#results').append("<td>" + json[i].SongName + "</td>");
-	$('#results').append("<td>" + json[i].ArtistName + "</td>");
-	$('#results').append("</tr>");
-*/
+
     }
-    	//$('#results').append("</table>");
 
     content += "</table>";
     $('#results').html(content);
-
-/*    if($('results').getStyle('visibility') == "hidden"){
-	$('results').style.visibility = "visible";
-	$('results').blindDown();
-    }
-    $('results').innerHTML = ajax.responseText;
-    
+/*
     var songs = $$(".playButton");
     for(var i = 0; i< songs.length; i++){
 	$(songs[i].id).observe('click', playSong);
