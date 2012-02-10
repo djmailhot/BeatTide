@@ -13,6 +13,20 @@ class GroovesharkController < ApplicationController
   def findSong
   end
 
+  def searchSong
+    api_key = "d44e54b31d4333b5940119c69fddc429"
+    query = URI.escape(params[:query])
+
+
+    url = URI.parse("http://tinysong.com/s/#{query}?format=json&limit=10&key=#{api_key}")
+    response = Net::HTTP.get_response(url).body
+    render :text => response
+
+  end
+
   def playSong
   end
+
+
+  
 end
