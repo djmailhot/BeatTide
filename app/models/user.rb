@@ -7,13 +7,13 @@ class User < ActiveRecord::Base
   has_many :subscriptions, :foreign_key => "subscriber_id",
                            :dependent => :destroy
   has_many :reverse_subscriptions, :dependent => :destory,
-                                   :foreign_key => "subscribed_id"
+                                   :foreign_key => "subscribed_id",
                                    :class_name => "Subscription"
 
   # To access a User object's subscribed-to-user list, access User.subscribing
-  has_many :subscribing, :through => :subscriptions
+  has_many :subscribing, :through => :subscriptions,
                          :source => :subscribed
-  has_many :subscribers, :through => :reverse_subscriptions
+  has_many :subscribers, :through => :reverse_subscriptions,
                          :source => :subscriber
 
 
