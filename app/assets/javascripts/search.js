@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function findSong(searchString) {
     console.log("Sending request");
-    var url = "http://localhost:3000/grooveshark/searchSong";
+    var url = "searchSong";
     $.getJSON(
 	url,
 	{query: searchString},
