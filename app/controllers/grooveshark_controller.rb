@@ -18,9 +18,6 @@ class GroovesharkController < ApplicationController
     render :json => response
   end
 
-  def playSong
-  end
-  
   private
     
   def sessionToken
