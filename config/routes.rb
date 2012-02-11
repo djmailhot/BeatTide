@@ -1,6 +1,6 @@
 BeatTide::Application.routes.draw do
   get "grooveshark/getInfo"
-
+  
   get "grooveshark/findSong"
 
   get "grooveshark/playSong"
