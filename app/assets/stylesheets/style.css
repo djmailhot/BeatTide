@@ -69,3 +69,13 @@ table{
 	border-collapse: collapse;
 	padding: 15px;
 }
+
+#controls {
+    margin-top: 30px;
+    text-align: center;
+}
+
+button {
+    font-size: 18px;
+
+}

@@ -1,0 +1,10 @@
+<h1>Grooveshark#playSong</h1>
+<p>Find me in app/views/grooveshark/playSong.html.erb</p>
+
+<object id="player" width="60" height="60" name="player">
+  <param name="movie" value="http://grooveshark.com/APIPlayer.swf" />
+  <param name="allowscriptaccess" value="always" />
+  <param name="flashvars" value="path=deuter" />
+  <embed id="player1" width="60" height="60" src="http://grooveshark.com/APIPlayer.swf" flashvars="path=deuter" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" name="player" scale="noScale" salign="lt"></embed>
+</object>
+

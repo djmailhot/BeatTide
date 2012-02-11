@@ -3,13 +3,41 @@
   <a href="http://students.washington.edu/hsingh09/BeatTide"><img src="http://students.washington.edu/hsingh09/BeatTide/img/logo.png" alt="logo" /></a>
 </div>
 
+<div id="controls">
+  <button type="button" id="play">Play</button>
+  <button type="button" id="pause">Pause</button>
+  <button type="button" id="stop">Stop</button>
+ 
+</div>
 
-<object id="player" width="60" height="60" name="player">
+
+<div id="player"></div>
+
+<script>
+
+  swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf", "player", "1", "1", "9.0.0", "", {}, {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"}, function(e) {
+  var element = e.ref;
+  if(element){
+  setTimeout(function() {
+  window.player = element;
+  window.player.setVolume(99);
+  }, 1500);
+  }
+  else{
+  console.log("couldn't load flash");
+  }
+  });
+</script>
+
+
+<!--
+<object id="grooveshark_player" width="60" height="60" name="player">
   <param name="movie" value="http://grooveshark.com/APIPlayer.swf" />
   <param name="allowscriptaccess" value="always" />
   <param name="flashvars" value="path=deuter" />
   <embed id="player1" width="60" height="60" src="http://grooveshark.com/APIPlayer.swf" flashvars="path=deuter" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" name="player" scale="noScale" salign="lt"></embed>
 </object>
+-->
 
 <div id="container">
   <input id="searchBox" type="text" name="songName" size=25 />

@@ -1,0 +1,256 @@
+diff --git a/app/assets/javascripts/search.js b/app/assets/javascripts/search.js
+index 3444627..49beee8 100644
+--- a/app/assets/javascripts/search.js
++++ b/app/assets/javascripts/search.js
+@@ -1,10 +1,21 @@
++/*
++  This is the JavaScript handlers for the search page. It handles interaction with
++  the TinySong API as well as controlling the groovehsark swf object.  
++
++  Author: Harnoor Singh
++
++*/
++
++// TinySong API info and preferences
+ var TinySongKey = "d44e54b31d4333b5940119c69fddc429";
+ var TinySongURL = "http://tinysong.com/";
+-
+ var TinySongMethod = "/s/";
+ var limit = 5;
+ 
+ 
++var debug = true;
++
++// On load attach a listener for the return key
+ $(document).ready(function() {
+     $('#searchBox').focus();
+     $('#searchBox').keypress(function(event){
+@@ -12,9 +23,24 @@ $(document).ready(function() {
+ 	    findSong($('#searchBox').val());
+ 	}
+     });
++    $('#pause').click(pauseStream);
++    $('#play').click(playStream);
++    $('#stop').click(stopStream);
+ });
+ 
++function pauseStream(){
++    window.player.pauseStream();
++}
++
++function playStream(){
++    window.player.resumeStream();
++}
++
++function stopStream(){
++    window.player.stopStream();
++}
+ 
++// Query the TinySong API 
+ function findSong(searchString) {
+     console.log("Sending request");
+     var url = "searchSong";
+@@ -24,6 +50,7 @@ function findSong(searchString) {
+ 	displaySong);
+ }
+ 
++// For bad AJAX queries
+ function getError(a, b, c){
+     console.log("GET error");
+     console.log(a);
+@@ -31,7 +58,7 @@ function getError(a, b, c){
+     console.log(c);
+ }
+ 
+-
++// Parses the JSON object and displays the search results in a table. 
+ function displaySong(json){
+     console.log("Successfully got data");
+     $('#results').css("visibility", "visible");
+@@ -39,7 +66,8 @@ function displaySong(json){
+     var content = "<table><tr><th></th><th>Song Name</th><th>Artist</th></tr>";
+     for(var i = 0; i < json.length; i++){
+ 	content += "<tr>";
+-	content += "<td id=" + json[i].SongID + "><img height='30' width='30' src='http://students.washington.edu/hsingh09/BeatTide/img/play.png'></td>";
++	//id=" + json[i].SongID
++	content += "<td><img height='30' width='30' id='" + json[i].SongID + "' class='playButton' src='http://students.washington.edu/hsingh09/BeatTide/img/play.png'></td>";
+ 	content += "<td>" + json[i].SongName + "</td>";
+ 	content += "<td>" + json[i].ArtistName + "</td>";
+ 	content += "</tr>";
+@@ -48,35 +76,45 @@ function displaySong(json){
+ 
+     content += "</table>";
+     $('#results').html(content);
+-/*
+-    var songs = $$(".playButton");
++
++    // Attach listeners to each play button
++    var songs = $(".playButton");
+     for(var i = 0; i< songs.length; i++){
+-	$(songs[i].id).observe('click', playSong);
+-    }*/
++	$('#' + songs[i].id).click(playListener);
++    }
+ }
+ 
+-function playSong(event){
+-    var element = Event.element(event);
+-    var songID = element.id;
+-    console.log(songID);
+-    
+-    new Ajax.Request("http://students.washington.edu/hsingh09/BeatTide/GenerateWidget.php?songID=" + songID,
+-		     {
+-			 method:'get',
+-			 onSuccess: displayWidget,
+-			 onFailure: ajaxFailure,
+-			 onException: ajaxFailure
+-		     });
++function playListener(event){
++    playSong(event.target.id);
++}
+ 
++// Get the stream key from the grooveshark gem
++function playSong(songID){
++    console.log(songID);
++    $.getJSON(
++	"getInfo", 
++	{query: songID},
++	activateWidget);
+ }
+ 
+-function displayWidget(ajax){
+-    $('player').innerHTML = ajax.responseText;
++function activateWidget(json){
++    var stream_key = json['stream_key'];
++    var host_name = json['ip'];
++    var server_id = json['stream_server_id'];
++
++    if(debug){
++	console.log("Streaming Info");
++	console.log("\tStream Key: " + stream_key);
++	console.log("\tStream Server: " + host_name);
++	console.log("\tStream Server ID: " + server_id);
++    }
++    window.player.setVolume(99);
++    window.player.playStreamKey(stream_key, host_name, server_id);
+ }
+ 
+ 
+ function ajaxFailure(ajax, exception){
+-    alert("Error making Ajax request:" + 
++    console.log("Error making Ajax request:" + 
+           "\n\nServer status:\n" + ajax.status + " " + ajax.statusText + 
+           "\n\nServer response text:\n" + ajax.responseText);
+     if (exception) {
+diff --git a/app/assets/stylesheets/style.css b/app/assets/stylesheets/style.css
+index bfe530b..ad586cc 100644
+--- a/app/assets/stylesheets/style.css
++++ b/app/assets/stylesheets/style.css
+@@ -69,3 +69,13 @@ table{
+ 	border-collapse: collapse;
+ 	padding: 15px;
+ }
++
++#controls {
++    margin-top: 30px;
++    text-align: center;
++}
++
++button {
++    font-size: 18px;
++
++}
+\ No newline at end of file
+diff --git a/app/controllers/grooveshark_controller.rb b/app/controllers/grooveshark_controller.rb
+index 95368f5..ce84358 100644
+--- a/app/controllers/grooveshark_controller.rb
++++ b/app/controllers/grooveshark_controller.rb
+@@ -1,12 +1,16 @@
+ class GroovesharkController < ApplicationController
+   def getInfo
++    songID = params['query']
++    
++    # Can we optimize this so we don't create a new session every time?
+     client = Grooveshark::Client.new
+     session = client.session
+-    song = client.get_song_url_by_id(2607986)
+-    render :text => song
+-    
+-    # resp = get_stream_auth by songid(song_id)
+-    # resp['stream_key']
++ 
++    @stream_url = client.get_song_url_by_id(songID)
++    @stream_key = client.get_stream_auth_by_songid(songID)
++    render :json => @stream_key
++#    render :text => @stream_key
++#    render :text => resp['stream_key']
+     # pass this to the APIPlayer swf 
+   end
+ 
+diff --git a/app/views/grooveshark/findSong.html.erb b/app/views/grooveshark/findSong.html.erb
+index 15d0170..594cf97 100644
+--- a/app/views/grooveshark/findSong.html.erb
++++ b/app/views/grooveshark/findSong.html.erb
+@@ -3,13 +3,41 @@
+   <a href="http://students.washington.edu/hsingh09/BeatTide"><img src="http://students.washington.edu/hsingh09/BeatTide/img/logo.png" alt="logo" /></a>
+ </div>
+ 
++<div id="controls">
++  <button type="button" id="play">Play</button>
++  <button type="button" id="pause">Pause</button>
++  <button type="button" id="stop">Stop</button>
++ 
++</div>
++
++
++<div id="player"></div>
++
++<script>
++
++  swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf", "player", "1", "1", "9.0.0", "", {}, {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"}, function(e) {
++  var element = e.ref;
++  if(element){
++  setTimeout(function() {
++  window.player = element;
++  window.player.setVolume(99);
++  }, 1500);
++  }
++  else{
++  console.log("couldn't load flash");
++  }
++  });
++</script>
++
+ 
+-<object id="player" width="60" height="60" name="player">
++<!--
++<object id="grooveshark_player" width="60" height="60" name="player">
+   <param name="movie" value="http://grooveshark.com/APIPlayer.swf" />
+   <param name="allowscriptaccess" value="always" />
+   <param name="flashvars" value="path=deuter" />
+   <embed id="player1" width="60" height="60" src="http://grooveshark.com/APIPlayer.swf" flashvars="path=deuter" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" name="player" scale="noScale" salign="lt"></embed>
+ </object>
++-->
+ 
+ <div id="container">
+   <input id="searchBox" type="text" name="songName" size=25 />
+diff --git a/app/views/grooveshark/getInfo.html.erb b/app/views/grooveshark/getInfo.html.erb
+index 7e64138..8b13789 100644
+--- a/app/views/grooveshark/getInfo.html.erb
++++ b/app/views/grooveshark/getInfo.html.erb
+@@ -1,2 +1 @@
+-<h1>Grooveshark#getInfo</h1>
+-<p>Find me in app/views/grooveshark/getInfo.html.erb</p>
++
+diff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb
+index 79346de..990ff78 100644
+--- a/app/views/layouts/application.html.erb
++++ b/app/views/layouts/application.html.erb
+@@ -5,6 +5,7 @@
+   <%= stylesheet_link_tag    "application", :media => "all" %>
+ 
+   <%= javascript_include_tag "application" %>
++  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" %>
+   <%= csrf_meta_tags %>
+ </head>
+ <body>

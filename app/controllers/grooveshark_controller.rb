@@ -1,12 +1,16 @@
 class GroovesharkController < ApplicationController
   def getInfo
+    songID = params['query']
+    
+    # Can we optimize this so we don't create a new session every time?
     client = Grooveshark::Client.new
     session = client.session
-    song = client.get_song_url_by_id(2607986)
-    render :text => song
-    
-    # resp = get_stream_auth by songid(song_id)
-    # resp['stream_key']
+ 
+    @stream_url = client.get_song_url_by_id(songID)
+    @stream_key = client.get_stream_auth_by_songid(songID)
+    render :json => @stream_key
+#    render :text => @stream_key
+#    render :text => resp['stream_key']
     # pass this to the APIPlayer swf 
   end
 
