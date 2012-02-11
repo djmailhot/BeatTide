@@ -1,5 +1,12 @@
 <h1>Listing users</h1>
 
+<% if current_user %>
+  Welcome <%= current_user.username %>!
+  <%= link_to "Sign Out", signout_path %>
+<% else %>
+  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+<% end %>
+
 <table>
   <tr>
     <th>First Name</th>

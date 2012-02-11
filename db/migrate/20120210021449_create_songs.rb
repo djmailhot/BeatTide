@@ -1,11 +1,11 @@
 class CreateSongs < ActiveRecord::Migration
   def change
     create_table :songs do |t|
-      t.int :api_id
-      t.int :likes
+      t.integer :api_id
+      t.integer :likes
       t.string :title
-      t.int :album_id
-      t.int :artist_id
+      t.integer :album_id
+      t.integer :artist_id
 
       t.timestamps
     end

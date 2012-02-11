@@ -29,4 +29,13 @@ class User < ActiveRecord::Base
     self.likes ||= 0
   end
 
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.facebook_id = auth["uid"]
+      user.first_name = auth["info"]["first_name"]
+      user.last_name = auth["info"]["last_name"]
+      user.username = auth["info"]["nickname"]
+    end
+  end
+
 end
