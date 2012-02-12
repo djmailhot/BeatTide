@@ -8,7 +8,6 @@
 <div id="player"></div>
 
 <script>
-
   swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf", "player", "1", "1", "9.0.0", "", {}, {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"}, function(e) {
   var element = e.ref;
   if(element){
@@ -23,25 +22,9 @@
   });
 </script>
 
-
-<!--
-<object id="grooveshark_player" width="60" height="60" name="player">
-  <param name="movie" value="http://grooveshark.com/APIPlayer.swf" />
-  <param name="allowscriptaccess" value="always" />
-  <param name="flashvars" value="path=deuter" />
-  <embed id="player1" width="60" height="60" src="http://grooveshark.com/APIPlayer.swf" flashvars="path=deuter" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" name="player" scale="noScale" salign="lt"></embed>
-</object>
--->
-
 <div id="container">
   <input id="searchBox" type="text" name="songName" size=25 />
 </div>
 
-
 <div id="results">
 </div>
-
-<div id="footer">
-  Powered by <a href="http://www.grooveshark.com">Grooveshark</a>
-</div>
-

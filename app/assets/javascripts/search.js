@@ -34,12 +34,11 @@ function stopStream(){
 
 // Query the TinySong API 
 function findSong(searchString) {
-    console.log("Sending request");
+    console.log("Sending request for search query: '" + searchString + "'");
     var url = "songs_from_query";
-    $.getJSON(
-	url,
-	{query: searchString},
-	displaySong);
+    $("#results").load(url, {query: searchString}, function() {
+        console.log("Received response");
+    });
 }
 
 // For bad AJAX queries

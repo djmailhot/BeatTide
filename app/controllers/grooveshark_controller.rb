@@ -37,10 +37,15 @@ class GroovesharkController < ApplicationController
   # results. The song ID's which are returned by this request correspond to
   # Grooveshark songs.
   def songs_from_query
-    query = URI.escape(params[:query])
-    url = URI.parse("#{TINY_SONG_API}/s/#{query}?format=json&limit=#{NUM_SEARCH_RESULTS}&key=#{TINY_SONG_API_KEY}")
-    response = Net::HTTP.get_response(url).body
-    render :json => response
+    if params[:query]
+      query = URI.escape(params[:query])
+      url = URI.parse("#{TINY_SONG_API}/s/#{query}?format=json&limit=#{NUM_SEARCH_RESULTS}&key=#{TINY_SONG_API_KEY}")
+      response = Net::HTTP.get_response(url).body
+      @song_results = ActiveSupport::JSON.decode(response)
+      render :layout => false
+    else
+      render :text => "No query."
+    end
   end
 
   private
