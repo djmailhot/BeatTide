@@ -1,6 +1,6 @@
 <div class="song">
     <div class="play_button">
-        <a href="#" class="play">play <%= song["SongID"] %></a>
+        <%= link_to "Play", "#", :class => 'play_song', :id => song["SongID"] %>
     </div>
     <div class="song_info">
         <%= song["SongName"] %> by <%= song["ArtistName"] %>

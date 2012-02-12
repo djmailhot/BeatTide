@@ -1,5 +1,5 @@
 BeatTide::Application.routes.draw do
-  get "grooveshark/song_stream_key"
+  get "grooveshark/song_stream_info"
   
   get "grooveshark/search"
 
