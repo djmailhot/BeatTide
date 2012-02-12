@@ -1,17 +1,9 @@
 /*
-  This is the JavaScript handlers for the search page. It handles interaction with
-  the TinySong API as well as controlling the groovehsark swf object.  
+This is the JavaScript handlers for the search page. It handles interaction with
+the TinySong API as well as controlling the groovehsark swf object.  
 
-  Author: Harnoor Singh
-
+Authors: Harnoor Singh, Alex Miller
 */
-
-// TinySong API info and preferences
-var TinySongKey = "d44e54b31d4333b5940119c69fddc429";
-var TinySongURL = "http://tinysong.com/";
-var TinySongMethod = "/s/";
-var limit = 5;
-
 
 var debug = true;
 
@@ -43,7 +35,7 @@ function stopStream(){
 // Query the TinySong API 
 function findSong(searchString) {
     console.log("Sending request");
-    var url = "searchSong";
+    var url = "songs_from_query";
     $.getJSON(
 	url,
 	{query: searchString},

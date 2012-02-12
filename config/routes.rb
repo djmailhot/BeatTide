@@ -1,21 +1,9 @@
 BeatTide::Application.routes.draw do
-  get "grooveshark/getInfo"
+  get "grooveshark/song_stream_key"
   
-  get "grooveshark/findSong"
+  get "grooveshark/search"
 
-  get "grooveshark/playSong"
-
-  get "grooveshark/searchSong"
-
-  get "grooveshark_controller/getInfo"
-
-  get "grooveshark_controller/findSong"
-
-  get "grooveshark_controller/playSong"
-
-  get "get_info/findSong"
-
-  get "get_info/playSong"
+  get "grooveshark/songs_from_query"
 
   resources :users
 
