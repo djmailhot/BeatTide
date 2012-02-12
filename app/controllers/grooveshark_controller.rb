@@ -42,7 +42,7 @@ class GroovesharkController < ApplicationController
       url = URI.parse("#{TINY_SONG_API}/s/#{query}?format=json&limit=#{NUM_SEARCH_RESULTS}&key=#{TINY_SONG_API_KEY}")
       response = Net::HTTP.get_response(url).body
       @song_results = ActiveSupport::JSON.decode(response)
-      render :layout => false
+      render 'songs/song_list', :layout => false
     else
       render :text => "No query."
     end
