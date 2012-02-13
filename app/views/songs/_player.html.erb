@@ -1,24 +1,13 @@
-<div id="controls">
-  <button type="button" id="play">Play</button>
-  <button type="button" id="pause">Pause</button>
-  <button type="button" id="stop">Stop</button> 
+<%
+#   Controls and container for the Grooveshark Flash player. The player is added
+#   via Javascript. See javascripts/songs.js.
+%>
+
+<div id="player_container">
+    <div id="controls">
+      <button type="button" id="play">Play</button>
+      <button type="button" id="pause">Pause</button>
+      <button type="button" id="stop">Stop</button> 
+    </div>
+    <span id="player"></span>
 </div>
-
-
-<div id="player"></div>
-
-<script>
-swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf","player", "1", "1", "9.0.0", "", {},
-    {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"},
-    function(e) {
-        var element = e.ref;
-        if(element){
-            setTimeout(function() {
-                window.player = element;
-                window.player.setVolume(99);
-            }, 1500);
-        } else {
-            console.log("couldn't load flash");
-}
-});
-</script>

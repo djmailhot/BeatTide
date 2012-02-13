@@ -1,3 +1,10 @@
+<%
+#   A view for displaying a list of songs. Composed of single song partial
+#   views.
+%>
+
+<div class="song_list">
 <% @song_results.each do |song| %>
   <%= render :partial => "songs/song", :locals => {:song => song} %>
 <% end %>
+</div>

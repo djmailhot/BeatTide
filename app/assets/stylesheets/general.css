@@ -1,5 +1,36 @@
 body {
-   background-color: #edf4f6;
    font-family: helvetica, verdana, arial, sans-serif;
+   background-color: #e3f4fc;
    line-height: 20px;
+   padding: 0;
+   margin: 0;
+}
+
+#header_container {
+    background-image: url("background.png");
+    background-repeat: repeat-x;
+}
+
+#header {
+    width: 800px;
+    margin: 0 auto 0 auto;
+    height: 70px;
+    padding-top: 10px;
+}
+
+#content {
+    width: 800px;
+    margin: 0 auto 0 auto;
+    padding: 10px;
+    background-color: #FFF;
+}
+
+#player_container {
+    padding: 20px;
+    float: right;
+    text-align: center;
+}
+
+#player {
+    position: fixed;
 }
