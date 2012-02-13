@@ -9,7 +9,15 @@
 </head>
 <body>
 
-<%= yield %>
+<div id="container">
+    <div id="header">
+        <%= image_tag "logo_small.png" %>
+        <%= render "songs/player" %>
+    </div>
+    <div id="content">
+        <%= yield %>
+    </div>
+</div>
 
 </body>
 </html>

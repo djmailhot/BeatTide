@@ -5,27 +5,20 @@ the TinySong API as well as controlling the groovehsark swf object.
 Authors: Harnoor Singh, Alex Miller
 */
 
+$(document).ready(function() {
+    $('#song_search_box').focus();
+    $('#song_search_box').keypress(function(event){
+        if(event.keyCode == 13){
+            performSearch();
+        }
+    });
+    $('#song_search_button').click(performSearch);
+});
+
 // Query the TinySong API 
-function findSong(searchString) {
+function performSearch() {
+    var searchString = $('#song_search_box').val()
     console.log("Sending request for search query: '" + searchString + "'");
     var url = "songs_from_query";
-    $("#results").load(url, {query: searchString}, refreshPlayButtons);
-    
-}
-
-// For bad AJAX queries
-function getError(a, b, c){
-    console.log("GET error");
-    console.log(a);
-    console.log(b);
-    console.log(c);
-}
-
-function ajaxFailure(ajax, exception){
-    console.log("Error making Ajax request:" + 
-          "\n\nServer status:\n" + ajax.status + " " + ajax.statusText + 
-          "\n\nServer response text:\n" + ajax.responseText);
-    if (exception) {
-	throw exception;
-    }
+    $("#search_results").load(url, {query: searchString}, refreshPlayButtons);
 }

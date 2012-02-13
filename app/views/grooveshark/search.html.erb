@@ -1,30 +1,6 @@
-<div id="controls">
-  <button type="button" id="play">Play</button>
-  <button type="button" id="pause">Pause</button>
-  <button type="button" id="stop">Stop</button> 
-</div>
-
-
-<div id="player"></div>
-
-<script>
-  swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf", "player", "1", "1", "9.0.0", "", {}, {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"}, function(e) {
-  var element = e.ref;
-  if(element){
-  setTimeout(function() {
-  window.player = element;
-  window.player.setVolume(99);
-  }, 1500);
-  }
-  else{
-  console.log("couldn't load flash");
-  }
-  });
-</script>
-
-<div id="container">
-  <input id="searchBox" type="text" name="songName" size=25 />
-</div>
-
-<div id="results">
+<div id="search_container">
+    <input id="song_search_box" type="text" name="songName" size=25 />
+    <button id="song_search_button">Search</button>
+    <div id="search_results">
+    </div>
 </div>
