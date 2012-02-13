@@ -8,12 +8,12 @@
 
 class Post < ActiveRecord::Base
 
-  attr_accessible :song, :likes, :user_id
+  attr_accessible :song_id, :likes, :user_id
 
   belongs_to :user
 
   validates :user_id, presence: true
-  validates :song, presence: true
+  validates :song_id, presence: true
   validates :likes, numericality: { only_integer: true, 
                                     greater_than_or_equal_to: 0 }
 

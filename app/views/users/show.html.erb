@@ -10,6 +10,7 @@
   <%= @user.username %>
 </p>
 
+<%= render 'posts/post_form' %>
 
 <p>
   <b>Feed:</b>
@@ -23,13 +24,12 @@
     <tr>
       <td><%= post.user.username %></td>
       <td><%= post.created_at %> </td>
-      <td><%= post.song %> </td>
+      <td><%= post.song_id %> </td>
     </tr>
     <% end %>
   </table>
 </p>
 
-<%= render 'posts/post_form' %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

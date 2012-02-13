@@ -4,11 +4,12 @@ class PostsController < ApplicationController
 
   def new
     @title = "New Post"
+    @user = User.find(params[:id])
   end
 
   def create
-#    @user = User.find(session[:user_id])
-    @post = @user.posts.build(params[:post])
+    @me = User.find(session[:user_id])
+    @post = @me.posts.build(params[:post])
     # if the post was successfully saved
     if @post.save
       flash[:success] = "Posted!"

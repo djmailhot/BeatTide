@@ -1,7 +1,7 @@
 BeatTide::Application.routes.draw do
   resources :users
   resources :subscriptions
-  resources :posts, only: [:create, :destroy]
+  resources :posts #, only: [:create, :destroy]
 
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
