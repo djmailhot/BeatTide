@@ -38,4 +38,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscribe! (subscribe_to)
+    self.subscriptions.create!(:subscribed_id => subscribe_to.id)
+  end
+
+  def subscribing? (other)
+    self.subscriptions.find_by_subscribed_id(other.id)
+  end
+
+  def unsubscribe! (other)
+    self.subscriptions.find_by_subscribed_id(other.id).destroy
+  end
+
+  def feed
+    # Post.feed_for self
+    []
+  end
+
 end
