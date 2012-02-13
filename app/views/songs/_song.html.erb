@@ -7,6 +7,7 @@
         <%= link_to "Play", "#", :class => 'play_song', :id => song["SongID"] %>
     </div>
     <div class="song_info">
-        <%= song["SongName"] %> by <%= song["ArtistName"] %>
+        <span class="song_name"><%= song["SongName"] %></span> <br />
+        <span class="song_info">by <strong><%= song["ArtistName"] %></strong>, from <em><%= song["AlbumName"] %></em></span>
     </div>
 </div>

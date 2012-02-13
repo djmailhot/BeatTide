@@ -1,0 +1,22 @@
+.song {
+    background-color: #fffff7;
+    padding: 6px;
+    margin: 2px;
+    width: 400px;
+    clear: both;
+}
+
+.play_button {
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.song_name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.song_info {
+    font-size: 12px;
+}
