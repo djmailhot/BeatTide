@@ -1,9 +1,22 @@
 <h1>Listing users</h1>
 
+<% if current_user %>
+  Welcome <%= current_user.username %>!
+  <%= link_to "Sign Out", signout_path %>
+<% else %>
+  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+<% end %>
+
 <table>
   <tr>
-    <th>Name</th>
-    <th>Email</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+    <th>Likes</th>
+    <th>username</th>
+    <th>Facebook ID</th>
+
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,8 +24,13 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.age %></td>
+    <td><%= user.likes %></td>
+    <td><%= user.username %></td>
+    <td><%= user.facebook_id %></td>
+    <td><%= link_to 'Subscribe', subscriptions_path(:user => user.id), :method => :post %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>

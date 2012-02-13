@@ -1,23 +1,11 @@
 BeatTide::Application.routes.draw do
-  get "grooveshark/getInfo"
-
-  get "grooveshark/findSong"
-
-  get "grooveshark/playSong"
-
-  get "grooveshark/searchSong"
-
-  get "grooveshark_controller/getInfo"
-
-  get "grooveshark_controller/findSong"
-
-  get "grooveshark_controller/playSong"
-
-  get "get_info/findSong"
-
-  get "get_info/playSong"
-
   resources :users
+
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy", :as => :signout
+
+  resources :subscriptions
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

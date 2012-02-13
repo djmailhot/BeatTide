@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  api_id: 
+  likes: 
+  title: MyString
+  album_id: 
+  artist_id: 
+
+two:
+  api_id: 
+  likes: 
+  title: MyString
+  album_id: 
+  artist_id: 
