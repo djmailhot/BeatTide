@@ -10,6 +10,7 @@
   <%= @user.username %>
 </p>
 
+
 <p>
   <b>Feed:</b>
   <table>
@@ -18,15 +19,17 @@
       <th>Time</th>
       <th>Song Name</th>
     </tr>
-    <% @user.feed.each do |post| %>
+    <% @user.posts.each do |post| %>
     <tr>
       <td><%= post.user.username %></td>
       <td><%= post.created_at %> </td>
-      <td><%= post.song.title %> </td>
+      <td><%= post.song %> </td>
     </tr>
     <% end %>
   </table>
 </p>
+
+<%= render 'posts/post_form' %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

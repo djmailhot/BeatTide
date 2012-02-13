@@ -1,0 +1,12 @@
+<%= form_for(@post) do |f| %>
+  <div class="field">
+
+    <!-- TODO: songs are not text. 
+    Need to connect this to a Song partial html view.-->
+    <%= f.label :song %>
+    <%= f.text_area :song %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
