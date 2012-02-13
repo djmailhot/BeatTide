@@ -22,6 +22,5 @@ class Subscription < ActiveRecord::Base
   # the subscriber and subscribed, and they are different.
   validates :subscriber, :presence => true
   validates :subscribed, :presence => true
-  validates :subscriber, :exclusion => { :in => %w(:subscribed) }
 
 end
