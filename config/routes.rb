@@ -1,6 +1,7 @@
 BeatTide::Application.routes.draw do
   resources :users
 
+  # Routes for creating and destroying a session (logging in or logging out)
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
 

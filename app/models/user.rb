@@ -29,6 +29,11 @@ class User < ActiveRecord::Base
     self.likes ||= 0
   end
 
+  # Creates a new user based on the authentication information given. Users
+  # are initialized with a Facebook ID, a first name, a last name, and a
+  # username (the same as the Facebook nickname).
+  # 
+  # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
     create! do |user|
       user.facebook_id = auth["uid"]
