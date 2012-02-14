@@ -66,9 +66,15 @@ function stopStream() {
 */
 function playSong(songID) {
     console.log("Requesting stream key for song: " + songID);
-    $.getJSON("song_stream_info", {query: songID}, function(json) {
-        console.log("Stream key retreived: " + json['stream_key']);
-        window.player.playStreamKey(json['stream_key'], json['ip'], json['stream_server_id']);
+    $.ajax({
+      url: "song_stream_info",
+      dataType: 'json',
+      data: {query: songID},
+      success: function(json) {
+          console.log("Stream key retreived: " + json['stream_key']);
+          window.player.playStreamKey(json['stream_key'], json['ip'], json['stream_server_id']);
+      },
+      error: ajaxFailure
     });
 }
 
