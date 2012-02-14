@@ -4,7 +4,7 @@
       <h2><%= pluralize(@song.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-      <% @user.song.full_messages.each do |msg| %>
+      <% @song.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -19,6 +19,18 @@
     <%= f.label :api_id %><br />
     <%= f.text_field :api_id %>
   </div>
+  <%= fields_for @album do |alb| %>
+  <div class="field">
+      <%=alb.label :album_name %><br />
+      <%=alb.text_field :name %>
+  </div>
+   <% end %>
+  <%= fields_for @artist do |art| %>
+  <div class="field">
+      <%=art.label :artist_name %><br />
+      <%=art.text_field :name %>
+  </div>
+   <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

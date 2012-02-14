@@ -1,4 +1,4 @@
-# A Song is a model which holds the metadata for a Song 
+# A Song holds the metadata for a particular Song, as well as a tracking of the amount of people that like it
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :likes, :title # id corresponding to api, # of likes, and title of song respectively
   
@@ -6,6 +6,7 @@ class Song < ActiveRecord::Base
   belongs_to :album
   belongs_to :artist
 
+  # validation of api_id and title
   validates :api_id, :presence => true,
                      :uniqueness => true
   validates :title, :presence => true
@@ -17,8 +18,8 @@ class Song < ActiveRecord::Base
     self.likes ||= 0
   end
 
+  # Adds one to the likes of this Song
   def like
     self.likes = self.likes + 1
-  end
-  
+  end  
 end
