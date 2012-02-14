@@ -1,3 +1,7 @@
+# Test class for the Grooveshark controller.
+#
+# Author:: Alex Miller, Harnoor Singh
+
 require 'test_helper'
 
 class GroovesharkControllerTest < ActionController::TestCase

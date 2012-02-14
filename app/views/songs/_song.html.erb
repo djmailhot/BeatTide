@@ -4,10 +4,17 @@
 
 <div class="song">
     <div class="play_button">
-        <%= link_to "Play", "#", :class => 'play_song', :id => song["SongID"] %>
+        <%=
+          link_to_function "Play", "playSong({
+            id: #{song["SongID"]},
+            name: '#{song["SongName"]}',
+            artist: '#{song["ArtistName"]}',
+            album: '#{song["AlbumName"]}'
+            })"
+        %>
     </div>
     <div class="song_info">
         <span class="song_name"><%= song["SongName"] %></span> <br />
-        <span class="song_info">by <strong><%= song["ArtistName"] %></strong>, from <em><%= song["AlbumName"] %></em></span>
+        <span class="song_info">by <strong><%= song["ArtistName"] %></strong>, from <em><%= song["AlbumName"] %></em> </span>
     </div>
 </div>

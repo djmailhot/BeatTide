@@ -32,6 +32,5 @@ function performSearch() {
         if (status == "error") {
             ajaxFailure(xhr, status);
         }
-        refreshPlayButtons();
     });
 }
