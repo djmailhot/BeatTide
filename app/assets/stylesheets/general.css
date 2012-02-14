@@ -23,10 +23,10 @@ body {
 }
 
 #content {
-    width: 800px;
+    width: 780px;
     margin: 0 auto 0 auto;
-    padding: 10px;
-    background-color: #FFF;
+    background: url("content_background.png");
+    padding: 30px;
 }
 
 #player_container {
