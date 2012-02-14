@@ -1,3 +1,7 @@
+/*
+ * Generic stylesheet for the entire website. High level styles like global
+ * font styles and major UI elements should go here.
+*/
 body {
    font-family: helvetica, verdana, arial, sans-serif;
    background-color: #e3f4fc;
