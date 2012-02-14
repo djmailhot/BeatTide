@@ -1,0 +1,28 @@
+<h1>Listing songs</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Api_ID</th>
+    <th>Likes</th>
+    <th>Album</th>
+    <th>Artist</th>
+  </tr>
+
+<% @songs.each do |song| %>
+  <tr>
+    <td><%= song.title %></td>
+    <td><%= song.api_id %></td>
+    <td><%= song.likes %></td>
+    <td><%= song.album %></td>
+    <td><%= song.artist %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_song_path(song) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Song', new_song_path %>
