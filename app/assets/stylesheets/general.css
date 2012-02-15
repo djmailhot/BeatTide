@@ -12,13 +12,12 @@ body {
 
 #header_container {
     background-image: url("background.png");
-    background-repeat: repeat-x;
 }
 
 #header {
     width: 800px;
     margin: 0 auto 0 auto;
-    height: 70px;
+    height: 100px;
     padding-top: 10px;
 }
 

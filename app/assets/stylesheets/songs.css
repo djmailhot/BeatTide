@@ -1,6 +1,6 @@
 /*
  * Styles for song related UI elements, including the song player.
-*/
+ */
 .song {
     background-color: #fffff7;
     padding: 6px;
@@ -23,3 +23,71 @@
 .song_info {
     font-size: 12px;
 }
+
+/*
+ * Player UI styles
+ */
+#player_container .player_button {
+    background: url("player_sprites.png");
+    border: 0;
+}
+
+#player_container .player_button span {
+    display: none;
+}
+
+#player_container .play, #player_container .pause {
+    height: 50px;
+    width: 50px;
+}
+
+#player_container .next, #player_container .previous {
+    height: 36px;
+    width: 36px;
+}
+
+/* Sprite positions for play button */
+
+#player_container .play {
+    background-position: 0 0;
+}
+
+#player_container .play:hover {
+    background-position: -50px 0;
+}
+
+#player_container .play:active {
+    background-position: -100px 0;
+}
+
+/* Sprite positions for previous button */
+
+#player_container .previous {
+    background-position: 0 -150px;
+}
+
+#player_container .previous:hover {
+    background-position: -50px -150px;
+}
+
+#player_container .previous:active {
+    background-position: -100px -150px;
+}
+
+/* Sprite positions for next button */
+
+#player_container .next {
+    background-position: 0 -100px;
+}
+
+#player_container .next:hover {
+    background-position: -50px -100px;
+}
+
+#player_container .next:active {
+    background-position: -100px -100px;
+}
+
+
+
+
