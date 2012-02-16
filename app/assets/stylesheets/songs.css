@@ -27,9 +27,31 @@
 /*
  * Player UI styles
  */
+#player_container {
+    position: relative;
+    width: 350px;
+}
+ 
+#player_container #current_song_info {
+    position: absolute;
+    background-color: #FFF;
+    font-size: 12px;
+    width: 200px;
+    height: 20px;
+    top: 35px;
+}
+ 
+#player_container #controls {
+    position: absolute;
+    width: 130px;
+    height: 50px;
+    left: 250px;
+}
+
 #player_container .player_button {
     background: url("player_sprites.png");
     border: 0;
+    position: absolute;
 }
 
 #player_container .player_button span {
@@ -44,6 +66,15 @@
 #player_container .next, #player_container .previous {
     height: 36px;
     width: 36px;
+    top: 7px;
+}
+
+#player_container .previous {
+    left: 0;
+}
+
+#player_container .next {
+    right: 0;
 }
 
 /* Sprite positions for play button */
