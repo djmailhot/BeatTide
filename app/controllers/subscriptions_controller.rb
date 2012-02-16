@@ -16,7 +16,7 @@ class SubscriptionsController < ApplicationController
   # params[:user]
   def create
     @me = User.find(session[:user_id])
-    @them = User.find(params[:user])
+    @them = User.find(params[:id])
     if @me != @them
       @me.subscribe!(@them)
     else

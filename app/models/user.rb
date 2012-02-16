@@ -1,9 +1,14 @@
+# Provides basic information about a user, including its relationships,
+# subscriptions, and feed.
+# Authors::Tyler Rigsby, Brett Webber, David Mailhot
 class User < ActiveRecord::Base
   attr_accessible :username, :first_name, :last_name, :facebook_id,
                   :age, :likes, :active
 
   has_many :posts, :dependent => :destroy
 
+  # links users to the subscriptions table via subscriber id for their
+  # subscriptions and via subscribed id to determine their subscribers
   has_many :subscriptions, :foreign_key => "subscriber_id",
                            :dependent => :destroy
   has_many :reverse_subscriptions, :dependent => :destroy,
@@ -25,6 +30,7 @@ class User < ActiveRecord::Base
 
   after_initialize :init
 
+  # Sets other values in table to 0.
   def init
     self.likes ||= 0
   end
@@ -43,18 +49,23 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Subscribes a user to the user specified with subscribe_to
   def subscribe! (subscribe_to)
     self.subscriptions.create!(:subscribed_id => subscribe_to.id)
   end
 
+  # Returns true if this user is subscribing to the 'other' user.
   def subscribing? (other)
     self.subscriptions.find_by_subscribed_id(other.id)
   end
 
+  # Unsubscribes this user from the 'other' user. No effect if the
+  # user is not currently subscribed to the other one.
   def unsubscribe! (other)
     self.subscriptions.find_by_subscribed_id(other.id).destroy
   end
 
+  # (stub) Returns an array representing a user's feed. 
   def feed
     # Post.feed_for self
     []
