@@ -1,15 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @user.name %>
+  <b>First Name:</b>
+  <%= @user.first_name %>
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
+  <b>Username:</b>
+  <%= @user.username %>
 </p>
 
+<p>
+  <b>Feed:</b>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Time</th>
+      <th>Song Name</th>
+    </tr>
+    <% @user.feed.each do |post| %>
+    <tr>
+      <td><%= post.user.username %></td>
+      <td><%= post.created_at %> </td>
+      <td><%= post.song.title %> </td>
+    </tr>
+    <% end %>
+  </table>
+</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
