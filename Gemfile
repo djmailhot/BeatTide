@@ -9,6 +9,7 @@ gem 'grooveshark'
 group :development, :test do
   gem 'sqlite3'
 end
+
 group :production do
   gem 'pg'
 end
@@ -17,6 +18,18 @@ gem 'json'
 
 # To use Facebook authentication
 gem 'omniauth-facebook'
+
+# For RSpec testing framework
+group :development do
+  gem 'rspec-rails', '2.6.1'
+end
+
+# For RSpec testing in the test environment
+group :test do
+  gem 'rspec-rails', '2.6.1'
+  gem 'webrat', '0.7.1'
+  gem 'factory_girl_rails'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
