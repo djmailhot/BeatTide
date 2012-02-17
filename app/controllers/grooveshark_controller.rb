@@ -47,7 +47,7 @@ class GroovesharkController < ApplicationController
       render :text => "No query."
     end
   end
-
+    
   private
   
   # If no Grooveshark session token has been generated, creates one. Otherwise,
@@ -61,4 +61,6 @@ class GroovesharkController < ApplicationController
       session[:grooveshark_token]
     end
   end
+  
+  
 end
