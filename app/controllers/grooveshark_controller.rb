@@ -47,7 +47,12 @@ class GroovesharkController < ApplicationController
       render :text => "No query."
     end
   end
-    
+  
+  def play_song
+    @song_id = params[:song_id]
+    render :layout => false
+  end
+  
   private
   
   # If no Grooveshark session token has been generated, creates one. Otherwise,
