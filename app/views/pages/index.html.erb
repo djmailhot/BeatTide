@@ -1,1 +1,14 @@
-Hellloooo
+<div class="top">
+  <% if current_user %>
+    Welcome <%= current_user.username %>!
+    <%= link_to "Sign Out", signout_path %>
+  <% else %>
+    <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+  <% end %>
+</div>
+<div class="left">
+  <%= render :partial => "grooveshark/search" %>
+</div>
+<div class="right">
+  
+</div>

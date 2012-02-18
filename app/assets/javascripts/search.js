@@ -27,7 +27,7 @@ $(document).ready(function() {
 function performSearch() {
     var searchString = $('#song_search_box').val()
     console.log("Sending request for search query: '" + searchString + "'");
-    var url = "songs_from_query";
+    var url = "grooveshark/songs_from_query";
     $("#search_results").load(url, {query: searchString}, function(response, status, xhr) {
         if (status == "error") {
             ajaxFailure(xhr, status);
