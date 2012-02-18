@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Subscriber ID</th>
+    <th>Subscribed ID</th>
+    <th>Subscriber Name</th>
+    <th>Subscribed Name</th>
+  </tr>
+
+<% @subscriptions.each do |subscription| %>
+  <tr>
+    <td><%= subscription.subscriber_id %></td>
+    <td><%= subscription.subscribed_id %></td>
+    <td><%= subscription.subscriber.first_name %></td>
+    <td><%= subscription.subscribed.first_name %></td>
+    <td><%= link_to 'Unsubscribe', subscription, :confirm => 'Are you sure?', :method => :delete %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "users", users_path %>
