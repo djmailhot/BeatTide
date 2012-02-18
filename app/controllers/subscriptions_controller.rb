@@ -15,7 +15,7 @@ class SubscriptionsController < ApplicationController
   # creates a subscription from the current user to
   # params[:user]
   def create
-    @me = User.find(session[:user_id])
+    @me = User.find(current_user)
     @them = User.find(params[:id])
     if @me != @them
       @me.subscribe!(@them)

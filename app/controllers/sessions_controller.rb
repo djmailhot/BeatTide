@@ -21,34 +21,4 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to users_url, :notice => "Signed out!"
   end
-
-  # Returns the user that is logged in in the current session. If no user is
-  # logged in, then returns nil
-  def current_user
-    if session[:user_id].nil?
-      nil
-    else
-      User.find_by_id(session[:user_id])
-    end
-  end
-
-  # Signs the given user into the session
-  def sign_in(user)
-    session[:user_id] = user.id
-  end
-
-  # Signs the current user out of the session
-  def sign_out
-    session[:user_id] = nil
-  end
-
-  # Returns whether or not there is a user signed into the current session
-  def signed_in?
-    !session[:user_id].nil?
-  end
-
-  # Returns whether the given user is currently signed into this session
-  def current_user?(user)
-    user.id == session[:user_id]
-  end
 end
