@@ -5,9 +5,18 @@
 
 <div id="player_container">
     <div id="controls">
-      <button type="button" id="play">Play</button>
-      <button type="button" id="pause">Pause</button>
-      <button type="button" id="stop">Stop</button> 
+      <button type="button" class="player_button disabled" id="previous">
+        <span>Previous</span>
+      </button>
+      <button type="button" class="player_button disabled" id="play_pause">
+        <span>Play / Pause</span>
+      </button>
+      <button type="button" class="player_button disabled" id="next">
+        <span>Next</span>
+      </button>
+    </div>
+    <div id="current_song_info">
+      Name of Song
     </div>
     <span id="player"></span>
 </div>

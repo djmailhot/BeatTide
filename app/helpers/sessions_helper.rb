@@ -34,6 +34,6 @@ module SessionsHelper
 
   # Returns whether the given user is currently signed into this session
   def current_user?(user)
-    user.id == session[:user_id]
+    signed_in? && user.id == session[:user_id]
   end
 end

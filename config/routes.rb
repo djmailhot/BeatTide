@@ -10,6 +10,9 @@ BeatTide::Application.routes.draw do
   get "grooveshark/song_stream_info"
   get "grooveshark/search"
   get "grooveshark/songs_from_query"
+  
+  get "grooveshark/play_song"
+
   post "grooveshark/songs_from_query"
 
   # The priority is based upon order of creation:

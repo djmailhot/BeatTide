@@ -9,6 +9,10 @@ describe SessionsController do
     it "should not be signed in" do
       controller.should_not be_signed_in
     end
+
+    it "should not have a user signed in" do
+      controller.should_not be_current_user(FactoryGirl.build(:user))
+    end
   end
 
   # Login / signup
