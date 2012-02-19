@@ -7,5 +7,8 @@ class CreatePosts < ActiveRecord::Migration
 
       t.timestamps
     end
+    # Make a multiple key index on user id and creation time.
+    # Better performance when retreiving posts sorted on creation time.
+    add_index :posts, [:user_id, :created_at]
   end
 end
