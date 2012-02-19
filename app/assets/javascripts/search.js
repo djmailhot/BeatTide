@@ -10,13 +10,13 @@
  * the user's cursor within the search box.
  */
 $(document).ready(function() {
-    $('#song_search_box').focus();
     $('#song_search_box').keypress(function(event){
         if(event.keyCode == 13){
             performSearch();
         }
     });
     $('#song_search_button').click(performSearch);
+    $('#song_search_box').Watermark("Search for song...");
 });
 
 /**
