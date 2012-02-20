@@ -1,3 +1,5 @@
+# Helper methods for the SessionsController for signin and signout
+# Author:: Melissa Winstanley
 module SessionsHelper
   # Returns the user that is logged in in the current session. If no user is
   # logged in, then returns nil

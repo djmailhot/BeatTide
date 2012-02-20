@@ -16,20 +16,7 @@ describe SessionsController do
   end
 
   describe "faulty POST 'create'" do
-    # Set up a default valid user in the global request.env variable
-    before(:each) do
-      request.env["omniauth.auth"] = { "uid" => 619716339,
-                                       "info" => { "first_name" => "Melissa",
-                                                   "last_name" => "Winstanley",
-                                                   "nickname" => "mwinst" } }
-    end
-
-    describe "failure - no facebook ID" do
-      before(:each) do
-        request.env["omniauth.auth"]["uid"] = nil
-        post :create
-      end
-
+    shared_examples "login_error" do
       it "should have an error message" do
         flash.now[:error].should =~ /improper/i
       end
@@ -40,7 +27,23 @@ describe SessionsController do
 
       it "should redirect to the root page" do
         response.should redirect_to(root_url)
+      end      
+    end
+    # Set up a default valid user in the global request.env variable
+    before(:each) do
+      request.env["omniauth.auth"] = { "uid" => 619716339,
+                                       "info" => { "first_name" => "Melissa",
+                                                   "last_name" => "Winstanley",
+                                                   "nickname" => "mwinst" } }
+    end
+    
+    describe "failure - no facebook ID" do
+      before(:each) do
+        request.env["omniauth.auth"]["uid"] = nil
+        post :create
       end
+
+      include_examples "login_error"
     end
 
     describe "failure - no nickname" do
@@ -49,17 +52,7 @@ describe SessionsController do
         post :create
       end
 
-      it "should have an error message" do
-        flash.now[:error].should =~ /improper/i
-      end
-
-      it "should not be signed in" do
-        controller.should_not be_signed_in
-      end
-
-      it "should redirect to the root page" do
-        response.should redirect_to(root_url)
-      end
+      include_examples "login_error"
     end
 
     describe "failure - no name" do
@@ -69,17 +62,7 @@ describe SessionsController do
         post :create
       end
 
-      it "should have an error message" do
-        flash.now[:error].should =~ /improper/i
-      end
-
-      it "should not be signed in" do
-        controller.should_not be_signed_in
-      end
-
-      it "should redirect to the root page" do
-        response.should redirect_to(root_url)
-      end
+      include_examples "login_error"
     end
 
     describe "failure - no authinfo" do
@@ -88,17 +71,7 @@ describe SessionsController do
         post :create
       end
 
-      it "should have an error message" do
-        flash.now[:error].should =~ /improper/i
-      end
-
-      it "should not be signed in" do
-        controller.should_not be_signed_in
-      end
-
-      it "should redirect to the root page" do
-        response.should redirect_to(root_url)
-      end
+      include_examples "login_error"
     end
   end
 
