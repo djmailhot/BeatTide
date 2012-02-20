@@ -14,19 +14,24 @@ class SubscriptionsController < ApplicationController
   end
 
   # creates a subscription from the current user to
-  # params[:user]
+  # params[:subscription][:subscribed_id]
+  # redirects the user back to the page of the subscribed user
   def create
-    @me = User.find(current_user)
-    @them = User.find(params[:id])
+    @me = User.find(current_user) #session[:user_id])
+    @them = User.find(params[:subscription][:subscribed_id])
     if @me != @them
       @me.subscribe!(@them)
+      redirect_to @them
     else
       # TODO: handle self-subscribe case
     end
   end
 
+
   # destroys a subscription based on its subscription_id
+  # redirects the user to the page of the user it was looking at
   def destroy
-    Subscription.find(params[:id]).destroy
+    removed = Subscription.find(params[:id]).destroy
+    redirect_to removed.subscribed
   end
 end
