@@ -19,7 +19,6 @@
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @users.each do |user| %>
@@ -30,7 +29,6 @@
     <td><%= user.likes %></td>
     <td><%= user.username %></td>
     <td><%= user.facebook_id %></td>
-    <td><%= link_to 'Subscribe', subscriptions_path(:id => user.id), :method => :post %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>

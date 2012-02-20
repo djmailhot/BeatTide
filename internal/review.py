@@ -1,6 +1,6 @@
 import os
 
-emails = "aimlessrose@mail.com,alexmiller@mail.com,tjrigs@gmail.com,hsingh@cs.washington.edu,brettw07@gmail.com,djmailhot@gmail.com"
+emails = "aimlessrose@gmail.com,alexmiller@gmail.com,tjrigs@gmail.com,hsingh@cs.washington.edu,brettw07@gmail.com,djmailhot@gmail.com"
 
 issue = raw_input("issue number (blank for new issue): ")
 if issue:

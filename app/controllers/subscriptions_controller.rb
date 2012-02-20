@@ -16,13 +16,20 @@ class SubscriptionsController < ApplicationController
   # params[:user]
   def create
     @me = User.find(session[:user_id])
-    @them = User.find(params[:id])
+    @them = User.find(params[:subscription][:subscribed_id])
     if @me != @them
       @me.subscribe!(@them)
     else
       # TODO: handle self-subscribe case
     end
   end
+
+  
+  def update
+    redirect_to User.find(Subscription.find(params[:id]).subscribed_id)
+  end
+
+
 
   # destroys a subscription based on its subscription_id
   def destroy

@@ -10,6 +10,23 @@
   <%= @user.username %>
 </p>
 
+<!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
+<% unless session[:user_id] == @user.id %>
+  <div id="subscription_form">
+  <% if User.find(session[:user_id]).subscribing?(@user) %>
+    <%= form_for User.find(session[:user_id]).subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
+      <div><%= f.submit "Unsubscribe" %></div>
+    <% end %>
+  <% else %>
+    <%= form_for User.find(session[:user_id]).subscriptions.build(subscribed_id: @user.id) do |f| %>
+      <div><%= f.hidden_field :subscribed_id %></div>
+      <div class="actions"><%= f.submit "Subscribe" %></div>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+
+
 <p>
   <b>Feed:</b>
   <table>
