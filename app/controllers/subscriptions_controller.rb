@@ -16,7 +16,7 @@ class SubscriptionsController < ApplicationController
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user
   def create
-    @me = User.find(session[:user_id])
+    @me = User.find(current_user) #session[:user_id])
     @them = User.find(params[:subscription][:subscribed_id])
     if @me != @them
       @me.subscribe!(@them)
