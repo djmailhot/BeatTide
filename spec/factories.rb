@@ -9,3 +9,13 @@ FactoryGirl.define do
     facebook_id  619716339
   end
 end
+
+Factory.sequence :username do |n|
+  "user#{n}"
+end
+
+Factory.sequence :facebook_id do |n|
+  n
+end
+
+
