@@ -12,13 +12,13 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     user = User.find_by_facebook_id(auth["uid"]) || User.create_with_omniauth(auth)
     sign_in user
-    redirect_to users_url, :notice => "Signed in!"
+    redirect_to root_path, :notice => "Signed in!"
   end
 
   # Ends a session, logging out a user. Redirects to the users defaul URL. The
   # user can no longer be accessed through the "session" variable.
   def destroy
     sign_out
-    redirect_to users_url, :notice => "Signed out!"
+    redirect_to root_path, :notice => "Signed out!"
   end
 end
