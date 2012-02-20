@@ -2,7 +2,6 @@
 # from Grooveshark through the Grooveshark gem.
 #
 # Author::   Alex Miller, Harnoor Singh
-
 class GroovesharkController < ApplicationController
   
   # Key for TinySong api. This can be hardcoded because it stays good forever.
