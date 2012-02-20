@@ -1,5 +1,6 @@
 # Manages all actions corresponding to modifying to the Song, Artist, and Album models.
 class SongsController < ApplicationController
+  before_filter :authenticate
 
   # Sets the global songs to be all of the Songs in the database 
   def index

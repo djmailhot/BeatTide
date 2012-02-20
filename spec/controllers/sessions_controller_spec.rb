@@ -155,7 +155,7 @@ describe SessionsController do
   # Logout
   describe "DELETE 'destroy'" do
     before(:each) do
-      test_sign_in(FactoryGirl.build(:user))
+      test_sign_in(FactoryGirl.create(:user))
       delete :destroy
     end
 
@@ -185,6 +185,9 @@ describe SessionsController do
 
       it "should redirect to the root page" do
         response.should redirect_to(root_url)
+      end
+      it "should not have an error" do
+        flash.now[:error].should_not =~ /signed out/i        
       end
     end
   end
