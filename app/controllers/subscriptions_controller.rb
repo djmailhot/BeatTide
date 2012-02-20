@@ -13,7 +13,8 @@ class SubscriptionsController < ApplicationController
   end
 
   # creates a subscription from the current user to
-  # params[:user]
+  # params[:subscription][:subscribed_id]
+  # redirects the user back to the page of the subscribed user
   def create
     @me = User.find(session[:user_id])
     @them = User.find(params[:subscription][:subscribed_id])
@@ -27,6 +28,7 @@ class SubscriptionsController < ApplicationController
 
 
   # destroys a subscription based on its subscription_id
+  # redirects the user to the page of the user it was looking at
   def destroy
     removed = Subscription.find(params[:id]).destroy
     redirect_to removed.subscribed
