@@ -7,7 +7,7 @@ module SessionsHelper
     if session[:user_id].nil?
       nil
     else
-      User.find_by_id(session[:user_id])
+      User.find_by_id(session[:user_id])      
     end
   end
 
@@ -38,4 +38,16 @@ module SessionsHelper
   def current_user?(user)
     signed_in? && user.id == session[:user_id]
   end
+
+  # Determines whether user is signed in, and if not redirects them away
+  def authenticate
+    deny_access unless signed_in?
+  end
+
+  # Redirects user to the root page
+  def deny_access
+    flash.now[:error] = "You are not signed in to BeatTide."
+    redirect_to root_path, :notice => "Please sign in to access this page."
+  end
+
 end

@@ -4,6 +4,7 @@
 #
 # Author:: Tyler Rigsby (mailto: rigsbyt@cs.uw.edu)
 class SubscriptionsController < ApplicationController
+  before_filter :authenticate
 
   # sets @subscriptions to the array of all subscriptions
   # and @title to "All subscriptions"
