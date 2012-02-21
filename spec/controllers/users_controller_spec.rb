@@ -57,28 +57,28 @@ describe UsersController do
     it "should fail if the user has no first name" do 
       @attr.merge(:first_name => "")
       post :create, :user => @attr
-      response.should_not be_success
+      flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no last name
     it "should fail if the user has no last name" do 
       @attr.merge(:last_name => "")
       post :create, :user => @attr
-      response.should_not be_success
+      flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no username
     it "should fail if the user has no username" do 
       @attr.merge(:username => "")
       post :create, :user => @attr
-      response.should_not be_success
+      flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no facebook ID
     it "should fail if the user has no facebook_id" do 
       @attr.merge(:facebook_id => nil)
       post :create, :user => @attr
-      response.should_not be_success
+      flash.now[:error].should =~ /invalid/i
     end
   end
 
@@ -111,14 +111,24 @@ describe UsersController do
     end
   end
 
-  describe "GET 'index' without signed in user" do
+  describe "GET 'edit' with user not signed in" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
 
+    it "Should fail when attempting to edit while not signed in" do
+      get :edit, :id => 0
+      response.should redirect_to('page#index')
+    end
+  end
+
+  describe "GET 'index' without signed in user" do
     it "It should redirect the user to a login page" do
       get :index
       response.should redirect_to('page#index')
     end
-    
-
+  end
 end
     
 
