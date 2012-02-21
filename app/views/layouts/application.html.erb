@@ -20,9 +20,9 @@
     <div id="content">
         <div id="login">
             <% if current_user %>
-              <strong><%= current_user.username %></strong> | <%= link_to "Sign Out", signout_path %>
+              Signed in as <strong><%= current_user.username %></strong> | <%= link_to "Sign Out", signout_path %>
             <% else %>
-              <%= link_to content_tag(:span, "Sign up with Facebook."), "/auth/facebook", :id => "fb_button" %>
+              <strong>Not signed in.</strong>
             <% end %>
         </div>
         

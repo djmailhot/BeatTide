@@ -75,3 +75,27 @@ h2 {
     font-size: 18px;
     color: #333;
 }
+
+#welcome {
+    margin: 20px;
+    padding: 20px;
+    background-color: #aa988b;
+    border-top: 5px solid #000;
+    border-bottom: 5px solid #000;
+    color: #FFF;
+}
+
+a:link {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7b3908;
+    text-decoration: underline;
+}
