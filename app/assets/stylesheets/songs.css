@@ -4,14 +4,6 @@
  * Author: Alex Miller
  */
  
-.song {
-    background-color: #fffff7;
-    padding: 6px;
-    margin: 2px;
-    width: 400px;
-    clear: both;
-}
-
 .play_button {
     width: 50px;
     height: 50px;
@@ -27,134 +19,30 @@
     font-size: 12px;
 }
 
-/*
- * Player UI styles
- */
- 
-#player_container {
-    position: relative;
-    width: 350px;
+#search_form {
+    width: 330px;
+    background-image: url("header_background.png");
+    padding: 10px;
 }
- 
-#player_container #current_song_info {
-    position: absolute;
+
+#song_search_box {
+    width: 240px;
+    font-size: 16px;
     background-color: #FFF;
-    font-size: 12px;
-    width: 300px;
-    height: 20px;
-    top: 65px;
-    right: 0px;
-}
- 
-#player_container #controls {
-    position: absolute;
-    width: 130px;
-    height: 50px;
-    right: 80px;
-    top: 5px;
+    padding: 5px;
+    color: #000000;
 }
 
-#player_container .player_button {
-    background: url("player_sprites.png");
-    border: 0;
-    position: absolute;
+#search_form button {
+    font-size: 16px;
+    height: 30px;
 }
 
-#player_container .player_button span {
-    display: none;
+#search_results {
+    padding: 10px;
 }
 
-#player_container #play_pause {
-    height: 50px;
-    width: 50px;
+.song {
+    margin-top: 2px;
 }
 
-#player_container #next, #player_container #previous {
-    height: 36px;
-    width: 36px;
-    top: 7px;
-}
-
-#player_container #previous {
-    left: 0;
-}
-
-#player_container #next {
-    right: 0;
-}
-
-/*
- * Sprite positions for play button
- */
-
-#player_container #play_pause.play {
-    background-position: 0 0;
-}
-
-#player_container #play_pause.play:hover {
-    background-position: -50px 0;
-}
-
-#player_container #play_pause.play:active {
-    background-position: -100px 0;
-}
-
-#player_container #play_pause.disabled {
-    background-position: -150px 0;    
-}
-
-/*
- * Sprite positions for pause button
- */
-
-#player_container #play_pause.pause {
-    background-position: 0 -50px;
-}
-
-#player_container #play_pause.pause:hover {
-    background-position: -50px -50px;
-}
-
-#player_container #play_pause.pause:active {
-    background-position: -100px -50px;
-}
-
-/*
- * Sprite positions for previous button
- */
-
-#player_container #previous.enabled {
-    background-position: 0 -150px;
-}
-
-#player_container #previous.enabled:hover {
-    background-position: -50px -150px;
-}
-
-#player_container #previous.enabled:active {
-    background-position: -100px -150px;
-}
-
-#player_container #previous.disabled {
-    background-position: -150px -150px;
-}
-
-/*
- * Sprite positions for next button
- */
-
-#player_container #next.enabled {
-    background-position: 0 -100px;
-}
-
-#player_container #next.enabled:hover {
-    background-position: -50px -100px;
-}
-
-#player_container #next.enabled:active {
-    background-position: -100px -100px;
-}
-
-#player_container #next.disabled {
-    background-position: -150px -100px;
-}

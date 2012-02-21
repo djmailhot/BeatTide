@@ -10,34 +10,11 @@
  */
 $(document).ready(function() {
     initializeBeatTideNameSpace();
-    setupPlayer();
     // global variable to keep track of the currently playing song
     window.BEATTIDE.songPlayer = {}
     window.BEATTIDE.songPlayer.currentSong = {};
     setPlayerState("stopped");
 });
-
-/**
- * Adds the Grooveshark Flash player to the page, and adds event listeners to the
- * player control buttons.
- */
-function setupPlayer() {
-    swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf","player", "1", "1", "9.0.0", "", {},
-        {allowScriptAccess: "always"}, {id:"player", name:"groovesharkPlayer"},
-        function(e) {
-            var element = e.ref;
-            if (element) {
-                setTimeout(function() {
-                    window.player = element;
-                    window.player.setVolume(99);
-                }, 1500);
-            } else {
-                console.log("couldn't load flash");
-            }
-        }
-    );
-    $('#player_container #play_pause').click(playButtonClicked);
-}
 
 function stopStream() {
     player.stopStream();

@@ -2,7 +2,6 @@
 # from Grooveshark through the Grooveshark gem.
 #
 # Author::   Alex Miller, Harnoor Singh
-
 class GroovesharkController < ApplicationController
   
   # Key for TinySong api. This can be hardcoded because it stays good forever.
@@ -14,23 +13,10 @@ class GroovesharkController < ApplicationController
   # URL to TinySong API
   TINY_SONG_API = "http://tinysong.com/"
   
-  # Gets the stream key and other data for the passed song ID. Renders JSON
-  # with the requested stream key. The stream key can be used to play a song
-  # through Grooveshark's Flash APIPlayer.
-  def song_stream_info
-    # grooveshark song id
-    song_id = params['query']
-    # create a new client with the current session token
-    client = Grooveshark::Client.new(session_token)
-    stream_url = client.get_song_url_by_id(song_id)
-    stream_key = client.get_stream_auth_by_songid(song_id)
-    # print out the stream data in JSON format
-    render :json => stream_key
-  end
-  
   # Renders a song searching interface to the user.
   def search
     # Rails automatically renders the corresponding "search" view.
+    render :layout => false
   end
 
   # Runs a TinySong search with the passed query, and renders a table of the
@@ -47,25 +33,4 @@ class GroovesharkController < ApplicationController
       render :text => "No query."
     end
   end
-  
-  def play_song
-    @song_id = params[:song_id]
-    render :layout => false
-  end
-  
-  private
-  
-  # If no Grooveshark session token has been generated, creates one. Otherwise,
-  # returns the Grooveshark token for the current session. This token can be
-  # used to access the internal Grooveshark API.
-  def session_token
-    if !session[:grooveshark_token]
-      client = Grooveshark::Client.new
-      session[:grooveshark_token] = client.session
-    else
-      session[:grooveshark_token]
-    end
-  end
-  
-  
 end
