@@ -11,8 +11,8 @@ describe Song do
     }
   end
   
-  it "should intialize likes to 0" do
-    song = Song.new(@attr)
+  it "should create songs with likes set to 0" do
+    song = Song.create(@attr)
     song.likes.should eq(0)
   end
 

@@ -8,6 +8,8 @@ class Song < ActiveRecord::Base
   belongs_to :album
   belongs_to :artist
 
+  has_many :posts
+
   # validation of api_id and title
   validates :api_id, :presence => true, :uniqueness => true
   validates :title, :presence => true
