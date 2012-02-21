@@ -1,4 +1,6 @@
 # A Song holds the metadata for a particular Song, as well as a tracking of the amount of people that like it
+#
+# Author:: Brett Webber
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :likes, :title # id corresponding to api, # of likes, and title of song respectively
   
@@ -7,8 +9,7 @@ class Song < ActiveRecord::Base
   belongs_to :artist
 
   # validation of api_id and title
-  validates :api_id, :presence => true,
-                     :uniqueness => true
+  validates :api_id, :presence => true, :uniqueness => true
   validates :title, :presence => true
 
   after_initialize :init
