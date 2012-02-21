@@ -1,0 +1,19 @@
+<%
+#    Top level view of BeatTide.
+%>
+<% if current_user %>
+  <div class="column left">
+    <h2>Add Song</h2>
+    <%= render :partial => "grooveshark/search" %>
+    <h2>Your Songs</h2>
+  </div>
+  <div class="column right">
+    <h2>Your Friend's Songs</h2>
+  </div>
+<% else %>
+  <div id="welcome">
+    <h1>Hello, music lover!</h1>
+    <h2>You must sign in to use BeatTide.</h2>
+    <%= link_to content_tag(:span, "Sign up with Facebook."), "/auth/facebook", :id => "fb_button" %>
+  </div>
+<% end %>

@@ -1,3 +1,6 @@
+<%
+#   Layout for top level application views.
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +14,21 @@
 <div id="container">
     <div id="header_container">
         <div id="header">
-            <%= image_tag "logo_border.png" %>
-            <%= render "songs/player" %>
+            <%= image_tag "logo_small.png" %>
         </div>
     </div>
     <div id="content">
+        <div id="login">
+            <% if current_user %>
+              Signed in as <strong><%= current_user.username %></strong> | <%= link_to "Sign Out", signout_path %>
+            <% else %>
+              <strong>Not signed in.</strong>
+            <% end %>
+        </div>
+        
         <%= yield %>
+        
+        <div id="footer">Copyright BeatTide</div>
     </div>
 </div>
 
