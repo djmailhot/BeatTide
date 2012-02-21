@@ -17,7 +17,7 @@ body {
 #header {
     width: 800px;
     margin: 0 auto 0 auto;
-    height: 100px;
+    height: 65px;
     padding-top: 10px;
 }
 
@@ -25,15 +25,53 @@ body {
     width: 780px;
     margin: 0 auto 0 auto;
     background: url("content_background.png");
-    padding: 30px;
+    padding: 0 30px 0 30px;
 }
 
-#player_container {
-    padding: 20px;
-    float: right;
+#login {
+    background-color: #f8f8f8;
+    margin: 0;
+    font-size: 12px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#fb_button {
+    background: url("signin_facebook.png");
+    width: 150px;
+    height: 22px;
+    display: block;
+    background-position: 0 0;
+}
+
+#fb_button:hover {
+    background-position: 0 -24px;
+}
+
+#fb_button:active {
+    background-position: 0 -48px;
+}
+
+
+#fb_button span {
+    display: none;
+}
+
+.column { 
+    width: 350px;
+    padding-right: 30px;
+    float: left;
+}
+
+#footer {
+    clear: both;
+    padding-top: 20px;
     text-align: center;
+    font-size: 12px;
 }
 
-#player {
-    position: fixed;
+h2 {
+    font-weight: normal;
+    font-size: 18px;
+    color: #333;
 }

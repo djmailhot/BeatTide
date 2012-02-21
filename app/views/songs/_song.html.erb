@@ -1,20 +1,16 @@
 <%
-#   View for a single song. Includes play button and song information.
+#   View for a single song. Includes a Grooveshark Flash widget for playing the
+#   song.
 %>
 
 <div class="song">
-    <div class="play_button">
-        <%=
-          link_to_function "Play", "playSong({
-            id: #{song["SongID"]},
-            name: '#{song["SongName"]}',
-            artist: '#{song["ArtistName"]}',
-            album: '#{song["AlbumName"]}'
-            })"
-        %>
-    </div>
-    <div class="song_info">
-        <span class="song_name"><%= song["SongName"] %></span> <br />
-        <span class="song_info">by <strong><%= song["ArtistName"] %></strong>, from <em><%= song["AlbumName"] %></em> </span>
-    </div>
+  <object width="250" height="40">
+    <param name="movie" value="http://grooveshark.com/songWidget.swf" />
+    <param name="wmode" value="window" />
+    <param name="allowScriptAccess" value="always" />
+    <param name="flashvars" value="hostname=cowbell.grooveshark.com&amp;songIDs=<%= song["SongID"] %>&amp;style=metal&amp;p=0" />
+    <embed src="http://grooveshark.com/songWidget.swf" type="application/x-shockwave-flash" width="250" height="40" flashvars="hostname=cowbell.grooveshark.com&amp;songIDs=30670743&amp;style=metal&amp;p=0" allowScriptAccess="always" wmode="window" />
+  </object>
+  
+  <a href="#">Add</a>
 </div>
