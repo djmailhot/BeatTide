@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# Black-box tests for the PostsController
+# Tests the following methods of the public API:  create, destory, like
 describe PostsController do
   render_views
 
