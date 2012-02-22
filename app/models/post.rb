@@ -3,8 +3,9 @@
 # Author::David Mailhot
 class Post < ActiveRecord::Base
 
-attr_accessible :song, :likes, :user_id
+attr_accessible :likes
 
 belongs_to :user
+belongs_to :song
 
 end
