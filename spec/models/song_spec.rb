@@ -18,6 +18,12 @@ describe Song do
     song.likes.should eq(0)
   end
 
+  # Tries to create song with something other than 0 likes
+  it "should create songs with likes set to 0" do
+    song = Song.create(@attr.merge(:likes => 123))
+    song.likes.should eq(0)
+  end
+
   # api_ids should be unique, so there should not be multiple songs with the same api_id
   it "should not allow duplicate api_ids" do
     song_original = Song.create(@attr)

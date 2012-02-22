@@ -23,41 +23,41 @@ describe SongsController do
 
     # A new song should be created under normal circumstances
     it "should create a new song" do
-      post :create, :song => (@song_attr), :album => (@album_attr), :artist => (@artist_attr)      
+      post :create, :song => (@song_attr), :album => (@album_attr), :artist => (@artist_attr)
       song = Song.find_by_title(@song_attr[:title])
-      song.should_not eq(nil)
+      song.should_not be_nil
     end
 
     # A new album should be created under normal circumstances
     it "should create a new album" do
       post :create, :song => (@song_attr), :album => (@album_attr), :artist => (@artist_attr)      
       album = Album.find_by_name(@album_attr[:name])
-      album.should_not eq(nil)
+      album.should_not be_nil
     end
 
     # A new artist should be created under normal circumstances
     it "should create a new artist" do
       post :create, :song => (@song_attr), :album => (@album_attr), :artist => (@artist_attr)      
       artist = Artist.find_by_name(@artist_attr[:name])
-      artist.should_not eq(nil)
+      artist.should_not be_nil
     end
 
     # A Song should not be created when its title is invalid
     it "should not create song when song has invalid title" do
       post :create, :song => (@song_attr.merge(:title => "")), :album => (@album_attr), :artist => (@artist_attr)      
-      Song.find_by_title("").should eq(nil)
+      Song.find_by_title("").should be_nil
     end
 
     # An Album should not be created when its title is invalid    
     it "should not create album when album has invalid title" do
       post :create, :song => (@song_attr), :album => (@album_attr.merge(:name => "")), :artist => (@artist_attr)      
-      Album.find_by_name(@album_attr[:name]).should eq(nil)
+      Album.find_by_name(@album_attr[:name]).should be_nil
     end
 
     # An Artist should not be created when its title is invalid    
     it "should not create artist when artist has invalid title" do
       post :create, :song => (@song_attr), :album => (@album_attr), :artist => (@artist_attr.merge(:name => ""))      
-      Artist.find_by_name(@artist_attr[:name]).should eq(nil)
+      Artist.find_by_name(@artist_attr[:name]).should be_nil
     end
 
     # A new Album should not be created when there is already an Album with the same name, a reference to it should be used for the Song    

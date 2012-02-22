@@ -40,7 +40,7 @@ describe User do
     # Tries to create two users with the same first name
     it "should allow two users to have the same first name" do
       user = User.create(@attr)
-      secondary_user = User.new(@attr.merge(:first_name => @attr[:first_name]))
+      secondary_user = User.new(@secondary_attr.merge(:first_name => @secondary_attr[:first_name]))
       secondary_user.should be_valid
     end
   end
@@ -69,7 +69,7 @@ describe User do
     # Tries to create two users with the same last name
     it "should allow two users to have the same last name" do
       user = User.create(@attr)
-      secondary_user = User.new(@attr.merge(:last_name => @attr[:last_name]))
+      secondary_user = User.new(@secondary_attr.merge(:last_name => @attr[:last_name]))
       secondary_user.should be_valid
     end
   end
@@ -77,7 +77,7 @@ describe User do
   # Tries to create two users with the same first and last name
   it "should allow two users to have the same first and last name" do
     user = User.create(@attr)
-    secondary_user = User.new(@attr.merge(:first_name => @attr[:first_name], :last_name => @attr[:last_name]))
+    secondary_user = User.new(@secondary_attr.merge(:first_name => @attr[:first_name], :last_name => @attr[:last_name]))
     secondary_user.should be_valid
   end
 
@@ -108,6 +108,18 @@ describe User do
       secondary_user = User.new(@secondary_attr.merge(:username => @attr[:username]))
       secondary_user.should_not be_valid    
     end
+
+    # Attempts to create a user with a username shorter than 4 characters 
+    it "should if a username is shorter than 4 characters" do
+      user = User.new(@attr.merge(:username => "jkl"))
+      user.should_not be_valid    
+    end
+
+    # Attempts to create a user with a username longer than 25 characters 
+    it "should if a username is longer than 25 characters" do
+      user = User.new(@attr.merge(:username => "jjjjjjjjjjjjjjjjjjjjjjjjjj"))
+      user.should_not be_valid    
+    end
   end
 
   # Checks invalid and valid cases of the facebook_id
@@ -125,6 +137,12 @@ describe User do
       secondary_user = User.new(@secondary_attr.merge(:facebook_id => @attr[:facebook_id]))
       secondary_user.should_not be_valid    
     end
+
+    #Attempts to create a user with a negative facebook_id
+    it "should fail if the facebook_id is negative" do
+      user = User.new(@attr.merge(:facebook_id => -10))
+      user.should_not be_valid
+    end
   end
 
   # Tests various parts of the liking functionality
@@ -135,6 +153,12 @@ describe User do
       user = User.create(@attr)
       user.likes.should eq(0)
     end      
+
+    # Tries to create user with something other than 0 likes
+    it "should create users with likes set to 0" do
+      user = User.create(@attr.merge(:likes => 123))
+      user.likes.should eq(0)
+    end
   end
 
   # Checks invalid and valid cases of the facebook_id
