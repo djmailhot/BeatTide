@@ -7,12 +7,18 @@ class SessionsController < ApplicationController
   # Creates a new session, processing the omniauth authentication response to
   # either login an existing BeatTide user or sign up a new user. The database
   # ID of the signed-in user is stored in a global "session" variable under the
-  # :user_id symbol. Redirects to the users default URL.
+  # :user_id symbol. Redirects to the root URL. If authentication
+  # is not valid, redirects to the root path with a flash error.
   def create
     auth = request.env["omniauth.auth"]
-    user = User.find_by_facebook_id(auth["uid"]) || User.create_with_omniauth(auth)
-    sign_in user
-    redirect_to root_path, :notice => "Signed in!"
+    if validate_auth(auth)
+      user = User.find_by_facebook_id(auth["uid"]) || User.create_with_omniauth(auth)
+      sign_in user
+      redirect_to root_path, :notice => "Signed in!"
+    else
+      flash.now[:error] = "Improper authentication credentials."
+      redirect_to root_path, notice => "Improper authentication."
+    end
   end
 
   # Ends a session, logging out a user. Redirects to the users defaul URL. The
@@ -20,5 +26,14 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to root_path, :notice => "Signed out!"
+  end
+
+  private
+
+  # Validates the authentication credentials, returning true if all necessary information
+  # is available.
+  def validate_auth(auth)
+    !(auth.blank? || auth["uid"].blank? || auth["info"]["first_name"].blank? ||
+                     auth["info"]["last_name"].blank? || auth["info"]["nickname"].blank?)
   end
 end

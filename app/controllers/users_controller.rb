@@ -4,6 +4,7 @@
 #
 # Authors::David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
+  before_filter :authenticate
 
   # Sets @users to a list of all the users and @title
   # to "All users"
