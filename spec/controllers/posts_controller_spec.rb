@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+# Test-driven-development black-box test of the posts controller.
+# Written before the posts controller was implemented
+# Author:: David Mailhot
 describe PostsController do
   render_views
 

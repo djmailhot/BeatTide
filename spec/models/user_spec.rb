@@ -167,7 +167,7 @@ describe User do
     # Tries to create a user with the facebook_id as nil
     it "should fail if user has nil as facebook_id" do
       user = User.new(@attr.merge(:facebook_id => nil))
-      user.should_not be_valid    
+      user.should_not be_valid
     end
 
     # Attempts to create two users with the same facebook_id
@@ -177,5 +177,90 @@ describe User do
       secondary_user.should_not be_valid
     end
   end
+
+  # Test methods to subscribe and unsubscribe a user
+  describe "subscribing" do
+    before(:each) do
+      @user = User.create(@attr)
+      @other = FactoryGirl.create(:user)
+    end
+
+    it "should subscribe another user" do
+      @user.subscribe!(@other)
+      @user.should be_subscribing(@other)
+    end
+
+    it "should not subscribe itself" do
+      @user.subscribe!(@user)
+      @user.should_not be_subscribing(@user)
+    end
+
+    it "unsubscribe should unsubscribe a user" do
+      @user.subscribe!(@other)
+      @user.unsubscribe!(@other)
+      @user.should_not be_subscribing(@user)
+    end
+  end
+
+  # Test the method to return the user's subscriptions feed
+  describe "feed" do
+    before(:each) do
+      @user = User.create(@attr)
+      @other = FactoryGirl.create(:user)
+      @user.subscribe!(@other)
+      @post = @other.posts.create!( { :song_id => 3 } )
+    end
+
+    it "should have a means to access the feed" do
+      @user.should respond_to(:feed)
+    end
+
+    it "should include subscribed user's posts" do
+      @user.feed.should include(@post)
+    end
+  end
+
+  # Make sure that a user can be created with omniauth
+  describe "omniauth user creation" do
+    before(:each) do
+      @auth = { "uid" => 619716339,
+                "info" => { "first_name" => "Melissa",
+                            "last_name" => "Winstanley",
+                            "nickname" => "mwinst" } }
+    end
+
+    it "should allow creation with omniauth" do
+      User.should respond_to(:create_with_omniauth)
+    end
+
+    # Test a successful omniauth user creation
+    describe "[success]" do
+      it "should create a new user with valid info" do
+        user = User.create_with_omniauth(@auth)
+        user.should be_valid
+      end
+    end
+
+    # Test faulty parameters to omniauth user creation
+    describe "[failure]" do
+      it "should not work without a facebook ID" do
+        @auth["uid"] = nil
+        user = User.create_with_omniauth(@auth)
+        user.should_not be_valid
+      end
+
+      it "should not work without a first name" do
+        @auth["first_name"] = nil
+        user = User.create_with_omniauth(@auth)
+        user.should_not be_valid
+      end
+
+      it "should not allow non-integer facebook IDs" do
+        @auth["uid"] = "hello"
+        user = User.create_with_omniauth(@auth)
+        user.should_not be_valid
+      end
+    end
+
+  end
 end
-  
