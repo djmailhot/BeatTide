@@ -8,6 +8,7 @@ class Song < ActiveRecord::Base
   belongs_to :album
   belongs_to :artist
 
+  # there is a many to one relationship between posts and songs
   has_many :post
 
   # validation of api_id and title
