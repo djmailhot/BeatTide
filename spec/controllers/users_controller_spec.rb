@@ -87,7 +87,7 @@ describe UsersController do
 
     # Sign in a user
     before(:each) do
-      @user = FactoryGirl(:user)
+      @user = FactoryGirl.create(:user)
       test_sign_in(@user)
     end
 
@@ -99,7 +99,7 @@ describe UsersController do
 
     # Edit should fail when editing some other users data
     it "Should fail with flash.now if editing another user" do
-      @user2 = FactoryGirl(:user)
+      @user2 = FactoryGirl.create(:user)
       get :edit, :id => @user2
       flash.now[:error].should =~ /invalid/i
     end
@@ -114,7 +114,7 @@ describe UsersController do
   describe "GET 'edit' with user not signed in" do
     
     before(:each) do
-      @user = FactoryGirl(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     # Should not be able to edit if not signed in
