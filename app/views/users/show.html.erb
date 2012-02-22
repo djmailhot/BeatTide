@@ -1,51 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>First Name:</b>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
+<h1><%= @user.username %>'s songs</h1>
 
 <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
 <% unless !current_user || current_user == @user.id %>
   <div id="subscription_form">
   <% if current_user.subscribing?(@user) %>
     <%= form_for current_user.subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
-      <p>You are currently subscribed to this user</p>
+      <h2>You are currently subscribed to this user</h2>
       <div><%= f.submit "Unsubscribe" %></div>
     <% end %>
   <% else %>
     <%= form_for current_user.subscriptions.build(subscribed_id: @user.id) do |f| %>
-      <p>You are not currently subscribed to this user</p>
+      <h2>You are not currently subscribed to this user!</h2>
       <div><%= f.hidden_field :subscribed_id %></div>
       <div class="actions"><%= f.submit "Subscribe" %></div>
     <% end %>
   <% end %>
   </div>
 <% end %>
+<%
+@user.feed.each do |post|
+  render :partial => "posts/post", :locals => {:post => post}
+end
+%>
 
-
-<p>
-  <b>Feed:</b>
-  <table>
-    <tr>
-      <th>User</th>
-      <th>Time</th>
-      <th>Song Name</th>
-    </tr>
-    <% @user.feed.each do |post| %>
-    <tr>
-      <td><%= post.user.username %></td>
-      <td><%= post.created_at %> </td>
-      <td><%= post.song.title %> </td>
-    </tr>
-    <% end %>
-  </table>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

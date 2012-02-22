@@ -29,4 +29,3 @@ FactoryGirl.define do
     user
   end
 end
-

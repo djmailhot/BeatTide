@@ -17,13 +17,14 @@ class SubscriptionsController < ApplicationController
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user
   def create
-    @me = User.find(current_user) #session[:user_id])
     @them = User.find(params[:subscription][:subscribed_id])
-    if @me != @them
-      @me.subscribe!(@them)
-      redirect_to @them
-    else
+    if current_user == @them
       # TODO: handle self-subscribe case
+    elsif current_user.subscribing?(@them)
+      #TODO: handle multi-subscribe case
+    else
+      current_user.subscribe!(@them)
+      redirect_to @them
     end
   end
 
