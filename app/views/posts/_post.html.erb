@@ -1,6 +1,6 @@
 <div class="post">
-  <%= render :partial => "songs/song", :locals => {:song => post.song} %>
   <div class="posted_by">
-    Posted by <%= post.user.username %>
+    <strong><%= post.user.username %></strong> posted:
   </div>
+  <%= render :partial => "songs/song", :locals => {:song => post.song} %>
 </div>

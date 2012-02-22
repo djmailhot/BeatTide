@@ -1,4 +1,6 @@
 # A Song holds the metadata for a particular Song, as well as a tracking of the amount of people that like it
+#
+# Author:: Brett Webber, Alex Miller
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :likes, :title # id corresponding to api, # of likes, and title of song respectively
   
@@ -25,6 +27,9 @@ class Song < ActiveRecord::Base
     self.likes = self.likes + 1
   end
   
+  # Creates a song object, but does not save it to the database. This is useful
+  # if you want to transform Grooveshark metadata into a song object to display
+  # it in a view, but you don't want to save the song to the database yet.
   def self.create_temporary(metadata)
     song = Song.new
     song.api_id = metadata["SongID"]
