@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-# Test-driven-development black-box test of the posts controller.
-# Written before the posts controller was implemented
-# Author:: David Mailhot
+# Black-box tests for the PostsController (TDD-style)
+# Tests the following methods of the public API:  create, destory, like
 describe PostsController do
   render_views
 
