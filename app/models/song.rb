@@ -9,11 +9,10 @@ class Song < ActiveRecord::Base
   belongs_to :artist
 
   # there is a many to one relationship between posts and songs
-  has_many :post
+  has_many :posts
 
   # validation of api_id and title
-  validates :api_id, :presence => true,
-                     :uniqueness => true
+  validates :api_id, :presence => true, :uniqueness => true
   validates :title, :presence => true
 
   after_initialize :init
