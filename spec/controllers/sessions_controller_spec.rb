@@ -5,6 +5,7 @@ require 'spec_helper'
 describe SessionsController do
   render_views
 
+  # Test initial state of the application
   describe "before anything" do
     it "should not be signed in" do
       controller.should_not be_signed_in
@@ -15,7 +16,9 @@ describe SessionsController do
     end
   end
 
+  # Mistakes in login
   describe "faulty POST 'create'" do
+
     shared_examples "login_error" do
       it "should have an error message" do
         flash.now[:error].should =~ /improper/i
@@ -29,6 +32,7 @@ describe SessionsController do
         response.should redirect_to(root_url)
       end      
     end
+
     # Set up a default valid user in the global request.env variable
     before(:each) do
       request.env["omniauth.auth"] = { "uid" => 619716339,
@@ -159,6 +163,7 @@ describe SessionsController do
       delete :destroy
     end
 
+    # invalid signouts
     describe "failure" do
       before(:each) do
         test_sign_in(FactoryGirl.build(:user))
@@ -178,6 +183,7 @@ describe SessionsController do
       end
     end
 
+    # completed, correct signout
     describe "success" do
       it "should sign a user out" do
         controller.should_not be_signed_in

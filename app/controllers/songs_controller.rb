@@ -1,4 +1,6 @@
 # Manages all actions corresponding to modifying to the Song, Artist, and Album models.
+#
+# Author: Brett Webber
 class SongsController < ApplicationController
   before_filter :authenticate
 
@@ -18,7 +20,7 @@ class SongsController < ApplicationController
 
   # Initializes and saves a new Song with the Song information passed through params.  Checks to see if the Album and Artist of the Song
   # already exist, and uses references to those if they do.  Otherwise, creates new Album and Artist entries corresponding to their names in
-  # the global params array.
+  # The global params array.
   def create
     @song = Song.new(params[:song])
     @album = Album.find_by_name(params[:album][:name])
