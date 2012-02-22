@@ -21,5 +21,23 @@ class Song < ActiveRecord::Base
   # Adds one to the likes of this Song
   def like
     self.likes = self.likes + 1
-  end  
+  end
+  
+  def self.create_temporary(metadata)
+    song = Song.new
+    song.api_id = metadata["SongID"]
+    album = Album.find_by_name(metadata["SongID"])
+    if (album.nil?)
+      album = Album.new
+      album.name = metadata["AlbumName"]
+    end
+    artist = Artist.find_by_name(metadata["AlbumName"])
+    if (artist.nil?)
+      artist = Artist.new
+      artist.name = metadata["ArtistName"]
+    end
+    song.album = album
+    song.artist = artist
+    song
+  end
 end
