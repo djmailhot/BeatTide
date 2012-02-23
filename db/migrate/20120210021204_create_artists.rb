@@ -1,7 +1,7 @@
 class CreateArtists < ActiveRecord::Migration
   def change
     create_table :artists do |t|
-      t.string :name
+      t.string :title
       t.integer :api_id
       t.timestamps
     end

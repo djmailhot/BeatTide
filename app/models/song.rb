@@ -1,6 +1,6 @@
 # A Song holds the metadata for a particular Song, as well as a tracking of the amount of people that like it
 #
-# Author:: Brett Webber, Alex Miller
+# Author:: Brett Webber, Alex Miller, Melissa Winstanley
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :likes, :title # id corresponding to api, # of likes, and title of song respectively
   
@@ -27,24 +27,20 @@ class Song < ActiveRecord::Base
     self.likes = self.likes + 1
   end
   
-  # Creates a song object, but does not save it to the database. This is useful
-  # if you want to transform Grooveshark metadata into a song object to display
-  # it in a view, but you don't want to save the song to the database yet.
-  def self.create_temporary(metadata)
-    song = Song.new
-    song.api_id = metadata["SongID"]
-    album = Album.find_by_name(metadata["SongID"])
-    if (album.nil?)
-      album = Album.new
-      album.name = metadata["AlbumName"]
+  # Searches for a song with the passed song API id. If no song is found, creates
+  # a new song. Returns the song. The song that is returned is always guaranteed
+  # to be in the database.
+  def self.find_or_create(song_api_id, song_title, album_api_id, album_title,
+                          artist_api_id, artist_title)
+    song = Song.find_by_api_id(song_api_id)
+    if song.nil?
+      create! do |song|
+        song.api_id = song_api_id
+        song.title = song_title
+        song.album = Album.find_or_create(album_api_id, album_title)
+        song.artist = Artist.find_or_create(artist_api_id, artist_title)
+      end
     end
-    artist = Artist.find_by_name(metadata["AlbumName"])
-    if (artist.nil?)
-      artist = Artist.new
-      artist.name = metadata["ArtistName"]
-    end
-    song.album = album
-    song.artist = artist
     song
   end
 end

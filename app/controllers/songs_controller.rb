@@ -18,26 +18,6 @@ class SongsController < ApplicationController
     @title = "New Song"    
   end
 
-  # Initializes and saves a new Song with the Song information passed through params.  Checks to see if the Album and Artist of the Song
-  # already exist, and uses references to those if they do.  Otherwise, creates new Album and Artist entries corresponding to their names in
-  # The global params array.
-  def create
-    @song = Song.new(params[:song])
-    @album = Album.find_by_name(params[:album][:name])
-    if (@album.nil?)
-      @album = Album.new(params[:album])
-      @album.save
-    end
-    @artist = Artist.find_by_name(params[:artist][:name])
-    if (@artist.nil?)
-      @artist = Artist.new(params[:artist])
-      @artist.save
-    end
-    @song.album = @album
-    @song.artist = @artist
-    @song.save
-  end
-
   # Shows the fields of the song according to the format
   def show
     @song = Song.find(params[:id])

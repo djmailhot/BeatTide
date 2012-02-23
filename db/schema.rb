@@ -14,13 +14,15 @@
 ActiveRecord::Schema.define(:version => 20120210021647) do
 
   create_table "albums", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.integer  "api_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "artists", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.integer  "api_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -32,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120210021647) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
 
   create_table "songs", :force => true do |t|
     t.integer  "api_id"
