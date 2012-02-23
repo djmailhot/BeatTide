@@ -15,7 +15,7 @@ class Artist < ActiveRecord::Base
   def self.find_or_create(api_id, title)
     artist = Artist.find_by_api_id(api_id)
     if artist.nil?
-      create! do |artist|
+      artist = create! do |artist|
         artist.api_id = api_id
         artist.title = title
       end

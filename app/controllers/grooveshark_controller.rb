@@ -27,15 +27,15 @@ class GroovesharkController < ApplicationController
       query = URI.escape(params[:query])
       url = URI.parse("#{TINY_SONG_API}/s/#{query}?format=json&limit=#{NUM_SEARCH_RESULTS}&key=#{TINY_SONG_API_KEY}")
       response = Net::HTTP.get_response(url).body
-      @song_results = ActiveSupport::JSON.decode(response)
-      @song_results = @song_results.map do |song|
-        # this is where song creation should go
-        # Song.create_or_find(song)
-        Song.create_temporary(song)
+      response_json = ActiveSupport::JSON.decode(response)
+      @song_results = response_json.map do |song_json|
+        Song.find_or_create(song_json["SongID"], song_json["SongName"],
+                            song_json["AlbumID"], song_json["AlbumName"],
+                            song_json["ArtistID"], song_json["ArtistName"])
       end
       render 'songs/song_list', :layout => false
     else
       render :text => "No query."
     end
-  end
+  end 
 end

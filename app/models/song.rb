@@ -34,7 +34,7 @@ class Song < ActiveRecord::Base
                           artist_api_id, artist_title)
     song = Song.find_by_api_id(song_api_id)
     if song.nil?
-      create! do |song|
+      song = create! do |song|
         song.api_id = song_api_id
         song.title = song_title
         song.album = Album.find_or_create(album_api_id, album_title)

@@ -15,7 +15,7 @@ class Album < ActiveRecord::Base
   def self.find_or_create(api_id, title)
     album = Album.find_by_api_id(api_id)
     if album.nil?
-      create! do |album|
+      album = create! do |album|
         album.api_id = api_id
         album.title = title
       end
