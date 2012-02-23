@@ -29,11 +29,13 @@ class GroovesharkController < ApplicationController
       response = Net::HTTP.get_response(url).body
       @song_results = ActiveSupport::JSON.decode(response)
       @song_results = @song_results.map do |song|
+        # this is where song creation should go
+        # Song.create_or_find(song)
         Song.create_temporary(song)
       end
       render 'songs/song_list', :layout => false
     else
-    render :text => "No query."
+      render :text => "No query."
     end
   end
 end
