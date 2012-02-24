@@ -43,4 +43,32 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  # Search for a user
+  def search
+  end
+
+  def find_user
+    if !params[:query].empty?
+      @search = User.search do
+        fulltext params[:query]
+      end
+      @results = @search.results
+      render 'users/user_list', :layout => false
+#      render :text => @search
+    else
+      render :text => "No query."
+    end
+
+  end
+
+#  def find_user
+#    if !params[:query].empty?
+#      @search = User.searchparams[:query];
+#      @results = User.search(params[:query])
+#      render 'users/user_list', :layout => false
+#    else
+#      render :text => "No query."
+#    end
+#  end
+
 end

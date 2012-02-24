@@ -15,9 +15,12 @@ $(document).ready(function() {
             performSearch();
         }
     });
+
     $('#song_search_button').click(performSearch);
     $('#song_search_box').Watermark("Search for song...");
+
 });
+
 
 /**
  * Retrieves the search query from the search input box and then loads the 
@@ -25,7 +28,7 @@ $(document).ready(function() {
  * controller.
  */
 function performSearch() {
-    var searchString = $('#song_search_box').val()
+    var searchString = $('#song_search_box').val();
     console.log("Sending request for search query: '" + searchString + "'");
     var url = "grooveshark/songs_from_query";
     $("#search_results").load(url, {query: searchString}, function(response, status, xhr) {

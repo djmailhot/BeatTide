@@ -30,9 +30,13 @@ class User < ActiveRecord::Base
 
   after_initialize :init
 
+  searchable do
+    text :first_name, :last_name, :username
+  end
+
   # Sets other values in table to 0.
   def init
-    self.likes ||= 0
+    self.likes ||= 03
   end
 
   # Creates a new user based on the authentication information given. Users

@@ -1,0 +1,19 @@
+<%
+#   A view for displaying a list of users.
+#   Designed for search results.
+%>
+
+
+
+<div class="user_list">
+<dl class="table-display">
+<% @results.each do |user| %>
+  <div class "user">
+    <p><a href="<%= user.id %>"><dt><%= user.first_name %>
+      <%= user.last_name %></dt></a>
+      <em><dd>(<%= user.username %>)</dd></em></p>
+  </div>
+<% end %>
+</dl>
+</div>
+

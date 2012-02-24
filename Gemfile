@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.0'
-gem 'grooveshark'  
+gem 'grooveshark'
+  
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

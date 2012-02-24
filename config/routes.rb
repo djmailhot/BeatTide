@@ -1,4 +1,8 @@
 BeatTide::Application.routes.draw do
+
+  get "users/search"
+  post "users/find_user"
+
   resources :songs
   resources :users
   resources :subscriptions
@@ -10,6 +14,8 @@ BeatTide::Application.routes.draw do
   get "grooveshark/song_stream_info"
   get "grooveshark/search"
   get "grooveshark/songs_from_query"
+
+#  get "users/search"
   
   get "grooveshark/play_song"
 
