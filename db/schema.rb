@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210021647) do
+ActiveRecord::Schema.define(:version => 20120222195830) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -25,17 +25,26 @@ ActiveRecord::Schema.define(:version => 20120210021647) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "posts", :force => true do |t|
+  create_table "likes", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "song_id"
-    t.integer  "likes"
+    t.integer  "post_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  create_table "posts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "song_id"
+    t.integer  "like_count"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
+
   create_table "songs", :force => true do |t|
     t.integer  "api_id"
-    t.integer  "likes"
+    t.integer  "like_count"
     t.string   "title"
     t.integer  "album_id"
     t.integer  "artist_id"
@@ -60,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20120210021647) do
     t.string   "last_name"
     t.integer  "facebook_id"
     t.integer  "age"
-    t.integer  "likes"
+    t.integer  "like_count"
     t.boolean  "active"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false

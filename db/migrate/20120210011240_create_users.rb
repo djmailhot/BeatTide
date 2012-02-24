@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name
       t.integer :facebook_id
       t.integer :age
-      t.integer :likes
+      t.integer :like_count
       t.boolean :active
 
       t.timestamps
