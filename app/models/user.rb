@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_accessible :username, :first_name, :last_name, :facebook_id,
                   :age, :likes, :active
 
-  has_many :posts, :dependent => :destroy
+  has_many :posts, :dependent => :destroy, :order => "created_at DESC"
 
   # links users to the subscriptions table via subscriber id for their
   # subscriptions and via subscribed id to determine their subscribers
