@@ -1,1 +1,5 @@
+<%
+#    A view for a single post that is not a partial. Simply delegates to the
+#    post partial.
+%>
 <%= render :partial => "post", :locals => {:post => @post} %>

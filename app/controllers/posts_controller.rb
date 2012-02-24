@@ -12,10 +12,15 @@ class PostsController < ApplicationController
     end
   end
   
+  # Shows a single post. Sets the post instance variable to a post corresponding
+  # to the passed ID.
   def show
     @post = Post.find(params[:id])
   end
   
+  # Shows a single post. Sets the post instance variable to a post corresponding
+  # to the passed ID. The post appears without any layout. Useful for AJAX
+  # requests.
   def show_raw
     @post = Post.find(params[:id])
     render :template => "posts/show", :layout => false
