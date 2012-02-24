@@ -6,9 +6,11 @@
     <h2>Add Song</h2>
     <%= render :partial => "grooveshark/search" %>
     <h2>Your Songs</h2>
-    <% current_user.posts.each do |post| %>
-      <%= render :partial => "posts/post", :locals => {:post => post} %>
-    <% end %>
+    <div id="your_songs">
+      <% current_user.posts.each do |post| %>
+        <%= render :partial => "posts/post", :locals => {:post => post} %>
+      <% end %>
+    </div>
   </div>
   <div class="column right">
     <h2>Friend Feed</h2>
