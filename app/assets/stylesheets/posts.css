@@ -1,0 +1,11 @@
+/*
+ * Styles for visual elements relating to the posts.
+ *
+ * Author: Alex Miller
+ */
+ 
+.post {
+    background-color: #f7f7f7;
+    padding: 5px;
+    font-size: 12px;
+}

@@ -1,0 +1,24 @@
+/*
+ * Styles for visual elements relating to the user (i.e. user page).
+ *
+ * Author: Alex Miller
+ */
+ 
+#user_header {
+   background-color: #aa988b;
+   color: #000;
+   padding: 10px;
+   margin: 0 0 20px 0;
+}
+
+#user_header #name {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    float: left;
+    margin-right: 20px;
+}
+
+#subscription_form {
+    padding-left: 100px;
+}

@@ -42,7 +42,20 @@
     padding: 10px;
 }
 
-.song {
-    margin-top: 2px;
+#search_results .song {
+    margin-top: 5px;
 }
+
+.song {
+    line-height: 0;
+    font-size: 12px;
+    height: 40px;
+    width: 300px;
+}
+
+.song .add {
+    float: right;
+    margin-top: 5px;
+}
+
 
