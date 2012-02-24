@@ -1,27 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= @user.username %>'s songs</h1>
-
-<!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
-<% unless !current_user || current_user == @user.id %>
-  <div id="subscription_form">
-  <% if current_user.subscribing?(@user) %>
-    <%= form_for current_user.subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
-      <h2>You are currently subscribed to this user</h2>
-      <div><%= f.submit "Unsubscribe" %></div>
-    <% end %>
-  <% else %>
-    <%= form_for current_user.subscriptions.build(subscribed_id: @user.id) do |f| %>
-      <h2>You are not currently subscribed to this user!</h2>
-      <div><%= f.hidden_field :subscribed_id %></div>
-      <div class="actions"><%= f.submit "Subscribe" %></div>
-    <% end %>
-  <% end %>
-  </div>
-<% end %>
 <%
-@user.feed.each do |post|
-  render :partial => "posts/post", :locals => {:post => post}
-end
+#   A user's profile page. Contains all of their posts. Other users can subscribe
+#   to them via this page.
 %>
 
+<p id="notice"><%= notice %></p>
+
+<div id="user_header">
+  <div id="name"><%= @user.username %>'s songs</div>
+  
+  <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
+  <% unless !current_user || current_user == @user.id %>
+    <div id="subscription_form">
+    <% if current_user.subscribing?(@user) %>
+      <%= form_for current_user.subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
+        <h2>You are currently subscribed to this user</h2>
+        <div><%= f.submit "Unsubscribe" %></div>
+      <% end %>
+    <% else %>
+      <%= form_for current_user.subscriptions.build(subscribed_id: @user.id) do |f| %>
+        <div><%= f.hidden_field :subscribed_id %></div>
+        <div class="subscribe"><%= f.submit "Subscribe" %></div>
+      <% end %>
+    <% end %>
+    </div>
+  <% end %>  
+</div>
+
+<!-- List the posts that the user has made -->
+<div class="column left">
+  <%= render :partial => "posts/post_list", :locals => {:posts => @user.posts} %>
+</div>

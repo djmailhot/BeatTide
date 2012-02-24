@@ -14,13 +14,15 @@
 ActiveRecord::Schema.define(:version => 20120222195830) do
 
   create_table "albums", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.integer  "api_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "artists", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.integer  "api_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

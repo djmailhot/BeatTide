@@ -6,6 +6,7 @@
 <head>
   <title>BeatTide</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <link href='http://fonts.googleapis.com/css?family=Nixie+One|Rokkitt|Bree+Serif' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -18,7 +19,7 @@
         </div>
     </div>
     <div id="content">
-        <div id="login">
+        <div class="module" id="login">
             <% if current_user %>
               Signed in as <strong><%= current_user.username %></strong> | <%= link_to "Sign Out", signout_path %>
             <% else %>

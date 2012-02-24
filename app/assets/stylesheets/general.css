@@ -12,28 +12,41 @@ body {
 
 #header_container {
     background-image: url("header_background.png");
+	border-bottom: 3px solid #055271;
 }
 
 #header {
-    width: 800px;
+    width: 900px;
     margin: 0 auto 0 auto;
     height: 65px;
     padding-top: 10px;
+	
+	
 }
 
 #content {
-    width: 780px;
-    margin: 0 auto 0 auto;
-    background: url("content_background.png");
-    padding: 0 30px 0 30px;
+    width: 900px;
+    margin: 20px auto 0 auto;
 }
+
+.module {
+	background-color: #FFF;
+	border: 1px solid #CCC;
+	margin: 10px;
+	padding: 20px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+	box-shadow: 2px 2px 0px #CCCCCC;
+}
+
 
 #login {
     background-color: #f8f8f8;
-    margin: 0;
     font-size: 12px;
-    padding: 5px;
-    margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #fb_button {
@@ -58,8 +71,7 @@ body {
 }
 
 .column { 
-    width: 350px;
-    padding-right: 30px;
+    width: 450px;
     float: left;
 }
 
@@ -71,18 +83,18 @@ body {
 }
 
 h2 {
-    font-weight: normal;
-    font-size: 18px;
+    font-size: 30px;
+	font-weight: normal;
     color: #333;
+	font-family: 'Rokkitt', cursive;
+	margin-top: 5px;
 }
 
 #welcome {
-    margin: 20px;
-    padding: 20px;
     background-color: #aa988b;
-    border-top: 5px solid #000;
-    border-bottom: 5px solid #000;
+    border: 5px solid #000;
     color: #FFF;
+	margin-top: 20px;
 }
 
 a:link {

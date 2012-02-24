@@ -12,7 +12,7 @@ class SubscriptionsController < ApplicationController
     @subscriptions = Subscription.all
     @title = "All subscriptions"
   end
-
+  
   # creates a subscription from the current user to
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user
@@ -27,7 +27,6 @@ class SubscriptionsController < ApplicationController
       redirect_to @them
     end
   end
-
 
   # destroys a subscription based on its subscription_id
   # redirects the user to the page of the user it was looking at
