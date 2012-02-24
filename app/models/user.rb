@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
 
   after_initialize :init
 
+  # This makes people searchable and tells solr what fields to index
   searchable do
     text :first_name, :last_name, :username
   end

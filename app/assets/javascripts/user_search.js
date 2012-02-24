@@ -21,6 +21,11 @@ $(document).ready(function() {
     $('#user_search_box').Watermark("Search for user...");
 });
 
+/**
+ * Gets the query parameter from the search box and calls
+ *    the find_user controller. 
+ * Injects the results into the page.
+ */
 function performUserSearch(){
     var searchString = $('#user_search_box').val();
     console.log("Searching for user: " + searchString);

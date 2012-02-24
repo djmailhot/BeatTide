@@ -43,32 +43,24 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # Search for a user
-  def search
-  end
-
+  # Search for a user based on the :query parameter
   def find_user
+    # If we were passed a query
     if !params[:query].empty?
+      # This calls the solr search method
       @search = User.search do
         fulltext params[:query]
       end
       @results = @search.results
-      render 'users/user_list', :layout => false
-#      render :text => @search
+      # If we found no results print an error
+      if @results.empty?
+        render :text => "No Results Found =("
+      else
+        render 'users/user_list', :layout => false
+      end
+    # If no query is passed
     else
       render :text => "No query."
     end
-
   end
-
-#  def find_user
-#    if !params[:query].empty?
-#      @search = User.searchparams[:query];
-#      @results = User.search(params[:query])
-#      render 'users/user_list', :layout => false
-#    else
-#      render :text => "No query."
-#    end
-#  end
-
 end
