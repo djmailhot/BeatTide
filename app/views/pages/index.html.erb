@@ -3,19 +3,22 @@
 %>
 <% if current_user %>
   <div class="column left">
-    <h2>Add Song</h2>
-    <%= render :partial => "grooveshark/search" %>
-    <div id="your_songs">
-      <h2>Your Songs</h2>
+	  <div class="module" id="add_song">
+	    <h2>Add Song</h2>
+		  <%= render :partial => "grooveshark/search" %>
+		</div>
+		<div class="module" id="your_songs">
+      <h2>Your Posted Songs</h2>
       <%= render :partial => "posts/post_list", :locals => {:posts => current_user.posts} %>
     </div>
   </div>
   <div class="column right">
-    <h2>Friend Feed</h2>
-    
+		<div class="module">
+	    <h2>Friend Feed</h2>
+    </div>
   </div>
 <% else %>
-  <div id="welcome">
+  <div class="module" id="welcome">
     <h1>Hello, music lover!</h1>
     <h2>You must sign in to use BeatTide.</h2>
     <%= link_to content_tag(:span, "Sign up with Facebook."), "/auth/facebook", :id => "fb_button" %>
