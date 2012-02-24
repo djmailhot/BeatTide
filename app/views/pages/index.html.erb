@@ -5,11 +5,9 @@
   <div class="column left">
     <h2>Add Song</h2>
     <%= render :partial => "grooveshark/search" %>
-    <h2>Your Songs</h2>
     <div id="your_songs">
-      <% current_user.posts.each do |post| %>
-        <%= render :partial => "posts/post", :locals => {:post => post} %>
-      <% end %>
+      <h2>Your Songs</h2>
+      <%= render :partial => "posts/post_list", :locals => {:posts => current_user.posts} %>
     </div>
   </div>
   <div class="column right">

@@ -5,15 +5,20 @@ class PostsController < ApplicationController
   def create
     song = Song.find_by_api_id(params[:api_id])
     if song.nil?
-      # should throw error
+      render :json => "Error"
     else
-      Post.create_from_song(song, current_user)
+      post = Post.create_from_song(song, current_user)
+      render :json => post
     end
-    render :text => "Post success!"
   end
   
   def show
     @post = Post.find(params[:id])
+  end
+  
+  def show_raw
+    @post = Post.find(params[:id])
+    render :template => "posts/show", :layout => false
   end
 
   # Destroys a post belonging to the currently authenticated user.
