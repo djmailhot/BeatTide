@@ -34,7 +34,7 @@ describe SubscriptionsController do
       it "should add a subscriber to subscribed" do
         post :create, :subscription => { :subscribed_id => @subscribed.id }
         
-        @user.subscribers.length.should eq(1)
+        @subscribed.subscribers.should include @user
       end
       
       it "should redirect to the subscribed's page" do
@@ -54,7 +54,7 @@ describe SubscriptionsController do
       it "subscriber shouldn't get subscribed on self-subscribe" do
         post :create, :subscription => { :subscribed_id => @user.id }
         
-        @user.subscribers.length.should eq(0)
+        @user.subscribers.length.should_not include @subscribed
       end
 
       it "should error on subscribe to non-existent user" do
