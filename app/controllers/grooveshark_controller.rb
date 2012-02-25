@@ -22,7 +22,7 @@ class GroovesharkController < ApplicationController
   # Runs a TinySong search with the passed query, and renders a table of the
   # results. The song ID's which are returned by this request correspond to
   # Grooveshark songs.
-  def songs_from_query
+def songs_from_query
     if params[:query]
       query = URI.escape(params[:query])
       url = URI.parse("#{TINY_SONG_API}/s/#{query}?format=json&limit=#{NUM_SEARCH_RESULTS}&key=#{TINY_SONG_API_KEY}")

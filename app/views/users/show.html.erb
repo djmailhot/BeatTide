@@ -5,11 +5,10 @@
 
 <p id="notice"><%= notice %></p>
 
-<div id="user_header">
+<div id="user_header" class="module">
   <div id="name"><%= @user.username %>'s songs</div>
-  
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
-  <% unless !current_user || current_user == @user.id %>
+  <% unless !current_user || current_user.id == @user.id %>
     <div id="subscription_form">
     <% if current_user.subscribing?(@user) %>
       <%= form_for current_user.subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
@@ -21,12 +20,13 @@
         <div><%= f.hidden_field :subscribed_id %></div>
         <div class="subscribe"><%= f.submit "Subscribe" %></div>
       <% end %>
+    
     <% end %>
     </div>
   <% end %>  
 </div>
 
 <!-- List the posts that the user has made -->
-<div class="column left">
+<div class="module column left">
   <%= render :partial => "posts/post_list", :locals => {:posts => @user.posts} %>
 </div>

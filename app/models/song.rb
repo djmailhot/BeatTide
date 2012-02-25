@@ -26,7 +26,7 @@ class Song < ActiveRecord::Base
   def like
     self.like_count = self.like_count + 1
   end  
-  
+
   # Searches for a song with the passed song API id. If no song is found, creates
   # a new song. Returns the song. The song that is returned is always guaranteed
   # to be in the database.

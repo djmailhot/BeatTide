@@ -1,0 +1,24 @@
+<%
+#   A view for displaying a list of users. 
+%>
+
+<h3>Results</h3>
+<table id="user_list">
+  <% @results.each do |user| %>
+    <tr>
+	      <td>
+	      <%= link_to "#{user.id}" do %>
+  	      <%= user.first_name %> <%= user.last_name %>
+  	    <% end %>
+  	    </td>
+	      <td>
+	      <%= link_to "#{user.id}" do %>
+  	      <%= user.username %>
+  	    <% end %>
+  	    </td>
+  	    <td>
+  	      <a href="#">Subscribe</a>
+	      </td>
+    </tr>
+  <% end %>
+</table>

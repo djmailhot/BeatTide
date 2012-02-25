@@ -28,7 +28,7 @@
 	border-radius: 10px;
 }
 
-#song_search_box {
+#song_search_box, #user_search_box {
     width: 260px;
     font-size: 16px;
     background-color: #FFF;
@@ -36,7 +36,7 @@
     color: #000000;
 }
 
-#search_form button {
+#search_form button, #user_search_button {
     font-size: 16px;
     height: 30px;
 }
