@@ -3,33 +3,13 @@
  *
  */
 
-
-#user_search_container{
-    margin-left: 25%;
+#user_list {
+    margin-top: 20px;
 }
 
-dl.table-display{
-    float: left;
-    width: 360px;
-    margin: 1em 0;
-    padding: 0;
-    border-bottom: 1px solid #999;
-}
-
-.table-display dt{
-    clear: left;
-    float: left;
-    width: 200px;
-    margin: 0;
-    padding: 5px;
-    border-top: 1px solid #999;
-    font-weight: bold;
-}
-
-.table-display dd{
-    float: left;
-    width: 140px;
-    margin: 0;
-    padding: 5px;
-    border-top: 1px solid #999;
+#user_list td {
+    padding: 5px 20px 5px 20px;
+    margin: 2px;
+    background-color: #f8f8f8;
+    font-size: 13px;
 }

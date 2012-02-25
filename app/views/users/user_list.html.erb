@@ -2,20 +2,23 @@
 #   A view for displaying a list of users. 
 %>
 
-
-
-<div class="user_list">
-  <dl class="table-display">
-    <% @results.each do |user| %>
-    <div class "user">
-      <p>
-	<%= link_to "#{user.id}" do %>
-	<dt><%= user.first_name %> <%= user.last_name %></dt>
-	<dd><%= user.username %></dd>
-	<% end %>
-      </p>
-    </div>
-    <% end %>
-  </dl>
-</div>
-
+<h3>Results</h3>
+<table id="user_list">
+  <% @results.each do |user| %>
+    <tr>
+	      <td>
+	      <%= link_to "#{user.id}" do %>
+  	      <%= user.first_name %> <%= user.last_name %>
+  	    <% end %>
+  	    </td>
+	      <td>
+	      <%= link_to "#{user.id}" do %>
+  	      <%= user.username %>
+  	    <% end %>
+  	    </td>
+  	    <td>
+  	      <a href="#">Subscribe</a>
+	      </td>
+    </tr>
+  <% end %>
+</table>
