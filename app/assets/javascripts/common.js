@@ -24,3 +24,19 @@ function ajaxFailure(ajax, exception){
 	    throw exception;
     }
 }
+
+function showMessage(message) {
+    var m = document.createElement("div");
+    m.innerHTML = message + " <a href='#' id='close'>Close.</a>";
+    $(m).addClass("message");
+    $(m).addClass("module");
+    $(m).addClass("small_module");
+    $("#message_container").html('');
+    $("#message_container").append(m);
+    
+    $("#close").click(hideMessage);
+}
+
+function hideMessage() {
+    $("#message_container").html('');
+}

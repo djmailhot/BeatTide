@@ -10,7 +10,7 @@ function postSong(songID) {
             if ($("#your_songs .post_list").length != 0) {
                 $("#your_songs .post_list").prepend(post);
             }
+            showMessage("Song was added!");
         });
-    });
-    
+    });   
 }
