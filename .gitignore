@@ -14,3 +14,4 @@
 /log/*
 /tmp
 /solr/data/development/index/*
+/solr/pids

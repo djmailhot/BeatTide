@@ -5,6 +5,7 @@ gem 'grooveshark'
   
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'sunspot_test'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
