@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   # Sets other values in table to 0.
   def init
-    self.likes ||= 03
+    self.likes ||= 0
   end
 
   # Creates a new user based on the authentication information given. Users

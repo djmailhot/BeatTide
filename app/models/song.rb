@@ -27,24 +27,4 @@ class Song < ActiveRecord::Base
     self.likes = self.likes + 1
   end
   
-  # Creates a song object, but does not save it to the database. This is useful
-  # if you want to transform Grooveshark metadata into a song object to display
-  # it in a view, but you don't want to save the song to the database yet.
-  def self.create_temporary(metadata)
-    song = Song.new
-    song.api_id = metadata["SongID"]
-    album = Album.find_by_name(metadata["SongID"])
-    if (album.nil?)
-      album = Album.new
-      album.name = metadata["AlbumName"]
-    end
-    artist = Artist.find_by_name(metadata["AlbumName"])
-    if (artist.nil?)
-      artist = Artist.new
-      artist.name = metadata["ArtistName"]
-    end
-    song.album = album
-    song.artist = artist
-    song
-  end
 end

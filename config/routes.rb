@@ -15,8 +15,6 @@ BeatTide::Application.routes.draw do
   get "grooveshark/search"
   get "grooveshark/songs_from_query"
 
-#  get "users/search"
-  
   get "grooveshark/play_song"
 
   post "grooveshark/songs_from_query"
