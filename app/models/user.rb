@@ -72,12 +72,12 @@ class User < ActiveRecord::Base
 
   # (stub) Returns an array representing a user's feed. 
   def feed
-    # Post.feed_for self
-    []
+    Post.get_subscribed_posts(self)
   end
 
-  def like
-    like_count = like_count + 1
+  def like!
+    self.like_count = self.like_count + 1
+    self.save
   end
 
 end

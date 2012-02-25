@@ -35,6 +35,7 @@ class PostsController < ApplicationController
   # Increments the like counter of the specified post and the
   # song associated with the post for the current user.
   # Should fail if there is no user signed in.
-  def like
+  def like!
+    Post.find(params[:id]).like!(current_user)
   end
 end

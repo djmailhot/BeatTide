@@ -23,8 +23,9 @@ class Song < ActiveRecord::Base
   end
 
   # Adds one to the likes of this Song
-  def like
+  def like!
     self.like_count = self.like_count + 1
+    self.save
   end  
 
   # Searches for a song with the passed song API id. If no song is found, creates
