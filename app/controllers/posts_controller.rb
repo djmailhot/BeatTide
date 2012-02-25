@@ -3,6 +3,27 @@ class PostsController < ApplicationController
   # Creates a new post belonging to the currently authenticated user.
   # Should fail if there is no user signed in.
   def create
+    song = Song.find_by_api_id(params[:api_id])
+    if song.nil?
+      render :json => "Error"
+    else
+      post = Post.create_from_song(song, current_user)
+      render :json => post
+    end
+  end
+  
+  # Shows a single post. Sets the post instance variable to a post corresponding
+  # to the passed ID.
+  def show
+    @post = Post.find(params[:id])
+  end
+  
+  # Shows a single post. Sets the post instance variable to a post corresponding
+  # to the passed ID. The post appears without any layout. Useful for AJAX
+  # requests.
+  def show_raw
+    @post = Post.find(params[:id])
+    render :template => "posts/show", :layout => false
   end
 
   # Destroys a post belonging to the currently authenticated user.

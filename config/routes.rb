@@ -3,7 +3,6 @@ BeatTide::Application.routes.draw do
   get "users/search"
   post "users/find_user"
 
-  resources :songs
   resources :users
   resources :subscriptions
 
@@ -18,6 +17,11 @@ BeatTide::Application.routes.draw do
   get "grooveshark/play_song"
 
   post "grooveshark/songs_from_query"
+  
+  # routes for posts
+  get "/posts/show_raw"
+  match "/posts", :to => "posts#create", :via => "post"
+  match "/posts/:id" => "posts#show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

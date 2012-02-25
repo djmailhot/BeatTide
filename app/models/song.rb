@@ -1,6 +1,6 @@
 # A Song holds the metadata for a particular Song, as well as a tracking of the amount of people that like it
 #
-# Author:: Brett Webber, Alex Miller
+# Author:: Brett Webber, Alex Miller, Melissa Winstanley
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :likes, :title # id corresponding to api, # of likes, and title of song respectively
   
@@ -26,5 +26,22 @@ class Song < ActiveRecord::Base
   def like
     self.likes = self.likes + 1
   end
-  
+
+
+  # Searches for a song with the passed song API id. If no song is found, creates
+  # a new song. Returns the song. The song that is returned is always guaranteed
+  # to be in the database.
+  def self.find_or_create(song_api_id, song_title, album_api_id, album_title,
+                          artist_api_id, artist_title)
+    song = Song.find_by_api_id(song_api_id)
+    if song.nil?
+      song = create! do |song|
+        song.api_id = song_api_id
+        song.title = song_title
+        song.album = Album.find_or_create(album_api_id, album_title)
+        song.artist = Artist.find_or_create(artist_api_id, artist_title)
+      end
+    end
+    song
+  end
 end
