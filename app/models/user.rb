@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     self.subscriptions.find_by_subscribed_id(other.id).destroy
   end
 
-  # (stub) Returns an array representing a user's feed. 
+  # Returns an array representing a user's feed. 
   def feed
     Post.get_subscribed_posts(self)
   end

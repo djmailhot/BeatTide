@@ -25,67 +25,65 @@ describe SubscriptionsController do
     end
 
     describe "success" do
+      before(:each) do
+        post :create, :id => @subscribed.id
+      end
+
       it "should add a subscription to subscriber" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
-        
         @user.subscriptions.length.should eq(1)
       end
       
       it "should add a subscriber to subscribed" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
-        
         @subscribed.subscribers.should include @user
       end
       
       it "should redirect to the subscribed's page" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
-        
         response.should redirect_to(@subscribed)
       end
     end
 
     describe "failure" do
       it "subscriber shouldn't get subscription on self-subscribe" do
-        post :create, :subscription => { :subscribed_id => @user.id }
+        post :create, :id => @user.id
         
         @user.subscriptions.length.should eq(0)
       end
 
       it "subscriber shouldn't get subscribed on self-subscribe" do
-        post :create, :subscription => { :subscribed_id => @user.id }
+        post :create, :id => @user.id
         
         @user.subscribers.length.should_not include @subscribed
       end
 
       it "should error on subscribe to non-existent user" do
-        post :create, :subscription => { :subscribed_id => 50 }
+        post :create, :id => 50
 
         flash.now[:error].should =~ /user doesn't exist/i
       end
 
       it "should error on self-subscribe" do
-        post :create, :subscription => { :subscribed_id => @user.id }
+        post :create, :id => @user.id
         
-        flash.now[:error].should =~ /self subscribe/i
+        flash.now[:error].should =~ /subscribe to yourself/i
       end
       
       it "subscriber shouldn't get two subscriptions to same subscribed" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
+        post :create, :id => @subscribed.id
+        post :create, :id => @subscribed.id
         
         @user.subscriptions.length.should eq(1)
       end
 
       it "subscribed shouldn't get two subscibers from same subscription" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
+        post :create, :id => @subscribed.id
+        post :create, :id => @subscribed.id
         
         @user.subscribers.length.should eq(1)
       end
 
       it "should error on multi-subscribe" do
-        post :create, :subscription => { :subscribed_id => @subscribed.id } 
-        post :create, :subscription => { :subscribed_id => @subscribed.id }
+        post :create, :id => @subscribed.id 
+        post :create, :id => @subscribed.id
         
         flash.now[:error].should =~ /already subscribed/i
       end
@@ -99,20 +97,19 @@ describe SubscriptionsController do
       test_sign_in(@subscriber)
       @subscribed = FactoryGirl.create(:user)
 
-      post :create, :subscription => { :subscribed_id => @subscribed.id }
+      post :create, :id => @subscribed.id
       @subscription = @subscriber.subscriptions[0]
     end
   
     describe "success" do
       it "should remove the subscription" do
-        delete :destroy, :id => @subscription.id
+        delete :destroy, :id => @subscribed.id
         
         Subscription.all.length.should eq(0)
-        @subscriber.subscriptions.length.should eq(0)
       end
-      
+
       it "should redirect to the subscribed's page" do
-        delete :destroy, :id => @subscription
+        delete :destroy, :id => @subscribed.id
         response.should redirect_to(@subscribed)
       end
     end

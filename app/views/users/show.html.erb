@@ -5,28 +5,24 @@
 
 <p id="notice"><%= notice %></p>
 
-<div id="user_header" class="module">
-  <div id="name"><%= @user.username %>'s songs</div>
+<div class="module" id="user_header">
+  <h2><%= @user.username %>'s songs</h2>
+  
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
-  <% unless !current_user || current_user.id == @user.id %>
+  <% #unless !current_user || current_user.id == @user.id %>
+  <% if true %>
     <div id="subscription_form">
-    <% if current_user.subscribing?(@user) %>
-      <%= form_for current_user.subscriptions.find_by_subscribed_id(@user), :html => {method: :delete} do |f| %>
-        <h2>You are currently subscribed to this user</h2>
-        <div><%= f.submit "Unsubscribe" %></div>
+      <% if current_user.subscribing?(@user) %>
+        You are subscribed to <%= @user.username %>.
+        <%= link_to_function "Unsubscribe.", "unsubscribe(#{@user.id})" %>	
+      <% else %>
+        You are not subscribed to <%= @user.username %>.
+        <%= link_to_function "Subscribe!", "subscribe(#{@user.id})" %>	
       <% end %>
-    <% else %>
-      <%= form_for current_user.subscriptions.build(subscribed_id: @user.id) do |f| %>
-        <div><%= f.hidden_field :subscribed_id %></div>
-        <div class="subscribe"><%= f.submit "Subscribe" %></div>
-      <% end %>
-    
-    <% end %>
     </div>
   <% end %>  
 </div>
 
-<!-- List the posts that the user has made -->
-<div class="module column left">
+<div class="module">
   <%= render :partial => "posts/post_list", :locals => {:posts => @user.posts} %>
 </div>

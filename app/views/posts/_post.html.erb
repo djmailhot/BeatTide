@@ -4,7 +4,7 @@
 
 <div class="post">
   <div class="posted_by">
-    <strong><%= link_to post.user.username, current_user %></strong> posted:
+    <strong><%= link_to post.user.username, post.user %></strong> posted:
   </div>
   <%= render :partial => "songs/song", :locals => {:song => post.song} %>
   <div class="info">
