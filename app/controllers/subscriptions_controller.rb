@@ -1,18 +1,11 @@
 # Controller for creating/managing subscriptions. Contains
-# functions for indexing as well as creating/destroying 
+# functions for indexing as well as creating/destroying
 # subscriptions.
 #
 # Author:: Tyler Rigsby (mailto: rigsbyt@cs.uw.edu)
 class SubscriptionsController < ApplicationController
   before_filter :authenticate
 
-  # sets @subscriptions to the array of all subscriptions
-  # and @title to "All subscriptions"
-  def index
-    @subscriptions = Subscription.all
-    @title = "All subscriptions"
-  end
-  
   # creates a subscription from the current user to
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user

@@ -4,7 +4,7 @@ BeatTide::Application.routes.draw do
   post "users/find_user"
 
   resources :users
-  resources :subscriptions
+  resources :subscriptions, :only => [:create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)
   match "/auth/:provider/callback" => "sessions#create"
@@ -17,7 +17,7 @@ BeatTide::Application.routes.draw do
   get "grooveshark/play_song"
 
   post "grooveshark/songs_from_query"
-  
+
   # routes for posts
   post "/posts/like"
   get "/posts/show_raw"

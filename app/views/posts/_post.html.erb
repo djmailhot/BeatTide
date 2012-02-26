@@ -7,7 +7,12 @@
   <div class="posted_by">
     <strong><%= link_to post.user.username, post.user %></strong> posted:
   </div>
-  <%= render :partial => "songs/song", :locals => {:song => post.song} %>
+  <% if current_user == post.user %>
+    <%= render :partial => "songs/song", :locals => {:song => post.song} %>
+  <% else %>
+    <%= render :partial => "songs/song_add", :locals => {:song => post.song} %>
+  <% end %>
+
   <div class="info">
     <% if post.liked_by?(current_user) %>
     <strong>You like this
