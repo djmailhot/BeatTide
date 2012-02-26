@@ -3,7 +3,7 @@
 # Author:: Brett Webber, Alex Miller, Melissa Winstanley
 class Song < ActiveRecord::Base
   attr_accessible :api_id, :like_count, :title # id corresponding to api, # of likes, and title of song respectively
-  
+
   # Links to Album and Artist models are defined
   belongs_to :album
   belongs_to :artist
@@ -16,7 +16,7 @@ class Song < ActiveRecord::Base
   validates :title, :presence => true
 
   after_initialize :init
-  
+
   # Starts off the Song's likes at 0 if uninitialized after creation
   def init
     self.like_count ||= 0
@@ -26,7 +26,7 @@ class Song < ActiveRecord::Base
   def like!
     self.like_count = self.like_count + 1
     self.save
-  end  
+  end
 
   # Searches for a song with the passed song API id. If no song is found, creates
   # a new song. Returns the song. The song that is returned is always guaranteed

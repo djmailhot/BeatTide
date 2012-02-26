@@ -1,6 +1,6 @@
 # Controller for managing user sessions from login to logout. Uses the Facebook
 # API to retrieve user credentials.
-# 
+#
 # Author:: Melissa Winstanley
 class SessionsController < ApplicationController
 
