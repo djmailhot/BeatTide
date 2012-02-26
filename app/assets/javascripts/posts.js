@@ -14,3 +14,10 @@ function postSong(songID) {
         });
     });   
 }
+
+function likePost(postID, link) {
+    var likes = $(link).closest(".info").children(".like_count");
+    $.post("/posts/like", {id: postID}, function(data, textStatus, jqXHR) {
+        $(likes).text(data + " people like this");
+    });
+}
