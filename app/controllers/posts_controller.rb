@@ -36,5 +36,8 @@ class PostsController < ApplicationController
   # song associated with the post for the current user.
   # Should fail if there is no user signed in.
   def like
+    p = Post.find(params[:id])
+    p.like!(current_user)
+    render :text => p.like_count
   end
 end

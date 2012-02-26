@@ -10,7 +10,14 @@ function postSong(songID) {
             if ($("#your_songs .post_list").length != 0) {
                 $("#your_songs .post_list").prepend(post);
             }
+            showMessage("Song was added!");
         });
+    });   
+}
+
+function likePost(postID, link) {
+    var likes = $(link).closest(".info").children(".like_count");
+    $.post("/posts/like", {id: postID}, function(data, textStatus, jqXHR) {
+        $(likes).text(data + " people like this");
     });
-    
 }

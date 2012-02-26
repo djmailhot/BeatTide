@@ -42,7 +42,7 @@ body {
 }
 
 
-#login {
+.small_module {
     background-color: #f8f8f8;
     font-size: 12px;
 	padding-top: 5px;
@@ -77,9 +77,8 @@ body {
 
 #footer {
     clear: both;
-    padding-top: 20px;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 h2 {
@@ -110,4 +109,12 @@ a:visited {
 a:hover {
     color: #7b3908;
     text-decoration: underline;
+}
+
+.message {
+    background-color: #85F135;
+    border: 1px solid #1F5900;
+    color: #1F5900;
+    font-size: 16px;
+    font-weight: bold;
 }

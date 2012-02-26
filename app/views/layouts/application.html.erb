@@ -20,7 +20,7 @@
         </div>
     </div>
     <div id="content">
-        <div class="module" id="login">
+        <div class="small_module module">
             <% if current_user %>
               Signed in as <strong><%= current_user.username %></strong> | <%= link_to "Sign Out", signout_path %>
             <% else %>
@@ -28,9 +28,12 @@
             <% end %>
         </div>
         
+        <div id="message_container">
+        </div>
+        
         <%= yield %>
         
-        <div id="footer">Copyright BeatTide</div>
+        <div class="small_module module" id="footer">Copyright BeatTide</div>
     </div>
 </div>
 
