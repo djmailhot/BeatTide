@@ -1,6 +1,6 @@
 # Represents the model for posts, including information about the
 # user, song, and likes in a post.
-# Author::David Mailhot, Alex Miller
+# Author::David Mailhot, Alex Miller, Melissa Winstanley
 class Post < ActiveRecord::Base
   attr_accessible :like_count, :created_at
 

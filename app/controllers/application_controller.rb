@@ -1,3 +1,5 @@
+# General controller class, from which other controllers inherit
+# Author:: Melissa Winstanley
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
