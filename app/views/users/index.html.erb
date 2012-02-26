@@ -1,4 +1,6 @@
-<h1>Listing users</h1>
+
+<div class="module">
+<h2>All Users</h1>
 
 <% if current_user %>
   Welcome <%= current_user.username %>!
@@ -26,7 +28,7 @@
     <td><%= user.first_name %></td>
     <td><%= user.last_name %></td>
     <td><%= user.age %></td>
-    <td><%= user.likes %></td>
+    <td><%= user.like_count %></td>
     <td><%= user.username %></td>
     <td><%= user.facebook_id %></td>
     <td><%= link_to 'Show', user %></td>
@@ -36,6 +38,4 @@
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New User', new_user_path %>
+</div>
