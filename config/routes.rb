@@ -1,3 +1,5 @@
+# Author:: Alex Miller, David Mailhot, Harnoor Singh, Tyler Rigsby,
+#          Brett Webber, Melissa Winstanley
 BeatTide::Application.routes.draw do
 
   get "users/search"

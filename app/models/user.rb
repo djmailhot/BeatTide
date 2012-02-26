@@ -1,6 +1,7 @@
 # Provides basic information about a user, including its relationships,
 # subscriptions, and feed.
-# Authors::Tyler Rigsby, Brett Webber, David Mailhot
+#
+# Authors:: Tyler Rigsby, Brett Webber, David Mailhot
 class User < ActiveRecord::Base
   attr_accessible :username, :first_name, :last_name, :facebook_id,
                   :age, :like_count, :active
