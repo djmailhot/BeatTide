@@ -1,13 +1,23 @@
+
 <%
 #   View for a single post. Displays the song view and meta data about the post.
 %>
 
 <div class="post">
   <div class="posted_by">
-    <strong><%= link_to post.user.username, current_user %></strong> posted:
+    <strong><%= link_to post.user.username, post.user %></strong> posted:
   </div>
   <%= render :partial => "songs/song", :locals => {:song => post.song} %>
   <div class="info">
-    <strong><%= link_to_function "Like", "likePost(#{post.id}, this)" %></strong> | <span class="like_count"><%= post.like_count %> people like this</span>
+    <% if post.liked_by?(current_user) %>
+    <strong>You like this
+    <% else %>
+    <strong><%= link_to_function "Like", "likePost(#{post.id}, this)" %>
+    <% end %>
+    <% if post.like_count == 1 %>
+    </strong> | <span class="like_count"><%= post.like_count %> person likes this</span>
+    <% else %>
+    </strong> | <span class="like_count"><%= post.like_count %> people like this</span>
+    <% end %>
   </div>
 </div>

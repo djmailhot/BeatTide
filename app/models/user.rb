@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :first_name, :last_name, :username
   # end
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ? OR username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
 
   # Sets other values in table to 0.
   def init
@@ -70,7 +78,7 @@ class User < ActiveRecord::Base
     self.subscriptions.find_by_subscribed_id(other.id).destroy
   end
 
-  # (stub) Returns an array representing a user's feed. 
+  # Returns an array representing a user's feed. 
   def feed
     Post.get_subscribed_posts(self)
   end

@@ -21,9 +21,7 @@ class Post < ActiveRecord::Base
   end
 
   def liked_by?(liking_user)
-#    Post.get_like(user, self).length != 0
     new_like = Like.new(:user_id => liking_user.id, :post_id => self.id)
-#    new_like = Like.create_new(user.id, self.id)
     !new_like.valid?
   end
 
@@ -42,13 +40,5 @@ class Post < ActiveRecord::Base
       post.user = user
       post.like_count = 0
     end
-  end
-
-  private
-  def self.get_like(user, post)
-#    user_ids = %(SELECT user_id FROM likes
-#                        WHERE post_id = :post_id)
-#    where("user_id IN (#{user_ids}) AND user_id = :user_id",
-#          :user_id => user, :post_id => post)
   end
 end
