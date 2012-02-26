@@ -8,6 +8,10 @@
   </div>
   <%= render :partial => "songs/song", :locals => {:song => post.song} %>
   <div class="info">
-    <strong><%= link_to_function "Like", "likePost(#{post.id}, this)" %></strong> | <span class="like_count"><%= post.like_count %> people like this</span>
+    <strong><%= link_to_function "Like", "likePost(#{post.id}, this)" %>
+    <% if post.like_count == 1 %>
+    </strong> | <span class="like_count"><%= post.like_count %> person likes this</span>										   <% else %>
+</strong> | <span class="like_count"><%= post.like_count %> people like this</span>
+<% end %>
   </div>
 </div>

@@ -18,6 +18,11 @@ function postSong(songID) {
 function likePost(postID, link) {
     var likes = $(link).closest(".info").children(".like_count");
     $.post("/posts/like", {id: postID}, function(data, textStatus, jqXHR) {
-        $(likes).text(data + " people like this");
+	if(data == 1){
+	    $(likes).text(data + " person likes this");
+	}
+	else {
+            $(likes).text(data + " people like this");
+	}
     });
 }
