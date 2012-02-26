@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :first_name, :last_name, :username
   # end
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ? OR username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
 
   # Sets other values in table to 0.
   def init
