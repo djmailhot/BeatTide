@@ -135,7 +135,7 @@ describe Post do
     end
 
     it "should allow users to like a post using like method" do
-      Post.should respond_to(:like)
+      Post.should respond_to(:like_post)
     end
 
     it "should increment likes by 1 with one like" do

@@ -15,6 +15,7 @@
   <div class="column right">
 		<div class="module">
 	    <h2>Friend Feed</h2>
+            <%= render :partial => "posts/post_list", :locals => {:posts => current_user.feed} %>
     </div>
   </div>
 <% else %>

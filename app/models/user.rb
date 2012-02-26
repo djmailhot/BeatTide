@@ -3,7 +3,7 @@
 # Authors::Tyler Rigsby, Brett Webber, David Mailhot
 class User < ActiveRecord::Base
   attr_accessible :username, :first_name, :last_name, :facebook_id,
-                  :age, :likes, :active
+                  :age, :like_count, :active
 
   has_many :posts, :dependent => :destroy, :order => "created_at DESC"
 
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   # Sets other values in table to 0.
   def init
-    self.likes ||= 0
+    self.like_count ||= 0
   end
 
   # Creates a new user based on the authentication information given. Users
@@ -72,8 +72,12 @@ class User < ActiveRecord::Base
 
   # (stub) Returns an array representing a user's feed. 
   def feed
-    # Post.feed_for self
-    []
+    Post.get_subscribed_posts(self)
+  end
+
+  def like!
+    self.like_count = self.like_count + 1
+    self.save
   end
 
 end
