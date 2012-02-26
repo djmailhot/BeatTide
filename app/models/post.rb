@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
   belongs_to :song
   belongs_to :user
 
+  default_scope :order => 'posts.created_at DESC'
+
   def like!(liking_user)
     if !liked_by?(liking_user)
       self.like_count = self.like_count + 1
