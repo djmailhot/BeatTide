@@ -17,21 +17,26 @@ class SubscriptionsController < ApplicationController
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user
   def create
-    @them = User.find(params[:subscription][:subscribed_id])
+    @them = User.find(params[:id])
     if current_user == @them
-      # TODO: handle self-subscribe case
+      flash.now[:error] = "Cannot subscribe to yourself";
     elsif current_user.subscribing?(@them)
-      #TODO: handle multi-subscribe case
+      flash.now[:error] = "You are already subscribed to this user";
     else
       current_user.subscribe!(@them)
-      redirect_to @them
+      respond_to do |fmt|
+        fmt.html {redirect_to @them}
+        fmt.js
+      end
     end
   end
 
   # destroys a subscription based on its subscription_id
   # redirects the user to the page of the user it was looking at
   def destroy
-    removed = Subscription.find(params[:id]).destroy
-    redirect_to removed.subscribed
+    current_user.subscriptions.find_by_subscribed_id(params[:id]).destroy
+    respond_to do |fmt|
+      fmt.js
+    end
   end
 end
