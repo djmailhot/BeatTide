@@ -6,17 +6,10 @@
   <% users.each do |user| %>
     <tr>
       <td>
-	      <%= link_to "#{user.id}" do %>
-  	    <%= user.first_name %> <%= user.last_name %>
-  	    <% end %>
+	      <%= link_to user.username, user %>
       </td>
       <td>
-	      <%= link_to "#{user.id}" do %>
-  	    <%= user.username %>
-  	    <% end %>
-      </td>
-      <td>
-        <%= user.like_count %> Likes Total
+        <%= user.like_count %> Likes
       </td>
     </tr>
   <% end %>
