@@ -1,3 +1,4 @@
+# Author:: Alex Miller
 class PostsController < ApplicationController
 
   # Creates a new post belonging to the currently authenticated user.

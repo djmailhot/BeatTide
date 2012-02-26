@@ -2,6 +2,7 @@ require 'spec_helper'
 
 # Black-box tests for the PostsController (TDD-style)
 # Tests the following methods of the public API:  create, destory, like
+# Author:: David Mailhot
 describe PostsController do
   render_views
 
