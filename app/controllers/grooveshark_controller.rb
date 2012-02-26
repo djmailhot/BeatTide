@@ -33,7 +33,7 @@ def songs_from_query
                             song_json["AlbumID"], song_json["AlbumName"],
                             song_json["ArtistID"], song_json["ArtistName"])
       end
-      render 'songs/song_list', :layout => false
+      render :partial => 'songs/song_list', :locals => {:songs => @song_results}, :layout => false
     else
       render :text => "No query."
     end

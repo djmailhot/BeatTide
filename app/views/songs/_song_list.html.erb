@@ -4,7 +4,7 @@
 %>
 
 <div class="song_list">
-<% @song_results.each do |song| %>
+<% songs.each do |song| %>
   <%= render :partial => "songs/song_add", :locals => {:song => song} %>
 <% end %>
 </div>

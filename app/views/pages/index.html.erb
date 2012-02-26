@@ -19,6 +19,13 @@
       <br />
       <h2><%= link_to "See All Users", "/users" %></h2>
     </div>
+    <div class="module">
+	    <h2>Top Songs</h2>
+      <%= render :partial => "songs/song_list", :locals => {:songs => Song.top} %>
+      <br />
+      <h2>Top Users</h2>
+      <%= render :partial => "users/user_list", :locals => {:users => User.top} %>
+    </div>
   </div>
 <% else %>
   <div class="module" id="welcome">

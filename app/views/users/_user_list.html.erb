@@ -1,0 +1,23 @@
+<%
+#   A view for displaying a list of users. 
+%>
+
+<table class="user_list">
+  <% users.each do |user| %>
+    <tr>
+      <td>
+	      <%= link_to "#{user.id}" do %>
+  	    <%= user.first_name %> <%= user.last_name %>
+  	    <% end %>
+      </td>
+      <td>
+	      <%= link_to "#{user.id}" do %>
+  	    <%= user.username %>
+  	    <% end %>
+      </td>
+      <td>
+        <%= user.like_count %> Likes Total
+      </td>
+    </tr>
+  <% end %>
+</table>

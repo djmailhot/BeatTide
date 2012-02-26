@@ -87,5 +87,8 @@ class User < ActiveRecord::Base
     self.like_count = self.like_count + 1
     self.save
   end
-
+  
+  def self.top
+    Song.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
+  end
 end

@@ -44,4 +44,8 @@ class Song < ActiveRecord::Base
     end
     song
   end
+  
+  def self.top
+    Song.find_by_sql("SELECT s.* FROM songs s ORDER BY like_count DESC LIMIT 5")
+  end
 end
