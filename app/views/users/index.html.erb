@@ -3,6 +3,11 @@
 <h2>All Users</h1>
 
 <table class="user_list">
+  <th>Name</th>
+  <th>Likes</th>
+  <th>Username</th>
+  <th>Profile page</th>
+
 <% @users.each do |user| %>
   <tr>
     <td><%= user.first_name %> <%= user.last_name %></td>
