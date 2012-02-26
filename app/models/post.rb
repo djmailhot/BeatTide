@@ -2,7 +2,6 @@
 # user, song, and likes in a post.
 #
 # Author:: David Mailhot, Alex Miller, Melissa Winstanley
->>>>>>> 33fe668365c03e4ca575f001e5f4b91ce435b6b2
 class Post < ActiveRecord::Base
   attr_accessible :like_count, :created_at
 
