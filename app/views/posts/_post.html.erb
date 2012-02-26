@@ -9,15 +9,17 @@
   </div>
   <%= render :partial => "songs/song", :locals => {:song => post.song} %>
   <div class="info">
+    <span class="you_like">
     <% if post.liked_by?(current_user) %>
-    <strong>You like this
+    You like this
     <% else %>
-    <strong><%= link_to_function "Like", "likePost(#{post.id}, this)" %>
+    <%= link_to_function "Like", "likePost(#{post.id}, this)" %>
     <% end %>
+    </span>
     <% if post.like_count == 1 %>
-    </strong> | <span class="like_count"><%= post.like_count %> person likes this</span>
+    <span>|</span> <span class="like_count"><%= post.like_count %> person likes this</span>
     <% else %>
-    </strong> | <span class="like_count"><%= post.like_count %> people like this</span>
+    <span>|</span> <span class="like_count"><%= post.like_count %> people like this</span>
     <% end %>
   </div>
 </div>
