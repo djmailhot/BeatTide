@@ -1,5 +1,7 @@
 <%
 #   View for a single post. Displays the song view and meta data about the post.
+#
+#   Author:: Alex Miller
 %>
 
 <div class="post">
@@ -15,15 +17,15 @@
   <div class="info">
     <span class="you_like">
     <% if post.liked_by?(current_user) %>
-    You like this
+      You like this
     <% else %>
-    <%= link_to_function "Like", "likePost(#{post.id}, this)" %>
+      <%= link_to_function "Like", "likePost(#{post.id}, this)" %>
     <% end %>
     </span>
     <% if post.like_count == 1 %>
-    <span>|</span> <span class="like_count"><%= post.like_count %> person likes this</span>
+      <span>|</span> <span class="like_count"><%= post.like_count %> person likes this</span>
     <% else %>
-    <span>|</span> <span class="like_count"><%= post.like_count %> people like this</span>
+      <span>|</span> <span class="like_count"><%= post.like_count %> people like this</span>
     <% end %>
     <br>
     <span class="date_posted">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
