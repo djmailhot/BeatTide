@@ -1,4 +1,3 @@
-
 <%
 #   View for a single post. Displays the song view and meta data about the post.
 %>
@@ -26,5 +25,7 @@
     <% else %>
     <span>|</span> <span class="like_count"><%= post.like_count %> people like this</span>
     <% end %>
+    <br>
+    <span class="date_posted">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
   </div>
 </div>
