@@ -2,22 +2,10 @@
 <div class="module">
 <h2>All Users</h1>
 
-<table>
-  <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Likes</th>
-    <th>username</th>
-
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<table class="user_list">
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
+    <td><%= user.first_name %> <%= user.last_name %></td>
     <td><%= user.like_count %></td>
     <td><%= user.username %></td>
     <td><%= link_to 'Show', user %></td>

@@ -9,8 +9,7 @@
   <h2><%= @user.username %>'s songs</h2>
   
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
-  <% #unless !current_user || current_user.id == @user.id %>
-  <% if true %>
+  <% unless !current_user || current_user.id == @user.id %>
     <div id="subscription_form">
       <% if current_user.subscribing?(@user) %>
         You are subscribed to <%= @user.username %>.

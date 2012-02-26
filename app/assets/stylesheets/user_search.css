@@ -3,11 +3,11 @@
  *
  */
 
-#user_list {
+.user_list {
     margin-top: 20px;
 }
 
-#user_list td {
+.user_list td {
     padding: 5px 20px 5px 20px;
     margin: 2px;
     background-color: #f8f8f8;

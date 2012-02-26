@@ -18,7 +18,9 @@ class SubscriptionsController < ApplicationController
   # redirects the user back to the page of the subscribed user
   def create
     @them = User.find(params[:id])
-    if current_user == @them
+    if @them.nil?
+      flash.now[:error] = "The specified user doesn't exist";
+    elsif current_user == @them
       flash.now[:error] = "Cannot subscribe to yourself";
     elsif current_user.subscribing?(@them)
       flash.now[:error] = "You are already subscribed to this user";
@@ -34,7 +36,12 @@ class SubscriptionsController < ApplicationController
   # destroys a subscription based on its subscription_id
   # redirects the user to the page of the user it was looking at
   def destroy
-    current_user.subscriptions.find_by_subscribed_id(params[:id]).destroy
+    subscription = current_user.subscriptions.find_by_subscribed_id(params[:id])
+    if subscription.nil?
+      flash.now[:error] = "Subscription doesn't exist";
+    else
+      subscription.destroy
+    end
     respond_to do |fmt|
       fmt.js
     end
