@@ -1,4 +1,5 @@
 # Factories for generating valid model objects
+# Authors:: David Mailhot, Melissa Winstanley
 #
 # Included factories:
 #   user
