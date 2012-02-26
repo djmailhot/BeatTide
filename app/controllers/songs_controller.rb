@@ -1,6 +1,6 @@
 # Manages all actions corresponding to modifying to the Song, Artist, and Album models.
 #
-# Author: Brett Webber
+# Author:: Brett Webber
 class SongsController < ApplicationController
   before_filter :authenticate
 

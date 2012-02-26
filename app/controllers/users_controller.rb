@@ -2,7 +2,7 @@
 # and models regarding the users. Supports listing all users,
 # creating users, and showing and editing specific users.
 #
-# Authors::David Mailhot, Tyler Rigsby, Brett Webber
+# Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
   before_filter :authenticate
 

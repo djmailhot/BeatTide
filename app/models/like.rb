@@ -1,3 +1,6 @@
+# Represents a user's "like" of another user's post.
+#
+# Author:: Melissa Winstanley
 class Like < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :post_id
 

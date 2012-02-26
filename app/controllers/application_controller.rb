@@ -1,3 +1,7 @@
+# Base class for all controllers. Contains functionality inherent to all controllers
+# in the app.
+#
+# Author::   Alex Miller
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper

@@ -1,7 +1,10 @@
 /*
  * Generic stylesheet for the entire website. High level styles like global
  * font styles and major UI elements should go here.
+ *
+ * Author: Alex Miller
 */
+
 body {
    font-family: helvetica, verdana, arial, sans-serif;
    background-color: #e3f4fc;

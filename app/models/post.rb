@@ -1,6 +1,7 @@
 # Represents the model for posts, including information about the
 # user, song, and likes in a post.
-# Author::David Mailhot, Alex Miller
+#
+# Author:: David Mailhot, Alex Miller
 class Post < ActiveRecord::Base
   attr_accessible :like_count, :created_at
 
@@ -12,6 +13,9 @@ class Post < ActiveRecord::Base
 
   default_scope :order => 'posts.created_at DESC'
 
+  # Accepts a liking user and updates the post's numbers of likes, the song's
+  # number of likes, and the user's number of likes. Adds a new like to the 
+  # database.
   def like!(liking_user)
     if !liked_by?(liking_user)
       self.like_count = self.like_count + 1
@@ -22,11 +26,13 @@ class Post < ActiveRecord::Base
     end
   end
 
+  # Returns true if the passed user likes the post.
   def liked_by?(liking_user)
     new_like = Like.new(:user_id => liking_user.id, :post_id => self.id)
     !new_like.valid?
   end
 
+  # Returns an array of posts from users that the passed user subscribes to.
   def self.get_subscribed_posts(user)
     subscribing_ids = %(SELECT subscribed_id FROM subscriptions
                         WHERE subscriber_id = :user_id)
