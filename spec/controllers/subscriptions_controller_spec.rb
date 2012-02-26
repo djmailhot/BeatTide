@@ -6,12 +6,13 @@ describe SubscriptionsController do
   describe "authorization" do
     it "shouldn't create subscription if not signed in" do
       post :create
-      response.should redirect_to(signin_path)
+      response.should redirect_to('/')
+
     end
     
     it "shouldn't delete if not signed in" do
       delete :destroy, :id => 1
-      response.should redirect_to(signin_path)
+      response.should redirect_to('/')
     end
   end
 
