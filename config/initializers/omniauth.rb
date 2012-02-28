@@ -5,9 +5,11 @@
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.env.production?
-    provider :facebook, '228087167287078', 'd65b5e113f1d7bb45877467fbfaa8357'
+    provider :facebook, '228087167287078', 'd65b5e113f1d7bb45877467fbfaa8357',
+    {:client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   elsif Rails.env.development?
-    provider :facebook, '323366737699173', '708bec06393c1ad2c5c48d81c1a2ae09'
+    provider :facebook, '323366737699173', '708bec06393c1ad2c5c48d81c1a2ae09',
+    {:client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   else
     provider :facebook, '323366737699173', '708bec06393c1ad2c5c48d81c1a2ae09'
   end
