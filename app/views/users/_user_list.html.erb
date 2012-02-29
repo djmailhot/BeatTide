@@ -8,10 +8,15 @@
   <% users.each do |user| %>
     <tr>
       <td>
-	      <%= link_to user.username, user %>
+	<%= link_to user.username, user %>
       </td>
       <td>
-        <%= user.like_count %> Likes
+	<%= user.like_count %>        
+	<% if user.like_count == 1 %>
+           Like
+	<% else %>
+      	   Likes
+	<% end %>
       </td>
     </tr>
   <% end %>
