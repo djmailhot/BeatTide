@@ -19,7 +19,7 @@ class Song < ActiveRecord::Base
 
   # Starts off the Song's likes at 0 if uninitialized after creation
   def init
-    self.like_count ||= 0
+    self.like_count = 0
   end
 
   # Adds one to the likes of this Song

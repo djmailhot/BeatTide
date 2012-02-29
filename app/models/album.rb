@@ -3,15 +3,19 @@
 # Author:: Brett Webber, Alex Miller
 class Album < ActiveRecord::Base
   attr_accessible :title, :api_id
-  
-  validates :title, :presence => true
-  validates :api_id, :presence => true, :uniqueness => true
-  
+
+  validates :title, :presence => true,
+                    :length => { :minimum => 1, :maximum => 200 }
+  validates :api_id, :presence => true,
+                     :uniqueness => true,
+                     :numericality => { :only_integer => true,
+                                        :greater_than_or_equal_to => 0 }
+
   has_many :songs
 
   # Searches for a album with the passed album API id. If no album is found, creates
   # a new album. Returns the album. The album that is returned is always guaranteed
-  # to be in the database.  
+  # to be in the database.
   def self.find_or_create(api_id, title)
     album = Album.find_by_api_id(api_id)
     if album.nil?
