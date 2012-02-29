@@ -27,8 +27,8 @@ module SessionsHelper
       session[:user_id] = nil
     else
       flash.now[:error] = "Session is already signed out."
-    end
-  end
+    end 
+  end  
 
   # Returns whether or not there is a user signed into the current session
   def signed_in?

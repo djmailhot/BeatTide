@@ -47,6 +47,7 @@ class UsersController < ApplicationController
   def find_user
     if !params[:query].empty?
       @results = User.search(params[:query]);
+      @results = sort(@results, params[:query])
       render :partial => "users/user_list", :locals => {:users => @results}, :layout => false
     else
       render :text => "Please enter a query."
