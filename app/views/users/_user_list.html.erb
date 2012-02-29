@@ -5,10 +5,15 @@
 %>
 
 <table class="user_list">
+  <tr><th>Name</th><th>Username</th><th>Likes</th></tr>
   <% users.each do |user| %>
     <tr>
       <td>
-	<%= link_to user.username, user %>
+	<%= link_to(user.username) do %>
+	<%= user.first_name %> <%= user.last_name %>
+	<% end %>
+      </td>
+      <td><%= user.username %>
       </td>
       <td>
 	<%= user.like_count %>        
