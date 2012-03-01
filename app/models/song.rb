@@ -26,6 +26,7 @@ class Song < ActiveRecord::Base
   def like!
     self.like_count = self.like_count + 1
     self.save
+    logger.debug "Song :: #{self.title} liked."
   end
 
   # Searches for a song with the passed song API id. If no song is found, creates
@@ -41,6 +42,7 @@ class Song < ActiveRecord::Base
         song.album = Album.find_or_create(album_api_id, album_title)
         song.artist = Artist.find_or_create(artist_api_id, artist_title)
       end
+      logger.info "Song :: New song in database #{song.attributes.inspect}"
     end
     song
   end
