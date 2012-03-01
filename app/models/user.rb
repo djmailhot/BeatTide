@@ -38,11 +38,7 @@ class User < ActiveRecord::Base
   # end
   
   def self.search(search)
-    if search
-      @users = find(:all, :conditions => ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
-    else
-      find(:all)
-    end
+    @users = find(:all, :conditions => ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
   end
 
 

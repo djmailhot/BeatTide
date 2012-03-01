@@ -1,6 +1,8 @@
 # Author:: Harnoor Singh
 module UsersHelper
 
+  # Takes an array of users and the search query
+  # Returns the users in sorted order
   def sort(users, query)
     if(users.empty?)
       Array.new
@@ -15,8 +17,12 @@ module UsersHelper
         # If there are already 10 results 
         results[users[i]] = editDistance(users[i], query)
       end
+
+      # Sort the hash.  This returns a 2D array
       twoDResults = results.sort {|a,b| a[1] <=> b[1]}
       logger.info(results)
+
+      # Return an array of users in the sorted order
       sortedResults = Array.new
       twoDResults.each do |user, count| 
         sortedResults << user
@@ -44,6 +50,13 @@ private
     [a,b,c].min
   end
 
+  # Calculate the edit distance between two strings (query and name)
+  # indexQuery represents what index we're at for query
+  # indexName represents what index we're at for name
+  # match is a boolean initially set to false.  It is set to true if we have
+  #   found at least one matching letter.  This prevents us from favoring
+  #   short names with no letters in commin over long names with letters
+  #   in common.  (Eg: Yi and Miller in a search for e)
   def calculateEditDistance(query, name, indexQuery, indexName, match)
     # If we are at the end of both words
     if indexQuery == query.length && indexName == name.length
@@ -73,7 +86,7 @@ private
   end
 
 
-  # Match indicates if any character matched the query.  
+  # Match is a boolean which indicates if any character matched the query.  
   # If no characters matched we want to indicate this is a bad edit difference
   #   so we add 100 to weigh it down.  
   #   This prevents short names from being rated as good matches

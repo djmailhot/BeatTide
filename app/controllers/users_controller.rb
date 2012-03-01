@@ -48,29 +48,15 @@ class UsersController < ApplicationController
     if !params[:query].empty?
       @results = User.search(params[:query]);
       @results = sort(@results, params[:query])
-      render :partial => "users/user_list", :locals => {:users => @results}, :layout => false
+      # If there are no results
+      if @results.empty?
+        render :text => "No results found :("
+      else
+        render :partial => "users/user_list", :locals => {:users => @results}, :layout => false
+      end
     else
       render :text => "Please enter a query."
     end
   end
     
-
-    # If we were passed a query
-#    if !params[:query].empty?
-      # This calls the solr search method
-#      @search = User.search do
-#        fulltext params[:query]
-#      end
-#      @results = @search.results
-      # If we found no results print an error
-#      if @results.empty?
-#        render :text => "No Results Found =("
-#      else
-#        render 'users/user_list', :layout => false
-#      end
-    # If no query is passed
-#    else
-#      render :text => "No query."
-#    end
-
 end
