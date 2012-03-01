@@ -3,24 +3,17 @@ module UsersHelper
 
   # Takes an array of users and the search query
   # Returns the users in sorted order
-  def sort(users, query)
+  def sortUsersByRelevancy(users, query)
     if(users.empty?)
       Array.new
     else
-      # results = Array.new
       results = Hash.new
-      max = users.length() - 1
-
-      # Iterate over each user found and compute the edit distance to the query
-      (0..max).each do |i|
-        minDistance = editDistance(users[i], query)
-        # If there are already 10 results 
-        results[users[i]] = editDistance(users[i], query)
+      users.each do |user|
+        results[user] = editDistance(user, query)
       end
 
       # Sort the hash.  This returns a 2D array
       twoDResults = results.sort {|a,b| a[1] <=> b[1]}
-      logger.info(results)
 
       # Return an array of users in the sorted order
       sortedResults = Array.new
@@ -40,7 +33,6 @@ private
     a = calculateEditDistance(query, user.first_name, 0, 0, false)
     b = calculateEditDistance(query, user.last_name, 0, 0, false)
     c = calculateEditDistance(query, user.username, 0, 0, false)
-    logger.info("User: " + user.username + " Min: " + min(a, b, c).to_s + ", " + a.to_s)
     return min(a, b, c)
   end
 

@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def find_user
     if !params[:query].empty?
       @results = User.search(params[:query]);
-      @results = sort(@results, params[:query])
+      @results = sortUsersByRelevancy(@results, params[:query])
       # If there are no results
       if @results.empty?
         render :text => "No results found :("
