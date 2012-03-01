@@ -11,10 +11,15 @@ class Post < ActiveRecord::Base
   belongs_to :song
   belongs_to :user
 
+  validates :song_id, :presence => true,
+                      :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
+  validates :user_id, :presence => true,
+                      :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
+
   default_scope :order => 'posts.created_at DESC'
 
   # Accepts a liking user and updates the post's numbers of likes, the song's
-  # number of likes, and the user's number of likes. Adds a new like to the 
+  # number of likes, and the user's number of likes. Adds a new like to the
   # database.
   def like!(liking_user)
     if !liked_by?(liking_user)

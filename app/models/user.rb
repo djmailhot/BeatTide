@@ -24,10 +24,15 @@ class User < ActiveRecord::Base
 
 
   validates :facebook_id, :presence => true,
-                          :uniqueness => true
-  validates :username, :presence => true
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
+                          :uniqueness => true,
+                          :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :username, :presence => true,
+                       :uniqueness => { :case_sensitive => false },
+                       :length => { :minimum => 4, :maximum => 25 }
+  validates :first_name, :presence => true,
+                         :length => { :minimum => 1 }
+  validates :last_name, :presence => true,
+                        :length => { :minimum => 1 }
 
   after_initialize :init
 
@@ -35,7 +40,7 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :first_name, :last_name, :username
   # end
-  
+
   def self.search(search)
     if search
       find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ? OR username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
@@ -46,13 +51,13 @@ class User < ActiveRecord::Base
 
   # Sets other values in table to 0.
   def init
-    self.like_count ||= 0
+    self.like_count = 0
   end
 
   # Creates a new user based on the authentication information given. Users
   # are initialized with a Facebook ID, a first name, a last name, and a
   # username (the same as the Facebook nickname).
-  # 
+  #
   # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -64,22 +69,26 @@ class User < ActiveRecord::Base
   end
 
   # Subscribes a user to the user specified with subscribe_to
-  def subscribe! (subscribe_to)
-    self.subscriptions.create!(:subscribed_id => subscribe_to.id)
+  def subscribe!(subscribe_to)
+    if self != subscribe_to
+      self.subscriptions.create!(:subscribed_id => subscribe_to.id)
+    end
   end
 
   # Returns true if this user is subscribing to the 'other' user.
-  def subscribing? (other)
+  def subscribing?(other)
     self.subscriptions.find_by_subscribed_id(other.id)
   end
 
   # Unsubscribes this user from the 'other' user. No effect if the
   # user is not currently subscribed to the other one.
-  def unsubscribe! (other)
-    self.subscriptions.find_by_subscribed_id(other.id).destroy
+  def unsubscribe!(other)
+    if subscribing?(other)
+      self.subscriptions.find_by_subscribed_id(other.id).destroy
+    end
   end
 
-  # Returns an array representing a user's feed. 
+  # Returns an array representing a user's feed.
   def feed
     Post.get_subscribed_posts(self)
   end
@@ -88,7 +97,7 @@ class User < ActiveRecord::Base
     self.like_count = self.like_count + 1
     self.save
   end
-  
+
   def self.top
     User.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
   end
