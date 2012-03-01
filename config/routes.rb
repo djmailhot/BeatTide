@@ -3,7 +3,6 @@
 BeatTide::Application.routes.draw do
 
   get "users/search"
-  get "users/new"
   post "users/find_user"
 
   resources :users
