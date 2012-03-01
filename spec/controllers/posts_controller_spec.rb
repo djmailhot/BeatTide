@@ -12,19 +12,19 @@ describe PostsController do
     # Access - A non-auth'd user should not create
     it "should deny access to 'create'" do
       post :create
-      response.should redirect_to(signin_path)
+      response.should redirect_to(root_path)
     end
 
     # Access - A non-auth'd user should not destroy
     it "should deny access to 'destroy'" do
       delete :destroy, :id => 1
-      response.should redirect_to(signin_path)
+      response.should redirect_to(root_path)
     end
 
     # Access - A non-auth'd user should not like
     it "should deny access to 'like'" do
       post :like, :id => 1
-      response.should redirect_to(signin_path)
+      response.should redirect_to(root_path)
     end
   end
 
@@ -53,7 +53,7 @@ describe PostsController do
 
         it "should redirect to the user show page" do
           post :create, :post => params
-          response.should redirect_to(users_url)
+          response.should redirect_to("/error")
         end
       end
 

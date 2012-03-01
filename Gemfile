@@ -26,13 +26,16 @@ gem 'omniauth-facebook'
 # For RSpec testing framework
 group :development do
   gem 'rspec-rails', '2.6.1'
+  gem 'simplecov'
 end
 
 # For RSpec testing in the test environment
 group :test do
   gem 'rspec-rails', '2.6.1'
+  gem 'simplecov'
   gem 'webrat', '0.7.1'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 # Gems used only for assets and not required

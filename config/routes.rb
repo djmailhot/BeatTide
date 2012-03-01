@@ -5,7 +5,7 @@ BeatTide::Application.routes.draw do
   get "users/search"
   post "users/find_user"
 
-  resources :users
+  resources :users, :only => [:index, :show, :edit]
   resources :subscriptions, :only => [:create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)
@@ -25,6 +25,8 @@ BeatTide::Application.routes.draw do
   get "/posts/show_raw"
   match "/posts", :to => "posts#create", :via => "post"
   match "/posts/:id" => "posts#show"
+
+  match "/error", :to => "pages#error"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

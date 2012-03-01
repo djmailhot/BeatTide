@@ -22,7 +22,7 @@ class Post < ActiveRecord::Base
   # number of likes, and the user's number of likes. Adds a new like to the
   # database.
   def like!(liking_user)
-    if !liked_by?(liking_user)
+    if check_user(liking_user) && !liked_by?(liking_user)
       self.like_count = self.like_count + 1
       song.like!
       self.user.like!
@@ -33,16 +33,19 @@ class Post < ActiveRecord::Base
 
   # Returns true if the passed user likes the post.
   def liked_by?(liking_user)
-    new_like = Like.new(:user_id => liking_user.id, :post_id => self.id)
-    !new_like.valid?
+    if check_user(liking_user)
+      new_like = Like.new(:user_id => liking_user.id, :post_id => self.id)
+      !new_like.valid?
+    end
   end
 
   # Returns an array of posts from users that the passed user subscribes to.
   def self.get_subscribed_posts(user)
-    subscribing_ids = %(SELECT subscribed_id FROM subscriptions
-                        WHERE subscriber_id = :user_id)
-    where("user_id IN (#{subscribing_ids})",
-          :user_id => user)
+    if !user.nil? && !user.id.nil?
+      subscribing_ids = %(SELECT subscribed_id FROM subscriptions
+                          WHERE subscriber_id = :user_id)
+      where("user_id IN (#{subscribing_ids})", :user_id => user)
+    end
   end
 
   # Creates a new post with the passed song a user, and saves the post in the
@@ -54,4 +57,9 @@ class Post < ActiveRecord::Base
       post.like_count = 0
     end
   end
+
+  private
+    def check_user(user)
+      !user.nil? && !user.id.nil?
+    end
 end

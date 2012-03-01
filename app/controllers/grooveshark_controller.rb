@@ -3,16 +3,16 @@
 #
 # Author::   Alex Miller, Harnoor Singh
 class GroovesharkController < ApplicationController
-  
+
   # Key for TinySong api. This can be hardcoded because it stays good forever.
   TINY_SONG_API_KEY = "d44e54b31d4333b5940119c69fddc429"
-  
+
   # Number of search results to return when user searches for a song.
   NUM_SEARCH_RESULTS = 10
-  
+
   # URL to TinySong API
   TINY_SONG_API = "http://tinysong.com/"
-  
+
   # Renders a song searching interface to the user.
   def search
     # Rails automatically renders the corresponding "search" view.
@@ -37,5 +37,5 @@ def songs_from_query
     else
       render :text => "No query."
     end
-  end 
+  end
 end
