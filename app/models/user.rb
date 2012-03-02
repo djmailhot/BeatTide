@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :first_name, :last_name, :username
   # end
-
   def self.search(search)
     if search
       find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ? OR username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
@@ -93,8 +92,15 @@ class User < ActiveRecord::Base
     Post.get_subscribed_posts(self)
   end
 
+  # Increases this user's number of likes by 1
   def like!
     self.like_count = self.like_count + 1
+    self.save
+  end
+
+  # Decreases this user's number of likes by 1
+  def unlike!
+    self.like_count = self.like_count - 1
     self.save
   end
 

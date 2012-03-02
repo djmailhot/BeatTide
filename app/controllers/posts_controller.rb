@@ -35,12 +35,20 @@ class PostsController < ApplicationController
   def destroy
   end
 
-  # Increments the like counter of the specified post and the
-  # song associated with the post for the current user.
-  # Should fail if there is no user signed in.
+  # Toggles likes. If the specified post is liked by the current user,
+  # then it unlikes the post, song, and posting user. If the specified
+  # post is not liked by the current user, then it likes the post,
+  # song, and posting user. Does nothing if no user is signed in.
   def like
-    p = Post.find(params[:id])
-    p.like!(current_user)
-    render :text => p.like_count
+    if (signed_in?)
+      p = Post.find(params[:id])
+      if !p.liked_by?(current_user)
+        p.like!(current_user)
+      else
+        p.unlike!(current_user)
+      end
+      render :text => p.like_count
+    end
   end
+
 end

@@ -28,6 +28,12 @@ class Song < ActiveRecord::Base
     self.save
   end
 
+  # Subtracts one from the likes of this Song
+  def unlike!
+    self.like_count = self.like_count - 1
+    self.save
+  end
+
   # Searches for a song with the passed song API id. If no song is found, creates
   # a new song. Returns the song. The song that is returned is always guaranteed
   # to be in the database.
