@@ -3,8 +3,7 @@
 #
 # Authors:: Tyler Rigsby, Brett Webber, David Mailhot
 class User < ActiveRecord::Base
-  attr_accessible :username, :first_name, :last_name, :facebook_id,
-                  :age, :like_count, :active
+  attr_accessible :username, :first_name, :last_name, :age, :active
 
   has_many :posts, :dependent => :destroy, :order => "created_at DESC"
 
@@ -27,14 +26,11 @@ class User < ActiveRecord::Base
                           :uniqueness => true,
                           :numericality => { :only_integer => true, :greater_than => 0 }
   validates :username, :presence => true,
-                       :uniqueness => { :case_sensitive => false },
-                       :length => { :minimum => 4, :maximum => 25 }
+                       :length => { :minimum => 3, :maximum => 25 }
   validates :first_name, :presence => true,
                          :length => { :minimum => 1 }
   validates :last_name, :presence => true,
                         :length => { :minimum => 1 }
-
-  after_initialize :init
 
   # This makes people searchable and tells solr what fields to index
   # searchable do
@@ -48,15 +44,13 @@ class User < ActiveRecord::Base
       find(:all)
     end
   end
-
-  # Sets other values in table to 0.
-  def init
-    self.like_count = 0
+  
+  def username?
+    !self.username.blank?
   end
 
   # Creates a new user based on the authentication information given. Users
-  # are initialized with a Facebook ID, a first name, a last name, and a
-  # username (the same as the Facebook nickname).
+  # are initialized with a Facebook ID, a first name, a last name.
   #
   # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
@@ -64,7 +58,7 @@ class User < ActiveRecord::Base
       user.facebook_id = auth["uid"]
       user.first_name = auth["info"]["first_name"]
       user.last_name = auth["info"]["last_name"]
-      user.username = auth["info"]["nickname"]
+      user.username = user.first_name + " " + user.last_name
     end
   end
 

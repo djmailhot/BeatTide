@@ -1,5 +1,4 @@
-
-<%= form_for(@user) do |f| %>
+<%= form_for @user, :url => "/edit_profile" do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -13,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :first_name %><br />
+    <%= f.label :first_name %> *<br />
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <%= f.label :last_name %> *<br />
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
@@ -25,12 +24,12 @@
     <%= f.text_field :age %>
   </div>
   <div class="field">
-    <%= f.label :username %><br />
+    <%= f.label :username %> *<br />
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :facebook_id %><br />
-    <%= f.text_field :facebook_id %>
+    <%= f.label :active %><br />
+    <%= f.text_field :active %>
   </div>
   <div class="actions">
     <%= f.submit %>

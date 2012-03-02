@@ -40,13 +40,23 @@ class UsersController < ApplicationController
   # Initializes the editing of a user by setting @user to the
   # specified user.
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
+  end
+  
+  def update
+    if current_user.update_attributes(params[:user])
+      flash[:notice] = "Your profile was updated!"
+      redirect_to :action => "edit"
+    else
+      flash[:notice] = "Please make sure you fill out the required fields, marked with asterisks."
+      redirect_to :action => "edit"
+    end
   end
 
   # Search for a user based on the :query parameter
   def find_user
     if !params[:query].empty?
-      @results = User.search(params[:query]);
+      @results = User.search(params[:query])
       render :partial => "users/user_list", :locals => {:users => @results}, :layout => false
     else
       render :text => "Please enter a query."

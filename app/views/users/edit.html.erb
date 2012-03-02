@@ -1,6 +1,7 @@
-<h1>Editing user</h1>
+<div class="module">
+  <h2>Editing user</h2>
 
-<%= render 'form' %>
+  <p id="notice"><%= flash[:notice] %></p>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+  <%= render 'form' %>
+</div>

@@ -1,11 +1,12 @@
 # Author:: Alex Miller, David Mailhot, Harnoor Singh, Tyler Rigsby,
 #          Brett Webber, Melissa Winstanley
 BeatTide::Application.routes.draw do
-
   get "users/search"
   post "users/find_user"
-
-  resources :users
+  
+  get "/edit_profile" => "users#edit"
+  put "/edit_profile" => "users#update"
+  resources :users, :only => [:show, :index]
   resources :subscriptions, :only => [:create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)

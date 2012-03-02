@@ -34,6 +34,6 @@ class SessionsController < ApplicationController
   # is available.
   def validate_auth(auth)
     !(auth.blank? || auth["uid"].blank? || auth["info"]["first_name"].blank? ||
-                     auth["info"]["last_name"].blank? || auth["info"]["nickname"].blank?)
+                     auth["info"]["last_name"].blank?)
   end
 end
