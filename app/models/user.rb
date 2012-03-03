@@ -37,8 +37,17 @@ class User < ActiveRecord::Base
   #   text :first_name, :last_name, :username
   # end
   
-  def self.search(search)
-    @users = find(:all, :conditions => ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
+  def self.search(query)
+    words = query.split(" ")
+    users = Array.new
+    words.each do |search|
+      users = users | find(:all, :conditions => ['upper(first_name) LIKE upper(?) OR 
+                                         upper(last_name) LIKE upper(?) OR 
+                                         upper(username) LIKE upper(?)', 
+                                        "%#{search}%", "%#{search}%", "%#{search}%"
+                                       ])
+    end
+    return users
   end
 
 
