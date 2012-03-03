@@ -23,6 +23,8 @@ class Album < ActiveRecord::Base
         album.api_id = api_id
         album.title = title
       end
+      logger.info "Album :: New album saved to database
+                   #{album.attributes.inspect}"
     end
     album
   end

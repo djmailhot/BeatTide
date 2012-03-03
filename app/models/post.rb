@@ -29,6 +29,9 @@ class Post < ActiveRecord::Base
       self.user.like!
       self.likes.create!(:user_id => liking_user.id, :post_id => self.id)
       self.save
+      logger.info "Post :: User #{liking_user.username} liked post #{self.id}."
+      logger.debug "Post :: User #{liking_user.username} liked post
+                    #{self.attributes.inspect}"
     end
   end
 
@@ -68,6 +71,7 @@ class Post < ActiveRecord::Base
       post.song = song
       post.user = user
       post.like_count = 0
+      logger.info "Post :: New post saved to database #{post.attributes.inspect}"
     end
   end
 end

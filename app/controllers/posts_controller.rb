@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   # Creates a new post belonging to the currently authenticated user.
   # Should fail if there is no user signed in.
   def create
+    logger.info "Post :: Post creation request by user #{current_user.username}."
     song = Song.find_by_api_id(params[:api_id])
     if song.nil?
       render :json => "Error"
@@ -33,6 +34,8 @@ class PostsController < ApplicationController
   # Should fail if there is no user signed in, or if the specified
   # post does not belong to the current user.
   def destroy
+    logger.info "Post :: Post destruction request by user
+                 #{current_user.username}."
   end
 
   # Toggles likes. If the specified post is liked by the current user,
@@ -40,6 +43,7 @@ class PostsController < ApplicationController
   # post is not liked by the current user, then it likes the post,
   # song, and posting user. Does nothing if no user is signed in.
   def like
+    logger.info "Post :: Post like toggle request by user #{current_user.username}."
     if (signed_in?)
       p = Post.find(params[:id])
       if !p.liked_by?(current_user)
@@ -50,5 +54,4 @@ class PostsController < ApplicationController
       render :text => p.like_count
     end
   end
-
 end

@@ -16,8 +16,10 @@ module SessionsHelper
   def sign_in(user)
     if signed_in?
       flash.now[:error] = "Session is already signed in."
+      logger.error "Session :: User requested sign in when already signed in."
     else
       session[:user_id] = user.id
+      logger.info "Session :: User sign in: #{user.attributes.inspect}"
     end
   end
 
@@ -25,8 +27,10 @@ module SessionsHelper
   def sign_out
     if signed_in?
       session[:user_id] = nil
+      logger.info "Session :: User was signed out of the session."
     else
       flash.now[:error] = "Session is already signed out."
+      logger.error "Session :: User requested sign out when already signed out."
     end
   end
 
@@ -49,6 +53,7 @@ module SessionsHelper
   def deny_access
     flash.now[:error] = "You are not signed in to BeatTide."
     redirect_to root_path, :notice => "Please sign in to access this page."
+    logger.error "Session :: User denied access.  Redirected to sign in page."
   end
 
 end

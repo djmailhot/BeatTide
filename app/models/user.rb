@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
       user.first_name = auth["info"]["first_name"]
       user.last_name = auth["info"]["last_name"]
       user.username = auth["info"]["nickname"]
+      logger.info "User :: New user saved to database #{user.attributes.inspect}"
     end
   end
 
@@ -71,6 +72,8 @@ class User < ActiveRecord::Base
   def subscribe!(subscribe_to)
     if self != subscribe_to
       self.subscriptions.create!(:subscribed_id => subscribe_to.id)
+      logger.info "User :: user #{current_user.username} subscribed to user
+                   #{subscribe_to.username}"
     end
   end
 
@@ -84,6 +87,8 @@ class User < ActiveRecord::Base
   def unsubscribe!(other)
     if subscribing?(other)
       self.subscriptions.find_by_subscribed_id(other.id).destroy
+      logger.info "User :: user #{self.username} unsubscribed from user
+                   #{other.username}"
     end
   end
 
@@ -96,6 +101,7 @@ class User < ActiveRecord::Base
   def like!
     self.like_count = self.like_count + 1
     self.save
+    logger.debug "User :: #{self.username} liked."
   end
 
   # Decreases this user's number of likes by 1
