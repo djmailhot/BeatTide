@@ -3,25 +3,25 @@ require 'spec_helper'
 # Test the Song model. White-box test.
 # Author:: Brett Webber
 describe Song do
-  
+
   # Sets up the creation parameters for a Song
   before(:each) do
-    @attr = { 
+    @attr = {
       :title => "Example Title",
       :api_id => "123"
     }
   end
-  
+
   # Songs should be created with likes intialized to 0
   it "should create songs with likes set to 0" do
     song = Song.create(@attr)
-    song.likes.should eq(0)
+    song.like_count.should eq(0)
   end
 
   # Tries to create song with something other than 0 likes
   it "should create songs with likes set to 0" do
-    song = Song.create(@attr.merge(:likes => 123))
-    song.likes.should eq(0)
+    song = Song.create(@attr.merge(:like_count => 123))
+    song.like_count.should eq(0)
   end
 
   # api_ids should be unique, so there should not be multiple songs with the same api_id
@@ -65,17 +65,17 @@ describe Song do
   # Liking once should increase the likes attribute by one
   it "should increase likes by one when liked" do
     song = Song.create(@attr)
-    song.like
-    song.likes.should eq(1)
+    song.like!
+    song.like_count.should eq(1)
   end
 
   # Liking multiple times should increase the likes attribute by the amount of times that it was liked
   it "should increase likes when liked multiple times" do
     song = Song.create(@attr)
-    song.like
-    song.like
-    song.like
-    song.like
-    song.likes.should eq(4)
+    song.like!
+    song.like!
+    song.like!
+    song.like!
+    song.like_count.should eq(4)
   end
 end

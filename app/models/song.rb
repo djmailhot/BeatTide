@@ -19,12 +19,19 @@ class Song < ActiveRecord::Base
 
   # Starts off the Song's likes at 0 if uninitialized after creation
   def init
-    self.like_count ||= 0
+    self.like_count = 0
   end
 
   # Adds one to the likes of this Song
   def like!
     self.like_count = self.like_count + 1
+    self.save
+    logger.debug "Song :: #{self.title} liked."
+  end
+
+  # Subtracts one from the likes of this Song
+  def unlike!
+    self.like_count = self.like_count - 1
     self.save
   end
 
@@ -41,6 +48,7 @@ class Song < ActiveRecord::Base
         song.album = Album.find_or_create(album_api_id, album_title)
         song.artist = Artist.find_or_create(artist_api_id, artist_title)
       end
+      logger.info "Song :: New song in database #{song.attributes.inspect}"
     end
     song
   end

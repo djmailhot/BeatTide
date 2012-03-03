@@ -18,32 +18,15 @@ describe Post do
     # Test that invalid parameters result in invalid posts
     describe "[failure]" do
       it "should fail without user" do
-        Post.new(@params).should_not be_valid
+        lambda { Post.create_from_song(@song, nil) }.should raise_error(ActiveRecord::RecordInvalid)
       end
 
-      it "should fail without song ID" do
-        @params[:song_id] = nil
-        @user.posts.build(@params).should_not be_valid
+      it "should fail without song" do
+        lambda { Post.create_from_song(nil, @user) }.should raise_error(ActiveRecord::RecordInvalid)
       end
 
-      it "should fail with non-zero likes" do
-        @params[:likes] = 8
-        @user.posts.build(@params).should_not be_valid
-      end
-
-      it "should fail with non-integer song ID" do
-        @params[:song_id] = "hello"
-        @user.posts.build(@params).should_not be_valid
-      end
-
-      it "should fail with a negative song ID" do
-        @params[:song_id] = -1
-        @user.posts.build(@params).should_not be_valid
-      end
-
-      it "should fail with nonexistant song" do
-        @params[:song_id] = Song.last.id + 1
-        @user.posts.build(@params).should_not be_valid
+      it "should not allow direct creation without params" do
+        @user.posts.new().should_not be_valid
       end
     end
 
@@ -51,12 +34,7 @@ describe Post do
     describe "[success]" do
 
       it "should create a post with valid data" do
-        @user.posts.build(@params).should be_valid
-      end
-
-      it "should create a post with extra 0 likes param" do
-        @params[:likes] = 0
-        @user.posts.build(@params).should be_valid
+        Post.create_from_song(@song, @user).should be_valid
       end
     end
   end
@@ -64,7 +42,7 @@ describe Post do
   # Test that posts are created correctly
   describe "initial creation" do
     before(:each) do
-      @post = @user.posts.create(@params)
+      @post = Post.create_from_song(@song, @user)
     end
 
     it "should create a valid post" do
@@ -84,7 +62,7 @@ describe Post do
     end
 
     it "should start with 0 likes" do
-      @post.likes == 0
+      @post.like_count == 0
     end
   end
 
@@ -96,10 +74,10 @@ describe Post do
       @subscribed = FactoryGirl.create(:user)
       @uninvolved = FactoryGirl.create(:user)
       @user.subscribe!(@subscribed)
-      @post_subsc = @subscribed.posts.create(@params)
-      @post_subsc2 = @subscribed.posts.create(@params)
-      @post_uninv = @uninvolved.posts.create(@params)
-      @post_user = @user.posts.build(@params)
+      @post_subsc = Post.create_from_song(@song, @subscribed)
+      @post_subsc2 = Post.create_from_song(@song, @subscribed)
+      @post_uninv = Post.create_from_song(@song, @uninvolved)
+      @post_user = Post.create_from_song(@song, @user)
     end
 
     it "should allow users to get_subscribed_posts" do
@@ -131,23 +109,19 @@ describe Post do
   describe "counting likes" do
 
     before(:each) do
-      @post = @user.posts.create(@params)
-    end
-
-    it "should allow users to like a post using like method" do
-      Post.should respond_to(:like_post)
+      @post = Post.create_from_song(@song, @user)
     end
 
     it "should increment likes by 1 with one like" do
-      @post.like
-      @post.likes.should eq(1)
+      @post.like!(@user)
+      @post.like_count.should eq(1)
     end
 
     it "should allow multiple likes" do
-      @post.like
-      @post.like
-      @post.like
-      @post.likes.should eq(3)
+      @post.like!(@user)
+      @post.like!(FactoryGirl.create(:user))
+      @post.like!(FactoryGirl.create(:user))
+      @post.like_count.should eq(3)
     end
   end
 end

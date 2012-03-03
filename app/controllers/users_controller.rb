@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   # Accepts the user's information in params[:user] and
   # creates and saves a new user with the information
   def create
+    logger.info "User :: User creation request"
     @user = User.new(params[:user])
     @user.save
   end
@@ -31,6 +32,7 @@ class UsersController < ApplicationController
   # responds to requests for a the specified user's information
   def show
     @user = User.find(params[:id])
+    logger.info "User :: User show info request for user #{@user.username}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -41,10 +43,13 @@ class UsersController < ApplicationController
   # specified user.
   def edit
     @user = User.find(params[:id])
+    logger.info "User :: User edit request for user #{@user.username}"
   end
 
   # Search for a user based on the :query parameter
   def find_user
+    logger.info "User :: User search request initiated."
+    logger.info "User :: User query #{params[:query]}"
     if !params[:query].empty?
       @results = User.search(params[:query]);
 

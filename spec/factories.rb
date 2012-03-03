@@ -8,7 +8,7 @@
 #
 FactoryGirl.define do
 
-  # Generate a user with a unique username and facebook id 
+  # Generate a user with a unique username and facebook id
   # with each call to the factory
   factory :user do
     first_name   'Melissa'
