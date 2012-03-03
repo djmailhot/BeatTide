@@ -18,11 +18,16 @@ class GroovesharkController < ApplicationController
     # Rails automatically renders the corresponding "search" view.
     render :layout => false
   end
+  
+  def player
+    song_ids = "31548034,7973555"
+    render :partial => 'player', :locals => {:song_ids => song_ids}
+  end
 
   # Runs a TinySong search with the passed query, and renders a table of the
   # results. The song ID's which are returned by this request correspond to
   # Grooveshark songs.
-def songs_from_query
+  def songs_from_query
     logger.info "Grooveshark :: Query request initiated."
     if params[:query]
       query = URI.escape(params[:query])
