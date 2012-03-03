@@ -38,11 +38,13 @@ class UsersController < ApplicationController
   end
 
   # Initializes the editing of a user by setting @user to the
-  # specified user.
+  # specified user. Allows user to edit their profile.
   def edit
     @user = current_user
   end
   
+  # Updates the user's attributes based on the user parameter, then 
+  # redirects to the edit action.
   def update
     if current_user.update_attributes(params[:user])
       flash[:notice] = "Your profile was updated!"

@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  # Returns whether or not the user has a username set.
   def username?
     !self.username.blank?
   end
