@@ -1,0 +1,18 @@
+<%
+#    Page for viewing your feed so that you can play all the songs
+#    in your feed
+#
+#    Author:: Tyler Rigsby
+%>
+
+<p id="notice"><%= notice %></p>
+
+<div class="module" id="user_header">
+  <h2>Your feed</h2>  
+</div>
+
+<div class="module">
+  <%= will_paginate @feed %>
+  <%= render :partial => "posts/post_list", :locals => {:posts => @feed} %>
+  <%= will_paginate @feed %>
+</div>
