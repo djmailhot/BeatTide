@@ -12,14 +12,14 @@
 		<div class="module" id="your_songs">
       <h2>Your Posted Songs</h2>
       <%= render :partial => "posts/post_list", :locals => {:posts => current_user.posts[0..9]} %>
-      <%= link_to "See More...", "users/" + current_user.id.to_s %>
+      <%= link_to "See More...", "users/" + current_user.id.to_s if current_user.posts.length > 10 %>
     </div>
   </div>
   <div class="column right">
     <div class="module">
       <h2>Friend Feed (<%= link_to "Find Friends", "/users/search" %>)</h2>
-      <%= render :partial => "posts/post_list", :locals => {:posts => current_user.feed} %>
-      <%= link_to "See More...", "feed" %>
+      <%= render :partial => "posts/post_list", :locals => {:posts => current_user.feed[0..9]} %>
+      <%= link_to "See More...", "feed" if current_user.feed.length > 10 %> 
       <br />
       <h2><%= link_to "See All Users", "/users" %></h2>
     </div>
