@@ -80,6 +80,11 @@
 
 .song_info {
   padding: 6px;
+  margin-left: 75px;
+}
+
+.post .song_info {
+  margin-left: 35px;
 }
 
 .song h3 {
