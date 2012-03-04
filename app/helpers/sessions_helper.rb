@@ -33,6 +33,7 @@ module SessionsHelper
       logger.error "Session :: User requested sign out when already signed out."
     end
   end
+  
 
   # Returns whether or not there is a user signed into the current session
   def signed_in?

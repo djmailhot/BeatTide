@@ -36,17 +36,22 @@ class User < ActiveRecord::Base
 
   after_initialize :init
 
-  # This makes people searchable and tells solr what fields to index
-  # searchable do
-  #   text :first_name, :last_name, :username
-  # end
-  def self.search(search)
-    if search
-      find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ? OR username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
-    else
-      find(:all)
+
+  # Search for a user given the query
+  # We split the query on spaces and serch for the tokens individually
+  def self.search(query)
+    words = query.split(" ")
+    users = Array.new
+    words.each do |search|
+      users = users | find(:all, :conditions => ['upper(first_name) LIKE upper(?) OR 
+                                         upper(last_name) LIKE upper(?) OR 
+                                         upper(username) LIKE upper(?)', 
+                                        "%#{search}%", "%#{search}%", "%#{search}%"
+                                       ])
     end
+    return users
   end
+
 
   # Sets other values in table to 0.
   def init
@@ -113,4 +118,5 @@ class User < ActiveRecord::Base
   def self.top
     User.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
   end
+
 end
