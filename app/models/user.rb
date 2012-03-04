@@ -87,8 +87,8 @@ class User < ActiveRecord::Base
   def subscribe!(subscribe_to)
     if self != subscribe_to
       self.subscriptions.create!(:subscribed_id => subscribe_to.id)
-      logger.info "User :: user #{username} subscribed to user
-                   #{subscribe_to.username}"
+      logger.info "User :: user #{current_user.username} subscribed to user " <<
+                  "#{subscribe_to.username}"
     end
   end
 
@@ -102,8 +102,8 @@ class User < ActiveRecord::Base
   def unsubscribe!(other)
     if subscribing?(other)
       self.subscriptions.find_by_subscribed_id(other.id).destroy
-      logger.info "User :: user #{self.username} unsubscribed from user
-                   #{other.username}"
+      logger.info "User :: user #{self.username} unsubscribed from user " <<
+                  "#{other.username}"
     end
   end
 
@@ -120,13 +120,18 @@ class User < ActiveRecord::Base
     logger.debug "User :: #{self.username} liked."
   end
 
-  # Decreases this user's number of likes by 1. If likes are 0,
-  # does nothing.
-  def unlike!
-    if self.like_count != 0
-      self.like_count = self.like_count - 1
-      self.save
+  # Decreases this user's number of likes by a specified amount, default 1
+  def unlike!(count=1)
+    new_count = self.like_count - count
+    if new_count < 0
+      logger.error "User:: #{self.attributes.inspect} unliked by #{count} " <<
+                   "would result in negative likes.  Defaulting to 0 likes."
+      new_count = 0
     end
+
+    self.like_count = new_count
+    self.save
+    logger.debug "User:: #{self.username} unliked #{count} times."
   end
 
   # Returns the top 5 users by descending like count.
