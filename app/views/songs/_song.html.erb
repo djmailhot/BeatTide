@@ -5,12 +5,19 @@
 #    Author:: Alex Miller
 %>
 
-<div class="song">
-  <object width="250" height="40">
-    <param name="movie" value="http://grooveshark.com/songWidget.swf" />
-    <param name="wmode" value="window" />
-    <param name="allowScriptAccess" value="always" />
-    <param name="flashvars" value="hostname=cowbell.grooveshark.com&amp;songIDs=<%= song.api_id %>&amp;style=metal&amp;p=0" />
-    <embed src="http://grooveshark.com/songWidget.swf" type="application/x-shockwave-flash" width="250" height="40" flashvars="hostname=cowbell.grooveshark.com&amp;songIDs=<%= song.api_id %>&amp;style=metal&amp;p=0" allowScriptAccess="always" wmode="window" />
-  </object>
+<div class="song" id="<%= song["api_id"] %>">
+  <button class="play_button" onclick="makePlaylist(this)">
+    <span>Play Song</span>
+  </button>
+  
+  <% if add %>
+  <button class="add_button" onclick="postSong(<%= song.api_id %>)">
+    <span>Add Song</span>
+  </button>
+  <% end %>
+  
+  <div class="song_info">
+    <h3><%= song.title %></h3>
+    <p>from <em><%= song.album.title %></em>, by <strong><%= song.artist.title %></strong></p>
+  </div>
 </div>

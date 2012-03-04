@@ -1,0 +1,16 @@
+<%
+#   Grooveshark Flash widget for playing a song, or playlist of songs. Accepts
+#   a song_ids local variable to load into the widget.
+#
+#   Author:: Alex Miller, Harnoor Singh
+%>
+
+<div class="grooveshark_player">
+  <object width="250" height="40">
+    <param name="movie" value="http://grooveshark.com/songWidget.swf" />
+    <param name="wmode" value="window" />
+    <param name="allowScriptAccess" value="always" />
+    <param name="flashvars" value="hostname=cowbell.grooveshark.com&amp;songIDs=<%= song_ids %>&amp;style=metal&amp;p=1" />
+    <embed src="http://grooveshark.com/songWidget.swf" type="application/x-shockwave-flash" width="250" height="40" flashvars="hostname=cowbell.grooveshark.com&amp;songIDs=<%= song_ids %>&amp;style=metal&amp;p=1" allowScriptAccess="always" wmode="window" />
+  </object>
+</div>

@@ -9,7 +9,7 @@
     <strong><%= link_to post.user.username, post.user %></strong> posted:
   </div>
   <% if current_user == post.user %>
-    <%= render :partial => "songs/song", :locals => {:song => post.song} %>
+    <%= render :partial => "songs/song", :locals => {:song => post.song, :add => false} %>
   <% else %>
     <%= render :partial => "songs/song_add", :locals => {:song => post.song} %>
   <% end %>
@@ -22,12 +22,12 @@
       <%= link_to_function "Like", "likePost(#{post.id}, this)" %>
     <% end %>
     </span>
+    •
     <% if post.like_count == 1 %>
-      <span>|</span> <span class="like_count"><%= post.like_count %> person likes this</span>
+      <span class="like_count"><%= post.like_count %> person likes this</span>
     <% else %>
-      <span>|</span> <span class="like_count"><%= post.like_count %> people like this</span>
+      <span class="like_count"><%= post.like_count %> people like this</span>
     <% end %>
-    <br>
-    <span class="date_posted">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
+    <span class="date_posted">• Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
   </div>
 </div>

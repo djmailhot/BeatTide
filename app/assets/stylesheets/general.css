@@ -13,7 +13,7 @@ body {
 }
 
 #header_container {
-    background-image: url("header_background.png");
+  background-image: url("header_background.png");
 	border-bottom: 3px solid #055271;
 }
 
@@ -22,7 +22,7 @@ body {
     margin: 0 auto 0 auto;
     height: 65px;
     padding-top: 10px;
-	
+	  position: relative;
 	
 }
 

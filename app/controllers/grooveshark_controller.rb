@@ -18,11 +18,18 @@ class GroovesharkController < ApplicationController
     # Rails automatically renders the corresponding "search" view.
     render :layout => false
   end
+  
+  # Displays a grooveshark Flash widget, given a comma separated list of song
+  # id's.
+  def player
+    song_ids = params[:song_ids]
+    render :partial => 'player', :locals => {:song_ids => song_ids}
+  end
 
   # Runs a TinySong search with the passed query, and renders a table of the
   # results. The song ID's which are returned by this request correspond to
   # Grooveshark songs.
-def songs_from_query
+  def songs_from_query
     logger.info "Grooveshark :: Query request initiated."
     if params[:query]
       query = URI.escape(params[:query])
@@ -35,7 +42,8 @@ def songs_from_query
                             song_json["ArtistID"], song_json["ArtistName"])
       end
       logger.info "Grooveshark :: query results #{@song_results}."
-      render :partial => 'songs/song_list', :locals => {:songs => @song_results}, :layout => false
+      render :partial => 'songs/song_list', :locals => {:songs => @song_results},
+              :layout => false
     else
       render :text => "No query."
     end

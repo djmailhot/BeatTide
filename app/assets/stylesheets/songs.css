@@ -1,27 +1,17 @@
-/*
+/**
  * Styles for song related UI elements, including the song player.
  *
  * Author: Alex Miller
  */
- 
-.play_button {
-    width: 50px;
-    height: 50px;
-    float: left;
-}
-
-.song_name {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.song_info {
-    font-size: 12px;
+#player_container {
+  position: absolute;
+  top: 20px;
+  right: 0px;;
 }
 
 #search_form {
-    background-image: url("header_background.png");
-    padding: 10px;
+  background-image: url("header_background.png");
+  padding: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -49,14 +39,69 @@
     margin-top: 5px;
 }
 
+.play_button {
+  background: url("play.png");
+  width: 34px;
+  height: 34px;
+  border: none;
+  margin-top: 7px;
+  margin-right: 5px;
+  float: left;
+}
+
+.play_button span {
+  display: none;
+}
+
+.add_button {
+  background: url("add.png");
+  width: 34px;
+  height: 34px;
+  border: none;
+  margin-top: 7px;
+  margin-right: 5px;
+  float: left;
+}
+
+.add_button:hover, .play_button:hover {
+  background-position: -34px;
+}
+
+.add_button span {
+  display: none;
+}
+
 .song {
-    line-height: 0;
-    font-size: 12px;
-    height: 40px;
+  font-size: 12px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+
+.song_info {
+  padding: 6px;
+  margin-left: 75px;
+}
+
+.post .song_info {
+  margin-left: 35px;
+}
+
+.song h3 {
+  font-size: 20px;
+  font-family: 'Rokkitt', cursive;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+
+.song_info p {
+  color: #333;
+  margin: 0;
 }
 
 .song .add {
-    float: right;
 	font-family: 'Rokkitt', cursive;
 	font-size: 20px;
 	background-color: #6a9f37;

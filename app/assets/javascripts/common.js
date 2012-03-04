@@ -25,6 +25,9 @@ function ajaxFailure(ajax, exception){
     }
 }
 
+/**
+ * Shows a message to the user at the top of the page.
+ */  
 function showMessage(message) {
     var m = document.createElement("div");
     m.innerHTML = message + " <a href='#' id='close'>Close.</a>";

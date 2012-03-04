@@ -5,8 +5,8 @@
 #    Author:: Alex Miller
 %>
 
-<div class="song_list">
+<div class="song_list playlist_container">
 <% songs.each do |song| %>
-  <%= render :partial => "songs/song_add", :locals => {:song => song} %>
+  <%= render :partial => "songs/song", :locals => {:song => song, :add => true} %>
 <% end %>
 </div>
