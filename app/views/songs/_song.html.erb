@@ -6,5 +6,11 @@
 %>
 
 <div class="song" id="<%= song["api_id"] %>">
-  <a href="#" onclick="makePlaylist">Play Song</a>
+  <a href="#" onclick="makePlaylist(this)">Play Song</a>
+  
+  <% if add %>
+  <div class="add">
+    <%= link_to_function "+ add", "postSong(#{song.api_id})" %>
+  </div>
+  <% end %>
 </div>
