@@ -24,5 +24,5 @@ function makePlaylist(song) {
         songIdList += "," + $(value).attr("id");      
     }
   });
-  $("#player_container").load("grooveshark/player?song_ids=" + songIdList);
+  $("#player_container").load("/grooveshark/player?song_ids=" + songIdList);
 }
