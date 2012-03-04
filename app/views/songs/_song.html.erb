@@ -6,18 +6,18 @@
 %>
 
 <div class="song" id="<%= song["api_id"] %>">
-  <div class="song_info">
-    <h3><%= song.title %></h3>
-    <p>from <em><%= song.album.title %></em>, by <strong><%= song.artist.title %></strong></p>
-  </div>
-  
   <button class="play_button" onclick="makePlaylist(this)">
     <span>Play Song</span>
   </button>
   
   <% if add %>
-  <div class="add">
-    <%= link_to_function "+ add", "postSong(#{song.api_id})" %>
-  </div>
+  <button class="add_button" onclick="postSong(<%= song.api_id %>)">
+    <span>Add Song</span>
+  </button>
   <% end %>
+  
+  <div class="song_info">
+    <h3><%= song.title %></h3>
+    <p>from <em><%= song.album.title %></em>, by <strong><%= song.artist.title %></strong></p>
+  </div>
 </div>

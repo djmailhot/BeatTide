@@ -40,37 +40,56 @@
 }
 
 .play_button {
-  background: url("player_sprites.png");
-  width: 50px;
-  height: 50px;
+  background: url("play.png");
+  width: 34px;
+  height: 34px;
   border: none;
+  margin-top: 7px;
+  margin-right: 5px;
+  float: left;
 }
 
 .play_button span {
   display: none;
 }
 
+.add_button {
+  background: url("add.png");
+  width: 34px;
+  height: 34px;
+  border: none;
+  margin-top: 7px;
+  margin-right: 5px;
+  float: left;
+}
+
+.add_button span {
+  display: none;
+}
+
 .song {
   font-size: 12px;
   position: relative;
-  padding: 3px;
-  line-height: 2px;
+  margin-bottom: 5px;
+}
+
+
+.song_info {
+  padding: 6px;
 }
 
 .song h3 {
   font-size: 20px;
   font-family: 'Rokkitt', cursive;
-  margin-top: 15px;
+  font-weight: normal;
   padding: 0;
+  margin: 0;
 }
 
-.song_info {
-  position: absolute;
-  left: 60px;
-}
 
 .song_info p {
   color: #333;
+  margin: 0;
 }
 
 .song .add {
