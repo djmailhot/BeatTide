@@ -6,7 +6,14 @@
 %>
 
 <div class="song" id="<%= song["api_id"] %>">
-  <a href="#" onclick="makePlaylist(this)">Play Song</a>
+  <div class="song_info">
+    <h3><%= song.title %></h3>
+    <p>from <em><%= song.album.title %></em>, by <strong><%= song.artist.title %></strong></p>
+  </div>
+  
+  <button class="play_button" onclick="makePlaylist(this)">
+    <span>Play Song</span>
+  </button>
   
   <% if add %>
   <div class="add">

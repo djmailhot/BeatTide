@@ -1,27 +1,17 @@
-/*
+/**
  * Styles for song related UI elements, including the song player.
  *
  * Author: Alex Miller
  */
- 
-.play_button {
-    width: 50px;
-    height: 50px;
-    float: left;
-}
-
-.song_name {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.song_info {
-    font-size: 12px;
+#player_container {
+  position: absolute;
+  top: 20px;
+  right: 0px;;
 }
 
 #search_form {
-    background-image: url("header_background.png");
-    padding: 10px;
+  background-image: url("header_background.png");
+  padding: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -49,14 +39,41 @@
     margin-top: 5px;
 }
 
+.play_button {
+  background: url("player_sprites.png");
+  width: 50px;
+  height: 50px;
+  border: none;
+}
+
+.play_button span {
+  display: none;
+}
+
 .song {
-    line-height: 0;
-    font-size: 12px;
-    height: 40px;
+  font-size: 12px;
+  position: relative;
+  padding: 3px;
+  line-height: 2px;
+}
+
+.song h3 {
+  font-size: 20px;
+  font-family: 'Rokkitt', cursive;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.song_info {
+  position: absolute;
+  left: 60px;
+}
+
+.song_info p {
+  color: #333;
 }
 
 .song .add {
-    float: right;
 	font-family: 'Rokkitt', cursive;
 	font-size: 20px;
 	background-color: #6a9f37;

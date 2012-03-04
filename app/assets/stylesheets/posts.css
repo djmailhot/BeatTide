@@ -5,10 +5,10 @@
  */
  
 .post {
-    background-color: #f7f7f7;
+  background-color: #f7f7f7;
 	border: 1px solid #CCC;
-    padding: 10px;
-    font-size: 12px;
+  padding: 10px;
+  font-size: 12px;
 	margin-bottom: 5px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -17,5 +17,9 @@
 }
 
 .you_like {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.date_posted {
+  color: #a7a7a7;
 }
