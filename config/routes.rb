@@ -5,6 +5,8 @@ BeatTide::Application.routes.draw do
   get "users/search"
   post "users/find_user"
 
+  get "feed", :controller => "pages"
+
   resources :users
   resources :subscriptions, :only => [:create, :destroy]
 

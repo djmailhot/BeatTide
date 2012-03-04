@@ -33,6 +33,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     logger.info "User :: User show info request for user #{@user.username}"
+    page = params[:page] ||= 1
+    @posts = @user.posts.paginate(:page => page, :per_page => 50)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -57,7 +59,6 @@ class UsersController < ApplicationController
       render :text => "Please enter a query."
     end
   end
-    
 
     # If we were passed a query
 #    if !params[:query].empty?

@@ -25,5 +25,7 @@
 </div>
 
 <div class="module">
-  <%= render :partial => "posts/post_list", :locals => {:posts => @user.posts} %>
+  <%= will_paginate @posts %>
+  <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
+  <%= will_paginate @posts %>
 </div>
