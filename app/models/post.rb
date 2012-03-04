@@ -17,14 +17,33 @@ class Post < ActiveRecord::Base
   default_scope :order => 'posts.created_at DESC'
 
   # Accepts a liking user and updates the post's numbers of likes, the song's
-  # number of likes, and the user's number of likes. Adds a new like to the
-  # database.
+  # number of likes, and the user's number of likes, all increasing by 1. Adds
+  # a new like to the database. If the given user already likes this post,
+  # nothing is changed.
   def like!(liking_user)
     if !liked_by?(liking_user)
       self.like_count = self.like_count + 1
       song.like!
       self.user.like!
       self.likes.create!(:user_id => liking_user.id, :post_id => self.id)
+      self.save
+      logger.info "Post :: User #{liking_user.username} liked post #{self.id}."
+      logger.debug "Post :: User #{liking_user.username} liked post
+                    #{self.attributes.inspect}"
+    end
+  end
+
+  # Accepts a liking user and updates the post's numbers of likes, the song's
+  # number of likes, and the user's number of likes, all decreasing by 1.
+  # Deletes the corresponding like from the database. If the given user
+  # doesn't like this post, nothing is changed.
+  def unlike!(liking_user)
+    this_like = Like.find(:all, :conditions => { :user_id => liking_user.id, :post_id => self.id } )
+    if (!this_like.nil?)
+      self.like_count = self.like_count - 1
+      self.likes.delete(this_like)
+      song.unlike!
+      self.user.unlike!
       self.save
     end
   end
@@ -50,6 +69,7 @@ class Post < ActiveRecord::Base
       post.song = song
       post.user = user
       post.like_count = 0
+      logger.info "Post :: New post saved to database #{post.attributes.inspect}"
     end
   end
 end

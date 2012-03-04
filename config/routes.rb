@@ -7,6 +7,8 @@ BeatTide::Application.routes.draw do
   get "/edit_profile" => "users#edit"
   put "/edit_profile" => "users#update"
   resources :users, :only => [:show, :index]
+
+  get "feed", :controller => "pages"
   resources :subscriptions, :only => [:create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)

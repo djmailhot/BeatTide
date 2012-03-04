@@ -23,6 +23,8 @@ class Artist < ActiveRecord::Base
         artist.api_id = api_id
         artist.title = title
       end
+      logger.info "Album :: New artist saved to database
+                   #{artist.attributes.inspect}"
     end
     artist
   end
