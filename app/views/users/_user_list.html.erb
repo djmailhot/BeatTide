@@ -9,7 +9,7 @@
   <% users.each do |user| %>
     <tr>
       <td>
-	<%= link_to(user.username) do %>
+	<%= link_to(user) do %>
 	<%= user.first_name %> <%= user.last_name %>
 	<% end %>
       </td>
