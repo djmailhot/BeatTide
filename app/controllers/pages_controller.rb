@@ -2,6 +2,9 @@
 #
 # Author::   Alex Miller
 class PagesController < ApplicationController
+
+  FEED_POSTS_PER_PAGE = 50
+  
   # Displays an index page for the entire site.
   def index
   end
@@ -9,7 +12,7 @@ class PagesController < ApplicationController
   # Sets the user's paginated feed to @feed
   def feed
     page = params[:page] ||= 1
-    @feed = current_user.feed.paginate(:page => page, :per_page => 50)
+    @feed = current_user.feed.paginate(:page => page, :per_page => FEED_POSTS_PER_PAGE)
     render "feed"
   end
 

@@ -6,6 +6,8 @@
 #
 # Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
+  POSTS_PER_PAGE = 50
+
   before_filter :authenticate
 
   # Sets @users to a list of all the users and @title
@@ -37,7 +39,7 @@ class UsersController < ApplicationController
     else
       logger.info "User :: User show info request for user #{@user.username}"
       page = params[:page] ||= 1
-      @posts = @user.posts.paginate(:page => page, :per_page => 50)
+      @posts = @user.posts.paginate(:page => page, :per_page => POSTS_PER_PAGE)
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @user }
