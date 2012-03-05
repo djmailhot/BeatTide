@@ -9,7 +9,7 @@ BeatTide::Application.routes.draw do
   resources :users, :only => [:show, :index]
 
   get "feed", :controller => "pages"
-  resources :subscriptions, :only => [:create, :destroy]
+  resources :subscriptions, :only => [:index, :create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)
   match "/auth/:provider/callback" => "sessions#create"
