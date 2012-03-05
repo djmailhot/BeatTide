@@ -2,6 +2,8 @@
 #
 # Author:: Brett Webber, Alex Miller, Melissa Winstanley
 class Song < ActiveRecord::Base
+  attr_accessible nil
+
   # Links to Album and Artist models are defined
   belongs_to :album
   belongs_to :artist

@@ -2,7 +2,7 @@
 #
 # Author:: Brett Webber, Alex Miller
 class Artist < ActiveRecord::Base
-  attr_accessible :title, :api_id
+  attr_accessible nil
 
   validates :title, :presence => true,
                     :length => { :minimum => 1, :maximum => 200 }

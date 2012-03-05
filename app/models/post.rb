@@ -3,6 +3,8 @@
 #
 # Author:: David Mailhot, Alex Miller, Melissa Winstanley
 class Post < ActiveRecord::Base
+  attr_accessible nil
+
   has_many :likes, :dependent => :destroy
 
   # there is a many to one relationship between posts and songs

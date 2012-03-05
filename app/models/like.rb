@@ -2,6 +2,8 @@
 #
 # Author:: Melissa Winstanley
 class Like < ActiveRecord::Base
+  attr_accessible :user_id, :post_id
+
   validates_uniqueness_of :user_id, :scope => :post_id
 
   def self.create_new(user_id, post_id)
