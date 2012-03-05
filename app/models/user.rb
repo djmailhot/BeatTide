@@ -28,9 +28,15 @@ class User < ActiveRecord::Base
   validates :username, :presence => true,
                        :length => { :minimum => 3, :maximum => 25 }
   validates :first_name, :presence => true,
-                         :length => { :minimum => 1 }
+                         :length => { :minimum => 1, :maximum => 200 }
   validates :last_name, :presence => true,
-                        :length => { :minimum => 1 }
+                        :length => { :minimum => 1, :maximum => 200 }
+
+  after_initialize :init
+
+  def init
+    self.like_count = 0 if self.like_count.nil?
+  end
 
   # Search for a user given the query
   # We split the query on spaces and serch for the tokens individually
@@ -39,12 +45,12 @@ class User < ActiveRecord::Base
     users = Array.new
     words.each do |search|
       users = users | find(:all, :conditions =>
-        ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR 
+        ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
           upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
     end
     return users
   end
-  
+
   # Returns whether or not the user has a username set.
   def username?
     !self.username.blank?
@@ -56,11 +62,16 @@ class User < ActiveRecord::Base
   # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.facebook_id = auth["uid"]
-      user.first_name = auth["info"]["first_name"]
-      user.last_name = auth["info"]["last_name"]
-      user.username = user.first_name + " " + user.last_name
-      logger.info "User :: New user saved to database #{user.attributes.inspect}"
+      if Utility.verify_fb_auth(auth)
+        user.facebook_id = auth["uid"]
+        user.first_name = Utility.check_length(auth["info"]["first_name"], 200)
+        user.last_name = Utility.check_length(auth["info"]["last_name"], 200)
+        user.username = Utility.check_length(user.first_name + " " + user.last_name, 25)
+        user.like_count = 0
+        logger.info "User :: New user saved to database #{user.attributes.inspect}"
+      else
+        raise ActiveRecord::RecordInvalid.new user
+      end
     end
   end
 
@@ -109,5 +120,4 @@ class User < ActiveRecord::Base
   def self.top
     User.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
   end
-
 end

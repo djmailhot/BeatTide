@@ -23,9 +23,20 @@ FactoryGirl.define do
     title              "I Want You Now"
   end
 
+  factory :album do
+    sequence(:api_id) { |n| 42 + n }
+    title             "You Are Beautiful"
+  end
+
+  factory :artist do
+    sequence(:api_id) { |n| 42 + n }
+    title             "MegaBeats"
+  end
+
   # Generate a post, with song and user attributes parameterized
   factory :post do
     song
     user
+    like_count  0
   end
 end

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   def create
     logger.info "Session :: New omniauth session request."
     auth = request.env["omniauth.auth"]
-    if validate_auth(auth)
+    if Utility.verify_fb_auth(auth)
       user = User.find_by_facebook_id(auth["uid"]) || User.create_with_omniauth(auth)
       sign_in user
       redirect_to root_path, :notice => "Signed in!"
@@ -29,14 +29,5 @@ class SessionsController < ApplicationController
     logger.info "Session :: End omniauth session request."
     sign_out
     redirect_to root_path, :notice => "Signed out!"
-  end
-
-  private
-
-  # Validates the authentication credentials, returning true if all necessary information
-  # is available.
-  def validate_auth(auth)
-    !(auth.blank? || auth["uid"].blank? || auth["info"]["first_name"].blank? ||
-                     auth["info"]["last_name"].blank?)
   end
 end

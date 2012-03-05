@@ -41,18 +41,18 @@ describe PostsController do
       shared_examples "creation failure" do |params|
         it "should not create a post" do
           lambda do
-            post :create, :post => params
+            post :create, params
           end.should_not change(Post, :count)
         end
 
         it "should not create a post" do
           lambda do
-            post :create, :post => params
+            post :create, params
           end.should_not change(Post, :count)
         end
 
         it "should redirect to the user show page" do
-          post :create, :post => params
+          post :create, params
           response.should redirect_to("/error")
         end
       end
@@ -67,7 +67,7 @@ describe PostsController do
 
       describe "no song attribute" do
         before(:each) do
-          @params = { :song => nil }
+          @params = { :api_id => nil }
         end
 
         it_behaves_like "creation failure", @params
@@ -76,45 +76,36 @@ describe PostsController do
 
     # Creation - Success cases
     describe "[success]" do
+
       before(:each) do
-        @params = { :song => FactoryGirl.create(:song) }
+        @new_song = FactoryGirl.create(:song)
+        @params = { :api_id => @new_song.api_id }
       end
 
       it "should create a post" do
         lambda do
-          post :create, :post => @params
+          post :create, @params
         end.should change(Post, :count).by(1)
-      end
-
-      it "should be attached to the currently auth'd user" do
-        lambda do
-          post :create, :post => @params
-        end.should change(@user.posts, :length).by(1)
-      end
-
-      it "should associate the post with the currently auth'd user" do
-        post :create, :post => @params
-        @user.posts[0].user_id.should eq(@user.id)
       end
 
       # Creation - for multiple posts
       describe "creating multiple posts" do
         before(:each) do
-          @next_params = { :song => FactoryGirl.create(:song) }
+          @next_params = { :api_id => FactoryGirl.create(:song).api_id }
         end
-          
+
         it "should make multiple posts" do
           lambda do
-            post :create, :post => @params
-            post :create, :post => @next_params
-          end.should change(@user.posts, :length).by(2)
+            post :create, @params
+            post :create, @next_params
+          end.should change(Post, :count).by(2)
         end
 
         it "should allow posts of the same song" do
           lambda do
-            post :create, :post => @params
-            post :create, :post => @params
-          end.should change(@user.posts, :length).by(2)
+            post :create, @params
+            post :create, @params
+          end.should change(Post, :count).by(2)
         end
       end
     end
@@ -140,12 +131,6 @@ describe PostsController do
           delete :destroy, :id => @post
         end.should_not change(Post, :count)
       end
-
-      it "should not remove the post" do
-        lambda do
-          delete :destroy, :id => @post
-        end.should_not change(@owner.posts, :length)
-      end
     end
 
     # Delete - success case
@@ -161,12 +146,6 @@ describe PostsController do
         lambda do
           delete :destroy, :id => @post
         end.should change(Post, :count).by(-1)
-      end
-
-      it "should remove the post from the user" do
-        lambda do
-          delete :destroy, :id => @post
-        end.should change(@user.posts, :length).by(-1)
       end
     end
   end
@@ -185,21 +164,18 @@ describe PostsController do
     # Like - success case
     describe "[success]" do
       it "should increment the post likes by 1" do
-        lambda do
-          post :like, :id => @post.id
-        end.should change(@post, :likes).by(1)
+        post :like, :id => @post.id
+        Post.find(@post.id).like_count.should eq(1)
       end
 
       it "should increment the song likes by 1" do
-        lambda do
-          post :like, :id => @post.id
-        end.should change(@song, :likes).by(1)
+        post :like, :id => @post.id
+        Song.find(@song.id).like_count.should eq(1)
       end
 
       it "should increment the user likes by 1" do
-        lambda do
-          post :like, :id => @post.id
-        end.should change(@owner, :likes).by(1)
+        post :like, :id => @post.id
+        User.find(@owner.id).like_count.should eq(1)
       end
     end
 
@@ -210,46 +186,40 @@ describe PostsController do
       end
 
       it "should increment the post likes by 1" do
-        lambda do
-          post :like, :id => @own_post.id
-        end.should change(@own_post, :likes).by(1)
+        post :like, :id => @own_post.id
+        Post.find(@own_post.id).like_count.should eq(1)
       end
 
       it "should increment the song likes by 1" do
-        lambda do
-          post :like, :id => @own_post.id
-        end.should change(@song, :likes).by(1)
+        post :like, :id => @own_post.id
+        Song.find(@song.id).like_count.should eq(1)
       end
 
       it "should increment the user likes by 1" do
-        lambda do
-          post :like, :id => @own_post.id
-        end.should change(@curr_user, :likes).by(1)
+        post :like, :id => @own_post.id
+        User.find(@curr_user.id).like_count.should eq(1)
       end
     end
 
     # Like - can't like the same post more than once
     describe "[failure] liking the same post multiple times" do
 
-      it "should not increment post likes more than 1" do
-        lambda do
-          post :like, :id => @post.id
-          post :like, :id => @post.id
-        end.should change(@post, :likes).by(1)
+      it "should not change total likes for the post" do
+        post :like, :id => @post.id
+        post :like, :id => @post.id
+        Post.find(@post.id).like_count.should eq(0)
       end
 
-      it "should not increment song likes more than 1" do
-        lambda do
-          post :like, :id => @post.id
-          post :like, :id => @post.id
-        end.should change(@song, :likes).by(1)
+      it "should not change total likes for the song" do
+        post :like, :id => @post.id
+        post :like, :id => @post.id
+        Song.find(@song.id).like_count.should eq(0)
       end
 
-      it "should not increment user likes more than 1" do
-        lambda do
-          post :like, :id => @post.id
-          post :like, :id => @post.id
-        end.should change(@owner, :likes).by(1)
+      it "should not change total likes for the user" do
+        post :like, :id => @post.id
+        post :like, :id => @post.id
+        User.find(@owner.id).like_count.should eq(0)
       end
     end
   end

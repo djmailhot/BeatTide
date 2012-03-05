@@ -30,7 +30,7 @@ function ajaxFailure(ajax, exception){
  */  
 function showMessage(message) {
     var m = document.createElement("div");
-    m.innerHTML = message + " <a href='#' id='close'>Close.</a>";
+    m.innerHTML = message + " <a href='' id='close'>Close.</a>";
     $(m).addClass("message");
     $(m).addClass("module");
     $(m).addClass("small_module");

@@ -64,6 +64,8 @@ class Post < ActiveRecord::Base
       subscribing_ids = %(SELECT subscribed_id FROM subscriptions
                           WHERE subscriber_id = :user_id)
       where("user_id IN (#{subscribing_ids})", :user_id => user)
+    else
+      []
     end
   end
 
