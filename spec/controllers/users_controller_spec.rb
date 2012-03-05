@@ -1,21 +1,23 @@
 require 'spec_helper.rb'
+require 'database_cleaner'
+DatabaseCleaner.strategy = :truncation
 
 # Test the Users controller.  Black-box test.
 #Author:: Harnoor Singh
 
 # Signed in
 
-describe UsersController do 
+describe UsersController do
   render_views
 
   # Ensure only signed in users can view user pages
   describe "GET 'show' for not signed in user" do
 
     # Show user given ID
-    it "Should show the correct user" do
+    it "Should redirect to sign-in page" do
       @user = FactoryGirl.create(:user)
       get :show, :id => @user
-      response.should redirect_to('page#index')
+      response.should redirect_to(root_url)
     end
   end
 
@@ -33,50 +35,50 @@ describe UsersController do
     end
 
     # Show called on invalid ID
-    it "Should fail with flash.now if invalid ID is passed" do 
+    it "Should redirect to error page if invalid ID is passed" do
       get :show, :id => 538474848
-      flash.now[:error].should =~ /invalid/i
+      response.should redirect_to("/error")
     end
   end
-  
+
   describe "POST 'create'" do
 
     # Set the attributes for creating a new user
     before(:each) do
       @attr = {:first_name => "Harnoor", :last_name => "Singh",
         :username => "hsingh", :facebook_id => 11925848}
+      test_sign_in(FactoryGirl.create(:user))
     end
 
-    # Create user with valid input
-    it "Should create the user" do 
+    it "should succeed with valid attributes" do
       post :create, :user => @attr
       response.should be_success
     end
 
     # Attempt to create user with no first name
-    it "should fail if the user has no first name" do 
-      @attr.merge(:first_name => "")
+    it "should fail if the user has no first name" do
+      @attr[:first_name] = nil
       post :create, :user => @attr
       flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no last name
-    it "should fail if the user has no last name" do 
-      @attr.merge(:last_name => "")
+    it "should fail if the user has no last name" do
+      @attr[:last_name] = nil
       post :create, :user => @attr
       flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no username
-    it "should fail if the user has no username" do 
-      @attr.merge(:username => "")
+    it "should fail if the user has no username" do
+      @attr[:username] = nil
       post :create, :user => @attr
       flash.now[:error].should =~ /invalid/i
     end
 
     # Attempt to create user with no facebook ID
-    it "should fail if the user has no facebook_id" do 
-      @attr.merge(:facebook_id => nil)
+    it "should fail if the user has no facebook_id" do
+      @attr[:facebook_id] = nil
       post :create, :user => @attr
       flash.now[:error].should =~ /invalid/i
     end
@@ -101,18 +103,12 @@ describe UsersController do
     it "Should fail with flash.now if editing another user" do
       @user2 = FactoryGirl.create(:user)
       get :edit, :id => @user2
-      flash.now[:error].should =~ /invalid/i
-    end
-
-    # Edit called on invalid ID
-    it "Should fail with flash.now if invalid ID is passed" do 
-      get :edit, :id => 538474848
-      flash.now[:error].should =~ /invalid/i
+      response.should redirect_to("/error")
     end
   end
 
   describe "GET 'edit' with user not signed in" do
-    
+
     before(:each) do
       @user = FactoryGirl.create(:user)
     end
@@ -120,7 +116,7 @@ describe UsersController do
     # Should not be able to edit if not signed in
     it "Should fail when attempting to edit while not signed in" do
       get :edit, :id => 0
-      response.should redirect_to('page#index')
+      response.should redirect_to(root_path)
     end
   end
 
@@ -130,10 +126,11 @@ describe UsersController do
     # Shouldn't be able to view the user list if you're not logged in
     it "It should redirect the user to a login page" do
       get :index
-      response.should redirect_to('page#index')
+      response.should redirect_to(root_path)
     end
   end
-end
-    
 
-  
+  after(:each) do
+    DatabaseCleaner.clean
+  end
+end

@@ -15,15 +15,6 @@ class SongsController < ApplicationController
     @song = Song.new
     @album = Album.new
     @artist = Artist.new
-    @title = "New Song"    
-  end
-
-  # Shows the fields of the song according to the format
-  def show
-    @song = Song.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @song }
-    end    
+    @title = "New Song"
   end
 end

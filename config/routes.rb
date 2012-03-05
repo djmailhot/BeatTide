@@ -3,7 +3,7 @@
 BeatTide::Application.routes.draw do
   get "users/search"
   post "users/find_user"
-  
+
   get "/edit_profile" => "users#edit"
   put "/edit_profile" => "users#update"
   resources :users, :only => [:show, :index]
@@ -29,6 +29,8 @@ BeatTide::Application.routes.draw do
   get "/posts/show_raw"
   match "/posts", :to => "posts#create", :via => "post"
   match "/posts/:id" => "posts#show"
+
+  match "/error", :to => "pages#error"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
