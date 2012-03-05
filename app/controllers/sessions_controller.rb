@@ -36,7 +36,9 @@ class SessionsController < ApplicationController
   # Validates the authentication credentials, returning true if all necessary information
   # is available.
   def validate_auth(auth)
-    !(auth.blank? || auth["uid"].blank? || auth["info"]["first_name"].blank? ||
+    !(auth.blank? || auth["uid"].blank? ||
+                     !auth["uid"].to_s.match(/\A\d+\Z/) ||
+                     auth["info"]["first_name"].blank? ||
                      auth["info"]["last_name"].blank?)
   end
 end

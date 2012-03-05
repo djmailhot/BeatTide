@@ -28,9 +28,9 @@ class User < ActiveRecord::Base
   validates :username, :presence => true,
                        :length => { :minimum => 3, :maximum => 25 }
   validates :first_name, :presence => true,
-                         :length => { :minimum => 1 }
+                         :length => { :minimum => 1, :maximum => 200 }
   validates :last_name, :presence => true,
-                        :length => { :minimum => 1 }
+                        :length => { :minimum => 1, :maximum => 200 }
 
   # Search for a user given the query
   # We split the query on spaces and serch for the tokens individually
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     users = Array.new
     words.each do |search|
       users = users | find(:all, :conditions =>
-        ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR 
+        ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
           upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
     end
     return users
@@ -58,8 +58,18 @@ class User < ActiveRecord::Base
     create! do |user|
       user.facebook_id = auth["uid"]
       user.first_name = auth["info"]["first_name"]
+      if user.first_name.length > 200
+        user.first_name = user.first_name[0,200]
+      end
       user.last_name = auth["info"]["last_name"]
+      if user.last_name.length > 200
+        user.last_name = user.last_name[0,200]
+      end
       user.username = user.first_name + " " + user.last_name
+      if user.username.length > 25
+        user.username = user.username[0,25]
+      end
+      user.like_count = 0
       logger.info "User :: New user saved to database #{user.attributes.inspect}"
     end
   end
