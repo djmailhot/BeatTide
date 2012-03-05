@@ -30,4 +30,5 @@
     <% end %>
     <span class="date_posted">• Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
   </div>
+  <%= link_to "delete", post, :method => :delete %>
 </div>
