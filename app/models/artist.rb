@@ -5,7 +5,7 @@ class Artist < ActiveRecord::Base
   attr_accessible nil
 
   validates :title, :presence => true,
-                    :length => { :minimum => 1, :maximum => 200 }
+                    :length => { :minimum => 1, :maximum => Song::MAX_LENGTH }
   validates :api_id, :presence => true,
                      :uniqueness => true,
                      :numericality => { :only_integer => true,
@@ -21,6 +21,9 @@ class Artist < ActiveRecord::Base
     if artist.nil?
       artist = create! do |artist|
         artist.api_id = api_id
+        if title.length > Song::MAX_LENGTH
+          title = title[0,Song::MAX_LENGTH]
+        end
         artist.title = title
       end
       logger.info "Album :: New artist saved to database
