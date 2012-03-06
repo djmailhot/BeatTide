@@ -4,6 +4,10 @@ BeatTide::Application.routes.draw do
   get "users/search"
   post "users/find_user"
 
+  get "faq", :controller => "pages"
+  get "about", :controller => "pages"
+  get "tutorial", :controller => "pages"
+
   get "/edit_profile" => "users#edit"
   put "/edit_profile" => "users#update"
   resources :users, :only => [:show, :index]

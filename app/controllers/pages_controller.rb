@@ -8,6 +8,18 @@ class PagesController < ApplicationController
   # Displays an index page for the entire site.
   def index
   end
+  
+  # Displays the frequently asked questions page.
+  def faq
+  end
+  
+  # Displays the about BeatTide page
+  def about
+  end
+
+  # Displays the tutorial page
+  def tutorial
+  end
 
   # Sets the user's paginated feed to @feed
   def feed
