@@ -3,6 +3,12 @@
 #
 #   Author:: Alex Miller
 %>
+
+
+<% 
+# if the raw instance variable is false, then we render the full app view
+if !@raw
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +25,7 @@
     <div id="header_container">
         <div id="header">
             <% logo = image_tag("logo_small.png", :alt => "BeatTide Logo") %>
-	          <%= link_to logo, root_path %>
-	          
+	          <%= ajax_link_to logo, root_path %>
 	          <div id="player_container">
             </div>
         </div>
@@ -28,7 +33,7 @@
     <div id="content">
         <div class="small_module module">
             <% if current_user %>
-              Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong> | <%= link_to "Sign Out", signout_path %> | <%= link_to "Edit Profile", "/edit_profile" %>
+              Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong> | <%= link_to "Sign Out", signout_path %> | <%= ajax_link_to "Edit Profile", "/edit_profile" %>
             <% else %>
               <strong>Not signed in.</strong>
             <% end %>
@@ -37,7 +42,9 @@
         <div id="message_container">
         </div>
         
-        <%= yield %>
+        <div id="dynamic_content_container">
+          <%= yield %>
+        </div>
         
         <div class="small_module module" id="footer">Copyright BeatTide</div>
     </div>
@@ -45,3 +52,9 @@
 
 </body>
 </html>
+<% 
+# otherwise, we don't wrap the view in any tags.
+else
+%>
+  <%= yield %>
+<% end %>

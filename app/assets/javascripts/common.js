@@ -4,10 +4,12 @@
  * Authors: Harnoor Singh, Alex Miller
  */
 
+var ROOT_URL = "http://beattide.herokuapp.com/"
+
 /**
  * Prints out an AJAX request failure for debugging.
  */
-function ajaxFailure(ajax, exception){
+function ajaxFailure(ajax, exception) {
     console.log("Error making Ajax request:" + 
           "\n\nServer status:\n" + ajax.status + " " + ajax.statusText + 
           "\n\nServer response text:\n" + ajax.responseText);
@@ -38,6 +40,11 @@ function hideMessage() {
     $("#message_container").html('');
 }
 
-$(document).on('ajax:beforeSend', '.button-link', function() {
-  alert("Success!");
+/**
+ * Event listener for when an 'ajax link' completes a request. The data from
+ * the request is then inserted into the main content container of the page.
+ * This allows the music to keep playing when users navigate around the site.
+ */
+$(document).on('ajax:complete', '.ajax-link', function(event, data, status, xhr) {
+    $("#dynamic_content_container").html(data.responseText);
 });

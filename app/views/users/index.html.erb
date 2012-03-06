@@ -18,7 +18,7 @@
     <td><%= user.first_name %> <%= user.last_name %></td>
     <td><%= user.like_count %></td>
     <td><%= user.username %></td>
-    <td><%= link_to 'Show', user %></td>
+    <td><%= ajax_link_to 'Show', user %></td>
   </tr>
 <% end %>
 </table>

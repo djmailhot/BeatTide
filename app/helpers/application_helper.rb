@@ -1,6 +1,15 @@
+# Helper functions for application views.
+#
+# Author:: Alex Miller
 module ApplicationHelper
-  def ajax_link_to(body, base_url, html_options = {}, params = "")
-    url = base_url + "?raw=true&" + params
+  
+  # Like the Rails provided "link_to" function, but allows the link to load
+  # the new content without the page reloading. This means that the user's
+  # music doesn't stop playing.
+  def ajax_link_to(body, options, html_options = {})
+    url = url_for(options) + "?raw=true"
+    html_options[:remote] = true
+    html_options[:class] = "ajax-link"
     link_to body, url, html_options
   end
 end
