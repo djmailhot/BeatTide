@@ -32,3 +32,22 @@ function likePost(postID, link) {
     	}
     });
 }
+
+/*
+ * Handles AJAX request for deleting a post. Accepts id as a parameter
+ * representing the post id of the post to delete.
+ */
+function deletePost(id) {
+    var url = "/posts/destroy";
+    $.ajax(url, 
+	   {
+	       type: "DELETE", 
+	       complete: function(data) {
+		   if (status == "error")
+		       ajaxFailure(data);
+		   else {
+               alert("deleted!")
+		   }    
+	       }
+	   });
+}

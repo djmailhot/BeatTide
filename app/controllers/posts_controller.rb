@@ -60,8 +60,8 @@ class PostsController < ApplicationController
   # page.
   # * params[id] : the ID of the post to show
   def destroy
-    logger.info "Post :: Post destruction request by user
-                 #{current_user.username}."
+    logger.info "Post :: Post destruction request by user " <<
+                "#{current_user.username}."
     post = current_user.posts.find_by_id(params[:id])
     if is_valid?(post)
       post.user.unlike!(post.like_count)
