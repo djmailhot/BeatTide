@@ -10,13 +10,12 @@
  * Attach listeners when the document is loaded
  */
 $(document).ready(function() {
-    $('#user_search_box').keypress(function(event){
+    $(document).delegate('#user_search_box', 'keypress', function(event) {
         if(event.keyCode == 13){
             performUserSearch();
         }
     });
-
-    $('#user_search_button').click(performUserSearch);
+    $(document).delegate('#user_search_button', 'click', performUserSearch);
     $('#user_search_box').Watermark("Search for user...");
 });
 
@@ -27,7 +26,7 @@ $(document).ready(function() {
 function performUserSearch() {
     var searchString = $('#user_search_box').val();
     console.log("Searching for user: " + searchString);
-    var url = "find_user";
+    var url = "users/find_user";
     $("#search_results").load(url, {query: searchString}, function(response, status, hxr){
     	if(status == "error"){
     	    ajaxFailure(hxr, status);

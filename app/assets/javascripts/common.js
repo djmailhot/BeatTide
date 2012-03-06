@@ -4,8 +4,6 @@
  * Authors: Harnoor Singh, Alex Miller
  */
 
-var ROOT_URL = "http://beattide.herokuapp.com/"
-
 /**
  * Prints out an AJAX request failure for debugging.
  */
@@ -40,10 +38,26 @@ function hideMessage() {
 }
 
 /**
- * Event listener for when an 'ajax link' completes a request. The data from
- * the request is then inserted into the main content container of the page.
- * This allows the music to keep playing when users navigate around the site.
+ * Extracts the route to the requested partial from the URL and loads the content 
+ * asynchronously. Relies on '#!' prefixing every path.
  */
-$(document).on('ajax:complete', '.ajax-link', function(event, data, status, xhr) {
-    $("#dynamic_content_container").html(data.responseText);
-});
+function loadPartial() {
+    $.get(window.location.hash.replace("#!", ""), function(data) {
+        $("#dynamic_content_container").html(data);
+    });
+}
+  
+$(document).ready(function() {
+    // set up all the path listeners. when a path matches one of the following
+    // patterns, the page is not refreshed. instead, an asynchronous request 
+    // loads the content.
+    Path.root("#!/home")
+    // this is messy, but PathJS doesn't have powerful wildcard matching
+    Path.map("#!/:1").to(loadPartial);
+    Path.map("#!/:1/:2").to(loadPartial);
+    Path.map("#!/:1/:2/:3").to(loadPartial);
+    Path.map("#!//:1").to(loadPartial);
+    Path.map("#!//:1/:2").to(loadPartial);
+    Path.map("#!//:1/:2/:3").to(loadPartial);
+    Path.listen();
+})
