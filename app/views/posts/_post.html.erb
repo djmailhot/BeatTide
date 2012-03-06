@@ -11,7 +11,7 @@
   <% if current_user == post.user %>
     <%= render :partial => "songs/song", :locals => {:song => post.song, :add => false} %>
   <% else %>
-    <%= render :partial => "songs/song_add", :locals => {:song => post.song} %>
+    <%= render :partial => "songs/song", :locals => {:song => post.song, :add => true} %>
   <% end %>
 
   <div class="info">
