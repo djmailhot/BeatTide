@@ -5,15 +5,6 @@
  */
 
 /**
- * Creates the global BEATTIDE object for storing global javascript variables.
- */
-function initializeBeatTideNameSpace() {
-    if (typeof BEATTIDE == "undefined") {
-        window.BEATTIDE = {};
-    }
-}
-
-/**
  * Prints out an AJAX request failure for debugging.
  */
 function ajaxFailure(ajax, exception){
@@ -40,6 +31,13 @@ function showMessage(message) {
     $("#close").click(hideMessage);
 }
 
+/**
+ * Hides the message.
+ */  
 function hideMessage() {
     $("#message_container").html('');
 }
+
+$(document).on('ajax:beforeSend', '.button-link', function() {
+  alert("Success!");
+});
