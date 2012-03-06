@@ -18,13 +18,15 @@ class ApplicationController < ActionController::Base
     @liked = post.liked_by?(current_user)
   end
   
-  # Sets the "raw" instance variable to mirror the raw parameter passed in.
+  # Sets the "raw" instance variable to indicate if the request was made through
+  # an ajax call.
+  #
   # This is useful because when an AJAX request is made, the raw parameter
   # will be set to true. This acts as a flag for the application layout to
   # render the view without the surrounding header and HTML tags. This allows
   # for content to be injected into the page without duplicating the header and
   # other stuff.
   def set_raw
-    @raw = params[:raw]
+    @raw = request.xhr?
   end
 end

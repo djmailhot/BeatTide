@@ -7,9 +7,8 @@ module ApplicationHelper
   # the new content without the page reloading. This means that the user's
   # music doesn't stop playing.
   def ajax_link_to(body, options, html_options = {})
-    url = url_for(options) + "?raw=true"
     html_options[:remote] = true
     html_options[:class] = "ajax-link"
-    link_to body, url, html_options
+    link_to body, options, html_options
   end
 end

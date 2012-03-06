@@ -29,7 +29,6 @@ function showMessage(message) {
     $(m).addClass("small_module");
     $("#message_container").html('');
     $("#message_container").append(m);
-    
     $("#close").click(hideMessage);
 }
 
