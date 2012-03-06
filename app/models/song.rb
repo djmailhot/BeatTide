@@ -2,6 +2,8 @@
 #
 # Author:: Brett Webber, Alex Miller, Melissa Winstanley
 class Song < ActiveRecord::Base
+  MAX_LENGTH = 200
+
   attr_accessible nil
 
   # Links to Album and Artist models are defined
@@ -12,8 +14,12 @@ class Song < ActiveRecord::Base
   has_many :posts
 
   # validation of api_id and title
-  validates :api_id, :presence => true, :uniqueness => true
-  validates :title, :presence => true
+  validates :api_id, :presence => true,
+                     :uniqueness => true,
+                     :numericality => { :only_integer => true,
+                                        :greater_than_or_equal_to => 0 }
+  validates :title, :presence => true,
+                    :length => { :minimum => 1, :maximum => MAX_LENGTH }
 
   # Adds one to the likes of this Song
   def like!
@@ -37,7 +43,11 @@ class Song < ActiveRecord::Base
     if song.nil?
       song = create! do |song|
         song.api_id = song_api_id
+        if song_title.length > MAX_LENGTH
+          song_title = song_title[0,MAX_LENGTH]
+        end
         song.title = song_title
+        song.like_count = 0
         song.album = Album.find_or_create(album_api_id, album_title)
         song.artist = Artist.find_or_create(artist_api_id, artist_title)
       end
@@ -45,8 +55,8 @@ class Song < ActiveRecord::Base
     end
     song
   end
-  
+
   def self.top
-    Song.find_by_sql("SELECT s.* FROM songs s ORDER BY like_count DESC LIMIT 5")
+    Song.find_by_sql("SELECT s.* FROM songs s WHERE like_count > 0 ORDER BY like_count DESC LIMIT 5")
   end
 end
