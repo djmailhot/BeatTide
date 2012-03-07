@@ -6,6 +6,12 @@
 class SubscriptionsController < ApplicationController
   before_filter :authenticate
 
+  # Show all the users the current user is subscribed to.
+  # Sets @subscriptions to the list of subscriptions
+  def index
+    @subscriptions = current_user.subscriptions
+  end
+
   # creates a subscription from the current user to
   # params[:subscription][:subscribed_id]
   # redirects the user back to the page of the subscribed user

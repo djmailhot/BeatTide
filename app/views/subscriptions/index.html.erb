@@ -1,0 +1,33 @@
+<%
+# subscriptions/index
+# this file contains the index of all a user's subscriptions, giving them
+# easy access to their subscriptions and the ability to delete them.
+#
+# Author::Tyler Rigsby
+%>
+
+<p id="notice"><%= notice %></p>
+
+<div class="module" id="your_subscriptions">
+  <h2>Your Subscriptions</h2>
+  <div>
+    <% if @subscriptions.empty? %>
+    <p>You are not subscribed to anyone!</p>
+    <h2><%= link_to "Find Friends", "/users/search" %></h2>
+    <% else %>
+    <table class="user_list">
+      <th>Name</th>
+      <th>Username</th>
+      <th>Unsubscribe</th>
+      <% @subscriptions.each do |subscription| %>
+      <tr id=<%= "#{subscription.subscribed.id}" %>>
+	<td><%= subscription.subscribed.first_name %> <%= subscription.subscribed.last_name %></td>
+	<td><%= link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
+	<td class="button"><%= link_to_function "Unsubscribe", "unsubscribe(#{subscription.subscribed.id}, listUnsubscribeCallback)" %></td>
+      </tr>
+      <% end %>
+    </table>
+    <% end %>
+  </div>
+</div>
+

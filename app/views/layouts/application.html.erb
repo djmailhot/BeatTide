@@ -33,7 +33,7 @@ if !@raw
     <div id="content">
         <div class="small_module module">
             <% if current_user %>
-              Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong> | <%= link_to "Sign Out", signout_path %> | <%= ajax_link_to "Edit Profile", "/edit_profile" %>
+              Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong> | <%= link_to "Sign Out", signout_path %> | <%= ajax_link_to "Your Subscriptions", "/subscriptions" %> | <%= link_to "Edit Profile", "/edit_profile" %>
             <% else %>
               <strong>Not signed in.</strong>
             <% end %>
