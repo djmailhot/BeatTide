@@ -13,7 +13,7 @@ BeatTide::Application.routes.draw do
   resources :users, :only => [:show, :index]
 
   get "feed", :controller => "pages"
-  resources :subscriptions, :only => [:create, :destroy]
+  resources :subscriptions, :only => [:index, :create, :destroy]
 
   # Routes for creating and destroying a session (logging in or logging out)
   match "/auth/:provider/callback" => "sessions#create"
@@ -86,6 +86,7 @@ BeatTide::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'pages#index'
+  match "home" => 'pages#index'
 
   # See how all your routes lay out with "rake routes"
 

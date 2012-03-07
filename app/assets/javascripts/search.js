@@ -10,15 +10,13 @@
  * the user's cursor within the search box.
  */
 $(document).ready(function() {
-    $('#song_search_box').keypress(function(event){
+    $(document).delegate('#song_search_box', 'keypress', function(event){
         if(event.keyCode == 13){
             performSearch();
         }
     });
-
-    $('#song_search_button').click(performSearch);
+    $(document).delegate('#song_search_button', 'click', performSearch);
     $('#song_search_box').Watermark("Search for song...");
-
 });
 
 
@@ -29,7 +27,6 @@ $(document).ready(function() {
  */
 function performSearch() {
     var searchString = $('#song_search_box').val();
-    console.log("Sending request for search query: '" + searchString + "'");
     var url = "grooveshark/songs_from_query";
     $("#search_results").load(url, {query: searchString}, function(response, status, xhr) {
         if (status == "error") {
