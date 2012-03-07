@@ -13,7 +13,7 @@
   <div>
     <% if @subscriptions.empty? %>
     <p>You are not subscribed to anyone!</p>
-    <h2><%= link_to "Find Friends", "/users/search" %></h2>
+    <h2><%= ajax_link_to "Find Friends", "/users/search" %></h2>
     <% else %>
     <table class="user_list">
       <th>Name</th>
@@ -21,9 +21,9 @@
       <th>Unsubscribe</th>
       <% @subscriptions.each do |subscription| %>
       <tr id=<%= "#{subscription.subscribed.id}" %>>
-	<td><%= subscription.subscribed.first_name %> <%= subscription.subscribed.last_name %></td>
-	<td><%= link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
-	<td class="button"><%= link_to_function "Unsubscribe", "unsubscribe(#{subscription.subscribed.id}, listUnsubscribeCallback)" %></td>
+	      <td><%= subscription.subscribed.first_name %> <%= subscription.subscribed.last_name %></td>
+      	<td><%= link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
+      	<td class="button"><%= link_to_function "Unsubscribe", "unsubscribe(#{subscription.subscribed.id}, listUnsubscribeCallback)" %></td>
       </tr>
       <% end %>
     </table>
