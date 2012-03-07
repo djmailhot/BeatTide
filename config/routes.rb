@@ -33,8 +33,7 @@ BeatTide::Application.routes.draw do
   post "/posts/like"
   get "/posts/show_raw"
 
-  resources :posts, :only => [:destroy]
-#  match "/posts/destroy", :to => "posts#destroy", :via => "post"
+  match "/posts/:id", :to => "posts#destroy", :via => "post"
   match "/posts", :to => "posts#create", :via => "post"
   match "/posts/:id" => "posts#show"
 

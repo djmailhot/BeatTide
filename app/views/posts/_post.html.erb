@@ -1,17 +1,19 @@
 <%
 #   View for a single post. Displays the song view and meta data about the post.
 #
-#   Author:: Alex Miller
+#   Author:: Alex Miller, David Mailhot
 %>
-
-<div class="post">
+<div class="post" id="pid_<%= post.id %>">
   <div class="posted_by">
-    <strong><%= ajax_link_to post.user.username, post.user %></strong> posted:
-    <span><strong>
-    <% if post.user_id == current_user.id %>
-      <%= link_to_function "Remove", "deletePost(#{post.id})" %>
-    <% end %>
+  <% if current_user == post.user %>
+    You posted: (
+    <span class="delete_post"><strong>
+    <%= link_to_function "Remove", "deletePost(#{post.id}, removePostCallback)" %>
     </strong></span>
+    )
+  <% else %>
+    <strong><%= ajax_link_to post.user.username, post.user %></strong> posted:
+  <% end %>
   </div>
   <% if current_user == post.user %>
     <%= render :partial => "songs/song", :locals => {:song => post.song, :add => false} %>
@@ -35,5 +37,4 @@
     <% end %>
     <span class="date_posted">• Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
   </div>
-  <%= link_to "delete", post, :method => :delete %>
 </div>
