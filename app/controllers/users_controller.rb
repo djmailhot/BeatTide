@@ -77,7 +77,7 @@ class UsersController < ApplicationController
       if @results.empty?
         render :text => "No results found :("
       else
-        @results = sortUsersByRelevancy(params[:query])
+        @results = sort_users_by_relevancy(params[:query])
         render :partial => "users/user_list", :locals => {:users => @results}, :layout => false
       end
     else
@@ -96,22 +96,22 @@ class UsersController < ApplicationController
   end
 
   # This method sorts a list of users by relevancy to the search query
-  #     @results is the array of users returned by the sql query
-  def sortUsersByRelevancy(query)
+  # @results is the array of users returned by the sql query
+  def sort_users_by_relevancy(query)
     results = Hash.new
     @results.each do |user|
-      results[user] = editDistance(user, query)
+      results[user] = edit_distance(user, query)
     end
 
     # Sort the hash.  This returns a 2D array
-    twoDResults = results.sort {|a,b| a[1] <=> b[1]}
+    twod_results = results.sort {|a,b| a[1] <=> b[1]}
 
     # Return an array of users in the sorted order
-    sortedResults = Array.new
-    twoDResults.each do |user, count| 
-      sortedResults << user
+    sorted_results = Array.new
+    twod_results.each do |user, count| 
+      sorted_results << user
     end
-    return sortedResults
+    sorted_results
   end
 
 
@@ -119,12 +119,12 @@ class UsersController < ApplicationController
 
   # Takes a user and a search query.  Compares the search query to the users name
   # and returns the edit difference
-  def editDistance(user, query)
+  def edit_distance(user, query)
     words = query.split(" ")
     words.each do |search|
-      a = calculateEditDistance(search, user.first_name, 0, 0, false)
-      b = calculateEditDistance(search, user.last_name, 0, 0, false)
-      c = calculateEditDistance(search, user.username, 0, 0, false)
+      a = calculate_edit_distance(search, user.first_name, 0, 0, false)
+      b = calculate_edit_distance(search, user.last_name, 0, 0, false)
+      c = calculate_edit_distance(search, user.username, 0, 0, false)
       return [a, b, c].min
     end
   end
@@ -133,30 +133,30 @@ class UsersController < ApplicationController
   # indexQuery represents what index we're at for query
   # indexName represents what index we're at for name
   # match is a boolean initially set to false.  It is set to true if we have
-  #   found at least one matching letter.  This prevents us from favoring
-  #   short names with no letters in common over long names with letters
-  #   in common.  (Eg: Yi and Miller in a search for e)
-  def calculateEditDistance(query, name, indexQuery, indexName, match)
-    if indexQuery == query.length && indexName == name.length
+  # found at least one matching letter.  This prevents us from favoring
+  # short names with no letters in common over long names with letters
+  # in common.  (Eg: Yi and Miller in a search for e)
+  def calculate_edit_distance(query, name, index_query, index_name, match)
+    if index_query == query.length && index_name == name.length
       return 0 + multiplier(match)
-    elsif indexQuery == query.length
-      return multiplier(match) + name.length - indexName
-    elsif indexName == name.length
-      return multiplier(match) + query.length - indexQuery
+    elsif index_query == query.length
+      return multiplier(match) + name.length - index_name
+    elsif index_name == name.length
+      return multiplier(match) + query.length - index_query
 
     # If the letters match, change match to true to indicate we found at least one matching letter
-    elsif query[indexQuery].casecmp(name[indexName]) == 0
-      return calculateEditDistance(query, name, indexQuery + 1, indexName + 1, true)
+    elsif query[index_query].casecmp(name[index_name]) == 0
+      return calculate_edit_distance(query, name, index_query + 1, index_name + 1, true)
     else
 
       # Delete a character from the name
-      del = calculateEditDistance(query, name, indexQuery + 1, indexName, match)
+      del = calculate_edit_distance(query, name, index_query + 1, index_name, match)
 
       # Insert a character into the query
-      insert = calculateEditDistance(query, name, indexQuery, indexName + 1, match)
+      insert = calculate_edit_distance(query, name, index_query, index_name + 1, match)
 
       # Swap two characters
-      swap = calculateEditDistance(query, name, indexQuery + 1, indexName + 1, match)
+      swap = calculate_edit_distance(query, name, index_query + 1, index_name + 1, match)
 
       return 1 + [del, insert, swap].min
     end
