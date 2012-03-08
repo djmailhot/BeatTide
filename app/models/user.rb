@@ -121,17 +121,17 @@ class User < ActiveRecord::Base
   end
 
   # Decreases this user's number of likes by a specified amount, default 1
-  def unlike!(count=1)
-    new_count = self.like_count - count
+  def unlike!
+    new_count = self.like_count - 1
     if new_count < 0
-      logger.error "User:: #{self.attributes.inspect} unliked by #{count} " <<
+      logger.error "User:: #{self.attributes.inspect} unliked by 1 " <<
                    "would result in negative likes.  Defaulting to 0 likes."
       new_count = 0
     end
 
     self.like_count = new_count
     self.save
-    logger.debug "User:: #{self.username} unliked #{count} times."
+    logger.debug "User:: #{self.username} unliked by 1."
   end
 
   # Returns the top 5 users by descending like count.

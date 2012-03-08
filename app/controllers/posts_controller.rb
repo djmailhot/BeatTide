@@ -64,10 +64,6 @@ class PostsController < ApplicationController
                 "#{current_user.username}."
     post = current_user.posts.find_by_id(params[:id])
     if is_valid?(post)
-      post.user.unlike!(post.like_count)
-      post.song.unlike!(post.like_count)
-      # Destroy should remove all liking-user associations in the database
-
       target_id = post.id
       post.destroy
       logger.info "Post :: user #{current_user.username} destroyed " <<

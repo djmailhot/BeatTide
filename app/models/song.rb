@@ -35,17 +35,17 @@ class Song < ActiveRecord::Base
   end
 
   # Subtracts a specified amount, default 1, from the likes of this Song
-  def unlike!(count=1)
-    new_count = self.like_count - count
+  def unlike!
+    new_count = self.like_count - 1
     if new_count < 0
-      logger.error "Song :: #{self.attributes.inspect} unliked by #{count} " <<
+      logger.error "Song :: #{self.attributes.inspect} unliked by 1 " <<
                    "would result in negative likes.  Defaulting to 0 likes."
       new_count = 0
     end
 
     self.like_count = new_count
     self.save
-    logger.debug "Song :: #{self.title} unliked by #{count}."
+    logger.debug "Song :: #{self.title} unliked by 1."
   end
 
   # Searches for a song with the passed song API id. If no song is found, creates
