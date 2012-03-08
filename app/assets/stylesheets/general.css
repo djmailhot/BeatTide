@@ -123,4 +123,6 @@ a:hover {
 
 .loading {
     margin: 30px auto 0 auto;
+    text-align: center;
+    background-color: #FFF;
 }
