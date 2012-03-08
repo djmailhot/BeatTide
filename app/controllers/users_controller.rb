@@ -1,5 +1,3 @@
-
-
 # Manages operations involving interactions between the views
 # and models regarding the users. Supports listing all users,
 # creating users, and showing and editing specific users.
@@ -114,9 +112,6 @@ class UsersController < ApplicationController
     sorted_results
   end
 
-
-
-
   # Takes a user and a search query.  Compares the search query to the users name
   # and returns the edit difference
   def edit_distance(user, query)
@@ -162,16 +157,14 @@ class UsersController < ApplicationController
     end
   end
 
-
   # Match is a boolean which indicates if any character matched the query.  
   # If no characters matched we want to indicate this is a bad edit difference
-  #   so we add 100 to weigh it down.  
-  #   This prevents short names from being rated as good matches
+  # so we add 100 to weigh it down.  
+  # This prevents short names from being rated as good matches
   def multiplier(match)
     if(match)
       return 0
     end
     100
-  end
-    
+  end 
 end

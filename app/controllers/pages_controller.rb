@@ -1,6 +1,6 @@
 # Controller for serving up top level pages, such as the front index page.
 #
-# Author::   Alex Miller
+# Author:: Alex Miller
 class PagesController < ApplicationController
 
   FEED_POSTS_PER_PAGE = 50
@@ -16,6 +16,7 @@ class PagesController < ApplicationController
     render "feed"
   end
 
+  # Displays an error saved in the flash[:error] variable
   def error
     @error = flash[:error]
     if @error.nil?
