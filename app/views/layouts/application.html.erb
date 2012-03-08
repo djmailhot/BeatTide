@@ -19,6 +19,8 @@ if !@raw
 <body>
 
 <div id="container">
+    <div id="message_container">
+    </div>
     <div id="header_container">
         <div id="header">
             <% logo = image_tag("logo_small.png", :alt => "BeatTide Logo") %>
@@ -37,9 +39,6 @@ if !@raw
             <% else %>
               <strong>Not signed in.</strong>
             <% end %>
-        </div>
-        
-        <div id="message_container">
         </div>
         
         <div id="dynamic_content_container">
