@@ -14,8 +14,8 @@ function subscribe(id, username) {
     showMessage("Subscribed to " + username + ".");
     var url = "/subscriptions/";
     $.post(url, {id: id}, function(data, status) {
-        $("#subscription_form a").text("Unsubscribe");
-        $("#subscription_form a").attr("onclick", "unsubscribe(" + id + ", '" + username + "'); return false;");
+        $("a#subscribe").text("Unsubscribe");
+        $("a#subscribe").attr("onclick", "unsubscribe(" + id + ", '" + username + "'); return false;");
     });
 }
 
@@ -30,8 +30,8 @@ function unsubscribe(id, username) {
         url: url,
         type: "DELETE", 
         complete: function(data) {
-            $("#subscription_form a").text("Subscribe");
-            $("#subscription_form a").attr("onclick", "subscribe(" + id + ", '" + username + "'); return false;");
+            $("a#subscribe").text("Subscribe");
+            $("a#subscribe").attr("onclick", "subscribe(" + id + ", '" + username + "'); return false;");
         }
     });
 }
