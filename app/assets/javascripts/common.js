@@ -42,6 +42,7 @@ function hideMessage() {
  * asynchronously. Relies on '#!' prefixing every path.
  */
 function loadPartial() {
+    $("#dynamic_content_container").html('<div class="loading"><img src="assets/load.gif" /></div>');
     $.get(window.location.hash.replace("#!", ""), function(data) {
         $("#dynamic_content_container").html(data);
     });
@@ -53,11 +54,11 @@ $(document).ready(function() {
     // loads the content.
     Path.root("#!/home")
     // this is messy, but PathJS doesn't have powerful wildcard matching
-    Path.map("#!/:1").to(loadPartial);
-    Path.map("#!/:1/:2").to(loadPartial);
-    Path.map("#!/:1/:2/:3").to(loadPartial);
-    Path.map("#!//:1").to(loadPartial);
-    Path.map("#!//:1/:2").to(loadPartial);
-    Path.map("#!//:1/:2/:3").to(loadPartial);
+    Path.map("#!/:a").to(loadPartial);
+    Path.map("#!/:a/:b").to(loadPartial);
+    Path.map("#!/:a/:b/:c").to(loadPartial);
+    Path.map("#!//:a").to(loadPartial);
+    Path.map("#!//:a/:b").to(loadPartial);
+    Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
 })
