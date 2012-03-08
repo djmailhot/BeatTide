@@ -42,6 +42,7 @@ function hideMessage() {
  * asynchronously. Relies on '#!' prefixing every path.
  */
 function loadPartial() {
+    $("#dynamic_content_container").html('<div class="loading"><img src="assets/ajax-loader.gif" /></div>');
     $.get(window.location.hash.replace("#!", ""), function(data) {
         $("#dynamic_content_container").html(data);
     });
