@@ -21,7 +21,7 @@
       <th>Unsubscribe</th>
       <% @subscriptions.each do |subscription| %>
       <tr id=<%= "#{subscription.subscribed.id}" %>>
-	<td><%= subscription.subscribed.first_name %> <%= subscription.subscribed.last_name %></td>
+	      <td><%= subscription.subscribed.first_name %> <%= subscription.subscribed.last_name %></td>
       	<td><%= ajax_link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
       	<td class="button"><%= link_to_function "Unsubscribe", "unsubscribe(#{subscription.subscribed.id}, listUnsubscribeCallback)" %></td>
       </tr>

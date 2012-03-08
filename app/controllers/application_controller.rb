@@ -8,7 +8,19 @@ class ApplicationController < ActionController::Base
   # Every single action should set the raw instance variable.
   before_filter :set_raw
   
-  helper_method :liked
+  helper_method :liked, :current_user, :signed_in?, :current_user?, :authenticate
+
+  public
+
+  # Returns the user that is logged in in the current session. If no user is
+  # logged in, then returns nil
+  def current_user
+    if session[:user_id].nil?
+      nil
+    else
+      User.find_by_id(session[:user_id])
+    end
+  end
 
   private
 
@@ -27,16 +39,6 @@ class ApplicationController < ActionController::Base
   # other stuff.
   def set_raw
     @raw = request.xhr?
-  end
-    
-  # Returns the user that is logged in in the current session. If no user is
-  # logged in, then returns nil
-  def current_user
-    if session[:user_id].nil?
-      nil
-    else
-      User.find_by_id(session[:user_id])
-    end
   end
 
   # Signs the given user into the session
