@@ -1,3 +1,8 @@
+# The table "posts", created by this class keeps track of the ids of the user
+# who owns the post and the song that the post contains.  It also includes how
+# many likes the post has gotten.
+#
+# Author: ???
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
@@ -10,5 +15,6 @@ class CreatePosts < ActiveRecord::Migration
     # Make a multiple key index on user id and creation time.
     # Better performance when retreiving posts sorted on creation time.
     add_index :posts, [:user_id, :created_at]
+    add_index :posts, :song_id
   end
 end
