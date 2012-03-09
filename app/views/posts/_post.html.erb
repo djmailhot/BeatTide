@@ -6,7 +6,7 @@
 
 <div class="post">
   <div class="posted_by">
-    <strong><%= link_to post.user.username, post.user %></strong> posted:
+    <strong><%= ajax_link_to post.user.username, post.user %></strong> posted:
   </div>
   <% if current_user == post.user %>
     <%= render :partial => "songs/song", :locals => {:song => post.song, :add => false} %>

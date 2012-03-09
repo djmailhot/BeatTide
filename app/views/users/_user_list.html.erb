@@ -9,20 +9,18 @@
   <% users.each do |user| %>
     <tr>
       <td>
-	<%= link_to(user) do %>
-	<%= user.first_name %> <%= user.last_name %>
-	<% end %>
+	      <%= ajax_link_to user.first_name + " " + user.last_name, user %>
       </td>
       <td>
-	<%= user.username %>
+        <%= ajax_link_to user.username, user %>
       </td>
       <td>
-	<%= user.like_count %>        
-	<% if user.like_count == 1 %>
-           Like
-	<% else %>
-      	   Likes
-	<% end %>
+      	<%= user.like_count %>        
+      	<% if user.like_count == 1 %>
+                 Like
+      	<% else %>
+            	   Likes
+      	<% end %>
       </td>
     </tr>
   <% end %>

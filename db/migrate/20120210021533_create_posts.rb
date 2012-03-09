@@ -1,3 +1,8 @@
+# The table "posts", created by this class keeps track of the ids of the user
+# who owns the post and the song that the post contains.  It also includes how
+# many likes the post has gotten.
+#
+# Author: Tyler Rigsby
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
