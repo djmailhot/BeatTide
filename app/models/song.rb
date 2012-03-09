@@ -21,6 +21,12 @@ class Song < ActiveRecord::Base
   validates :title, :presence => true,
                     :length => { :minimum => 1, :maximum => MAX_LENGTH }
 
+  after_initialize :init
+
+  def init
+    self.like_count = 0 if self.like_count.nil?
+  end
+
   # Adds one to the likes of this Song
   def like!
     self.like_count = self.like_count + 1
@@ -43,10 +49,7 @@ class Song < ActiveRecord::Base
     if song.nil?
       song = create! do |song|
         song.api_id = song_api_id
-        if song_title.length > MAX_LENGTH
-          song_title = song_title[0,MAX_LENGTH]
-        end
-        song.title = song_title
+        song.title = Utility.check_length_or_truncate(song_title, MAX_LENGTH)
         song.like_count = 0
         song.album = Album.find_or_create(album_api_id, album_title)
         song.artist = Artist.find_or_create(artist_api_id, artist_title)

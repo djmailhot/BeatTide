@@ -32,6 +32,12 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true,
                         :length => { :minimum => 1, :maximum => 200 }
 
+  after_initialize :init
+
+  def init
+    self.like_count = 0 if self.like_count.nil?
+  end
+
   # Search for a user given the query
   # We split the query on spaces and serch for the tokens individually
   def self.search(query)
@@ -44,7 +50,7 @@ class User < ActiveRecord::Base
     end
     return users
   end
-  
+
   # Returns whether or not the user has a username set.
   def username?
     !self.username.blank?
@@ -56,21 +62,16 @@ class User < ActiveRecord::Base
   # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.facebook_id = auth["uid"]
-      user.first_name = auth["info"]["first_name"]
-      if user.first_name.length > 200
-        user.first_name = user.first_name[0,200]
+      if Utility.verify_fb_auth(auth)
+        user.facebook_id = auth["uid"]
+        user.first_name = Utility.check_length_or_truncate(auth["info"]["first_name"], 200)
+        user.last_name = Utility.check_length_or_truncate(auth["info"]["last_name"], 200)
+        user.username = Utility.check_length_or_truncate(user.first_name + " " + user.last_name, 25)
+        user.like_count = 0
+        logger.info "User :: New user saved to database #{user.attributes.inspect}"
+      else
+        raise ActiveRecord::RecordInvalid.new user
       end
-      user.last_name = auth["info"]["last_name"]
-      if user.last_name.length > 200
-        user.last_name = user.last_name[0,200]
-      end
-      user.username = user.first_name + " " + user.last_name
-      if user.username.length > 25
-        user.username = user.username[0,25]
-      end
-      user.like_count = 0
-      logger.info "User :: New user saved to database #{user.attributes.inspect}"
     end
   end
 
@@ -119,5 +120,4 @@ class User < ActiveRecord::Base
   def self.top
     User.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
   end
-
 end

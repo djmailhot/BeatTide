@@ -1,3 +1,7 @@
+# The table "users", created by this class contains all of the necessary
+# data for a particular user of the site.
+#
+# Author: Brett Webber, Tyler Rigsby, David Mailhot
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
@@ -11,5 +15,9 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
+    # To make user search faster
+    add_index :users, :first_name
+    add_index :users, :last_name
+    add_index :users, :username
+  end  
 end

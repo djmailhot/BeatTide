@@ -22,6 +22,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Signs the given user into the session
+  def sign_in(user)
+    if signed_in?
+      flash.now[:error] = "Session is already signed in."
+      logger.error "Session :: User requested sign in when already signed in."
+    else
+      session[:user_id] = user.id
+      logger.info "Session :: User sign in: #{user.attributes.inspect}"
+    end
+  end
+
   private
 
   # Sets the @liked instance variable for use in the view
@@ -39,17 +50,6 @@ class ApplicationController < ActionController::Base
   # other stuff.
   def set_raw
     @raw = request.xhr?
-  end
-
-  # Signs the given user into the session
-  def sign_in(user)
-    if signed_in?
-      flash.now[:error] = "Session is already signed in."
-      logger.error "Session :: User requested sign in when already signed in."
-    else
-      session[:user_id] = user.id
-      logger.info "Session :: User sign in: #{user.attributes.inspect}"
-    end
   end
 
   # Signs the current user out of the session

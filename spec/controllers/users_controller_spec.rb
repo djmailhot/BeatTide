@@ -100,10 +100,10 @@ describe UsersController do
     end
 
     # Edit should fail when editing some other users data
-    it "Should fail with flash.now if editing another user" do
+    it "Should redirect to current user edit even when editing another user" do
       @user2 = FactoryGirl.create(:user)
       get :edit, :id => @user2
-      response.should redirect_to("/error")
+      assigns(:user).should == @user
     end
   end
 

@@ -1,0 +1,71 @@
+<% 
+# Tutorial page for BeatTide.  
+# 
+# Author:: Brett Webber 
+%>
+
+<div class="module" id="user_header">
+  <h2>Tutorial</h2>
+</div>
+
+<div class="module">
+  <div class="section">
+    <h3 id="SongSearch">Adding a Song</h3>
+    <img src="images/tutorial/song_search.png">
+    <% song_search = image_tag("tutorial/song_search.png", :alt => "Song Search Image") %>
+    <p class="explanation">
+      Search bar under "Add Song" allows you to search for
+      songs. Enter the name of a song, artist, or album and press
+      “Enter” or click “Search” to search for it. The search results
+      will appear below the box. You can listen to the songs you’ve
+      searched for, and press “+ add” to post it to your profile.
+    </p>
+  </div>
+  <div class="section">
+    <h3 id="YourPlaylist">Your Playlist</h3>
+    <p class="explanation">
+      This box contains the songs you’ve posted to your profile. You
+      can play the songs you’ve posted, build a playlist from them, or
+      remove them from your profile. By default, the 10 most recent
+      songs you’ve posted will appear here; click “See more...” to
+      view more.
+    </p>
+  </div>
+  <div class="section">
+    <h3 id="AggregatedPlaylist">Aggregated Playlist</h3>    
+    <p class="explanation">
+      This box contains the songs your friends have posted to their
+      profile. You can play the songs they’ve posted, build a playlist
+      from them, or “Like” or add them to your own profile if you
+      enjoy them, too. By default, the 10 most recent songs your
+      friends have posted will appear here; click “See more...” to
+      view more.
+    </p>
+  </div>  
+  <div class="section">
+    <h3 id="TopUsers">Top Users</h3>    
+    <p class="explanation">
+      This box contains the users and songs that have received the
+      most likes from all users of BeatTide. You can play songs or
+      view the popular users.
+    </p>
+  </div>  
+  <div class="section">
+    <h3 id="SubscribeButton">Subscribe Button</h3>    
+    <p class="explanation">
+      This button allows you to subscribe to a user.  Once you are
+      subscribed to someone, the songs that they post will come up in
+      your aggregated playlist.  To unsubscribe to someone, go to
+      their profile page and click the “unsubscribe” button.
+    </p>
+  </div>
+  <div class="section">
+    <h3 id="LikeButton">Like Button</h3>
+    <p class="explanation">
+      Liking a song shows someone that you enjoyed their post, and
+      contributes to their overall “likes” count.  If you wish to
+      unlike a post, click the unlike button which should be where the
+      like button was before you liked the song.      
+    </p>
+  </div>  
+</div>

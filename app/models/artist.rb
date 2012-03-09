@@ -21,10 +21,7 @@ class Artist < ActiveRecord::Base
     if artist.nil?
       artist = create! do |artist|
         artist.api_id = api_id
-        if title.length > Song::MAX_LENGTH
-          title = title[0,Song::MAX_LENGTH]
-        end
-        artist.title = title
+        artist.title = Utility.check_length_or_truncate(title, Song::MAX_LENGTH)
       end
       logger.info "Album :: New artist saved to database
                    #{artist.attributes.inspect}"
