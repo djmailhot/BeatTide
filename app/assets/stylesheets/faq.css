@@ -1,0 +1,15 @@
+/**
+ * Styles for the frequently asked questions.
+ *
+ * Author: Brett Webber
+ */
+.faq {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #CCC;
+}
+
+.question {
+    color: #aa988b;
+    font-style: italic;
+}
