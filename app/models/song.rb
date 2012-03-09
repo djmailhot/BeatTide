@@ -49,7 +49,7 @@ class Song < ActiveRecord::Base
     if song.nil?
       song = create! do |song|
         song.api_id = song_api_id
-        song.title = Utility.check_length(song_title, MAX_LENGTH)
+        song.title = Utility.check_length_or_truncate(song_title, MAX_LENGTH)
         song.like_count = 0
         song.album = Album.find_or_create(album_api_id, album_title)
         song.artist = Artist.find_or_create(artist_api_id, artist_title)

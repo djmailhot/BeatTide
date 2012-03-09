@@ -21,7 +21,7 @@ class Album < ActiveRecord::Base
     if album.nil?
       album = create! do |album|
         album.api_id = api_id
-        album.title = Utility.check_length(title, Song::MAX_LENGTH)
+        album.title = Utility.check_length_or_truncate(title, Song::MAX_LENGTH)
       end
       logger.info "Album :: New album saved to database
                    #{album.attributes.inspect}"

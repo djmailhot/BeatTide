@@ -15,7 +15,7 @@ module Utility
   # Checks that the given string is no longer than the given length. If
   # it is longer, returns the string truncated to the given length;
   # otherwise returns the orginal string
-  def check_length(str, length)
+  def check_length_or_truncate(str, length)
     if !str.nil? && str.length > length
       str = str[0,length]
     end

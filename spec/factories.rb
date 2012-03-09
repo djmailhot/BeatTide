@@ -37,6 +37,5 @@ FactoryGirl.define do
   factory :post do
     song
     user
-    like_count  0
   end
 end

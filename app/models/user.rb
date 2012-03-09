@@ -64,9 +64,9 @@ class User < ActiveRecord::Base
     create! do |user|
       if Utility.verify_fb_auth(auth)
         user.facebook_id = auth["uid"]
-        user.first_name = Utility.check_length(auth["info"]["first_name"], 200)
-        user.last_name = Utility.check_length(auth["info"]["last_name"], 200)
-        user.username = Utility.check_length(user.first_name + " " + user.last_name, 25)
+        user.first_name = Utility.check_length_or_truncate(auth["info"]["first_name"], 200)
+        user.last_name = Utility.check_length_or_truncate(auth["info"]["last_name"], 200)
+        user.username = Utility.check_length_or_truncate(user.first_name + " " + user.last_name, 25)
         user.like_count = 0
         logger.info "User :: New user saved to database #{user.attributes.inspect}"
       else
