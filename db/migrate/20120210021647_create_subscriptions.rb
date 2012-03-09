@@ -1,7 +1,7 @@
 # The table "subscriptions", created by this class keeps track of the user ids
 # of each of the subscribers and subscribed users
 #
-# Author: ???
+# Author: Melissa Winstanley, David Mailhot, Tyler Rigsby
 class CreateSubscriptions < ActiveRecord::Migration
   def change
     create_table :subscriptions do |t|
