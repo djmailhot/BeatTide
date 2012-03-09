@@ -129,3 +129,8 @@ a:hover {
     background-color: #FFF;
     width: 400px;
 }
+
+#ad_space {
+    position: absolute;
+    left: 40px;
+}

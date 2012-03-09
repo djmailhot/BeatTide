@@ -30,6 +30,9 @@ if !@raw
         </div>
     </div>
     <div id="content">
+        <div id="ad_space">
+            <%= image_tag("ad1.png", :alt => "Ad") %>
+        </div>
         <div class="small_module module">
             <% if current_user %>
               Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong> 
