@@ -43,9 +43,17 @@ function hideMessage() {
  */
 function loadPartial() {
     $("#dynamic_content_container").html('<div class="loading"><img src="assets/load.gif" /></div>');
-    $.get(window.location.hash.replace("#!", ""), function(data) {
-        $("#dynamic_content_container").html(data);
-    });
+    $.ajax({
+	url: window.location.hash.replace("#!", ""),
+	success: function(data) {
+	    $("#dynamic_content_container").html(data);
+	},
+	error: function(data) {
+	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2></div>");
+	    $("#dynamic_content_container").html(div);
+	},
+	dataType: "html"
+    });	
 }
   
 $(document).ready(function() {
