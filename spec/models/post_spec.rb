@@ -20,12 +20,14 @@ describe Post do
 
       # Not valid with a nil user.
       it "should fail without user" do
-        lambda { Post.create_from_song(@song, nil) }.should raise_error(ActiveRecord::RecordInvalid)
+        lambda { Post.create_from_song(@song, nil) }.should
+                   raise_error(ActiveRecord::RecordInvalid)
       end
 
       # Not valid with a nil song.
       it "should fail without song" do
-        lambda { Post.create_from_song(nil, @user) }.should raise_error(ActiveRecord::RecordInvalid)
+        lambda { Post.create_from_song(nil, @user) }.should
+                   raise_error(ActiveRecord::RecordInvalid)
       end
 
       # Not valid without either user or song.

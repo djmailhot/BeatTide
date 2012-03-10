@@ -12,11 +12,12 @@
 
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
   <% unless !current_user || current_user.id == @user.id %>
-  <div id="subscription_form">
-    <% if current_user.subscribing?(@user) %>
-    <%= link_to_function "Unsubscribe", "unsubscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
-    <% else %>
-    <%= link_to_function "Subscribe", "subscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
+
+    <div id="subscription_form">
+      <% if current_user.subscribing?(@user) %>
+        <%= link_to_function "Unsubscribe", "showUnsubscribe(#{@user.id}, '#{@user.username}')", :id => 'subscribe' %>	
+      <% else %>
+        <%= link_to_function "Subscribe", "showSubscribe(#{@user.id}, '#{@user.username}')", :id => 'subscribe' %>	
     <% end %>
   </div>
   <% end %>  
@@ -61,6 +62,7 @@
 
 </div>
 
+
 <div class="column right">
   <div class="module">
     <%= will_paginate @posts %>
@@ -68,3 +70,4 @@
     <%= will_paginate @posts %>
   </div>
 </div>
+
