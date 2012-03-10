@@ -18,7 +18,7 @@ class GroovesharkController < ApplicationController
     # Rails automatically renders the corresponding "search" view.
     render :layout => false
   end
-  
+
   # Displays a grooveshark Flash widget, given a comma separated list of song
   # id's.
   def player
