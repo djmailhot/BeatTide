@@ -28,17 +28,16 @@ if !@raw
 	          <div id="player_container">
             </div>
         </div>
-        
         <div id="navigation_container">
-            <ul id="top_navigation">
-                <li><a href="#">LInk</a></li>
-                <li><a href="#">LInk</a></li>
-                <li><%= ajax_link_to "Your Subscriptions", "/subscriptions" %></li>
-            </ul>
             <% if current_user %>
+            <ul id="top_navigation">
+                <li><%= ajax_link_to image_tag("icons/home.png", :alt => "Home") + " Home", "home" %></li>
+                <li><%= ajax_link_to image_tag("icons/search.png", :alt => "User search") + " Find Friends", "users/search" %></li>
+                <li><%= ajax_link_to image_tag("icons/subscriptions.png", :alt => "User search") + " Your Subscriptions", "/subscriptions" %></li>
+            </ul>
                 <ul id="user_navigation">
-                    <li>Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong></li>
-                    <li><%= ajax_link_to "Edit Profile", "/edit_profile" %></li>
+                    <li id="signed_in_as">Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong></li>
+                    <li><%= ajax_link_to image_tag("icons/edit.png", :alt => "Home") + " Edit Profile", "/edit_profile" %></li>
                     <li><%= link_to "Sign Out", signout_path %></li>
                 </ul>
             <% else %>

@@ -13,6 +13,21 @@ body {
    margin: 0;
 }
 
+a:link {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7b3908;
+    text-decoration: underline;
+}
+
 #header_container {
   background-image: url("header_background.png");
   position: fixed;
@@ -33,7 +48,7 @@ body {
 #navigation_container {
     width: 880px;
     margin: 0 auto 0 auto;
-    padding: 5px;
+    padding: 6px 5px 5px 5px;
 }
 
 #navigation_container #top_navigation, #navigation_container #user_navigation {
@@ -45,10 +60,37 @@ body {
 #navigation_container #top_navigation li, #navigation_container #user_navigation li {
     float: left;
     margin-right: 5px;
+    line-height: 15px;
+}
+
+#navigation_container li img {
+    position: relative;
+    top: 2px;
+}
+
+#navigation_container a:link, #navigation_container a:visited, #navigation_container a:hover {
+    color: #FFF;
+    text-decoration: none;
+    background-color: #aa988b;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#navigation_container a:hover {
+    background-color: #000;
 }
 
 #navigation_container #user_navigation {
     float: right;
+}
+
+#signed_in_as {
+    padding: 2px 10px 0 0;
 }
 
 #content {
@@ -120,21 +162,6 @@ h2 {
     border: 5px solid #000;
     color: #FFF;
 	margin-top: 20px;
-}
-
-a:link {
-    color: #0090c6;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #0090c6;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #7b3908;
-    text-decoration: underline;
 }
 
 .message {
