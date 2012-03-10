@@ -1,5 +1,5 @@
 require "selenium/client"
-require 'spec_helper'
+require 'spec_helper.rb'
 
 def wait_for_ajax(timeout=5000)
   js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
