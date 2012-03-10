@@ -10,7 +10,11 @@ function postSong(songID, element) {
         $.post("/posts", {api_id: songID}, function(data, textStatus, jqXHR) {
             $.get("/posts/show_raw", {id: data.id}, function(post, textStatus, jqXHR) {
                 if ($("#your_songs .post_list").length != 0) {
-                    $("#your_songs .post_list").prepend(post);
+                    if ($("#your_songs .post_list").find(".post").length == 0) {
+                        $("#your_songs .post_list").html(post);   
+                    } else {
+                        $("#your_songs .post_list").prepend(post);   
+                    }
                     $("#your_songs .post_list").children().first().css("background-color", "#FFF212").animate({ backgroundColor: "#f7f7f7"}, 500);
                 }
                 var songName = $(post).find("h3").text();
