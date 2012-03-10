@@ -4,10 +4,10 @@
 # Author::   Melissa Winstanley, Alex Miller
 class ApplicationController < ActionController::Base
 #  protect_from_forgery
-  
+
   # Every single action should set the raw instance variable.
   before_filter :set_raw
-  
+
   helper_method :liked, :current_user, :signed_in?, :current_user?, :authenticate
 
   public
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   def liked(post)
     @liked = post.liked_by?(current_user)
   end
-  
+
   # Sets the "raw" instance variable to indicate if the request was made through
   # an ajax call.
   #
@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
       session[:user_id] = nil
       logger.info "Session :: User was signed out of the session."
     else
-      flash.now[:error] = "Session is already signed out."
+      flash.now[:error] = "You tried to sign out without being signed in."
       logger.error "Session :: User requested sign out when already signed out."
     end
   end

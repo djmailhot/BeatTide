@@ -41,14 +41,14 @@ class User < ActiveRecord::Base
 
   # Search for a user given the query.
   # We split the query on spaces and serch for the tokens individually
-  def self.search(query)
+  def self.search(query, current_user)
     words = query.split(" ")
     users = Array.new
     words.each do |search|
       users = users | find(:all, :conditions =>
-        ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
-          upper(username) LIKE upper(?)',
-          "%#{search}%", "%#{search}%", "%#{search}%"])
+        ['(upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
+          upper(username) LIKE upper(?)) AND id NOT LIKE (?)',
+          "%#{search}%", "%#{search}%", "%#{search}%", "%#{current_user.id}"])
     end
     users
   end
