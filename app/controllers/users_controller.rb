@@ -19,7 +19,13 @@ class UsersController < ApplicationController
   # creates and saves a new user with the information
   def create
     logger.info "User :: User creation request"
-    @user = User.new(params[:user])
+    @user = User.new
+    if !params.nil?
+      @user.last_name = params[:last_name]
+      @user.first_name = params[:first_name]
+      @user.username = params[:first_name] + " " + params[:last_name]
+      @user.facebook_id = params[:facebook_id]
+    end
     if @user.valid?
       @user.save
     else

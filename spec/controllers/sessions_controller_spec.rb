@@ -30,7 +30,7 @@ describe SessionsController do
 
       it "should redirect to the root page" do
         response.should redirect_to(root_url)
-      end      
+      end
     end
 
     # Set up a default valid user in the global request.env variable
@@ -40,19 +40,10 @@ describe SessionsController do
                                                    "last_name" => "Winstanley",
                                                    "nickname" => "mwinst" } }
     end
-    
+
     describe "failure - no facebook ID" do
       before(:each) do
         request.env["omniauth.auth"]["uid"] = nil
-        post :create
-      end
-
-      include_examples "login_error"
-    end
-
-    describe "failure - no nickname" do
-      before(:each) do
-        request.env["omniauth.auth"]["info"]["nickname"] = nil
         post :create
       end
 

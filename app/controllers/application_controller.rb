@@ -3,7 +3,7 @@
 #
 # Author::   Melissa Winstanley, Alex Miller
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+#  protect_from_forgery
   
   # Every single action should set the raw instance variable.
   before_filter :set_raw
@@ -19,6 +19,17 @@ class ApplicationController < ActionController::Base
       nil
     else
       User.find_by_id(session[:user_id])
+    end
+  end
+
+  # Signs the given user into the session
+  def sign_in(user)
+    if signed_in?
+      flash.now[:error] = "Session is already signed in."
+      logger.error "Session :: User requested sign in when already signed in."
+    else
+      session[:user_id] = user.id
+      logger.info "Session :: User sign in: #{user.attributes.inspect}"
     end
   end
 
@@ -39,17 +50,6 @@ class ApplicationController < ActionController::Base
   # other stuff.
   def set_raw
     @raw = request.xhr?
-  end
-
-  # Signs the given user into the session
-  def sign_in(user)
-    if signed_in?
-      flash.now[:error] = "Session is already signed in."
-      logger.error "Session :: User requested sign in when already signed in."
-    else
-      session[:user_id] = user.id
-      logger.info "Session :: User sign in: #{user.attributes.inspect}"
-    end
   end
 
   # Signs the current user out of the session
