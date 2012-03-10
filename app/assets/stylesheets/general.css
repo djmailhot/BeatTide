@@ -8,16 +8,17 @@ body {
    font-family: helvetica, verdana, arial, sans-serif;
    background-color: #e3f4fc;
    line-height: 20px;
+   font-size: 12px;
    padding: 0;
    margin: 0;
 }
 
 #header_container {
   background-image: url("header_background.png");
-  border-bottom: 3px solid #055271;
   position: fixed;
   width: 100%;
   top: 0;
+  height: 110px;
   z-index: 100;
 }
 
@@ -26,12 +27,32 @@ body {
     margin: 0 auto 0 auto;
     height: 65px;
     padding-top: 10px;
-	  position: relative;
-	
+	position: relative;
+}
+
+#navigation_container {
+    width: 880px;
+    margin: 0 auto 0 auto;
+    padding: 5px;
+}
+
+#navigation_container #top_navigation, #navigation_container #user_navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navigation_container #top_navigation li, #navigation_container #user_navigation li {
+    float: left;
+    margin-right: 5px;
+}
+
+#navigation_container #user_navigation {
+    float: right;
 }
 
 #content {
-    padding-top: 70px;
+    padding-top: 100px;
     width: 900px;
     margin: 20px auto 0 auto;
 }
@@ -47,7 +68,6 @@ body {
 	border-radius: 4px;
 	box-shadow: 2px 2px 0px #CCCCCC;
 }
-
 
 .small_module {
     background-color: #f8f8f8;
@@ -71,7 +91,6 @@ body {
 #fb_button:active {
     background-position: 0 -48px;
 }
-
 
 #fb_button span {
     display: none;
@@ -143,3 +162,4 @@ a:hover {
 h3 {
     font-weight: normal;
 }
+
