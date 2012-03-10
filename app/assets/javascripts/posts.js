@@ -2,7 +2,7 @@
  * Performs a song post to the database in the background, and then attempts to
  * update the #your_songs div (if it is on the current page).
  * 
- * Authors: Alex Miller
+ * Authors: Alex Miller, David Mailhot
  */
 function postSong(songID, element) {
     if (!$(element).hasClass("added")) {
@@ -46,4 +46,31 @@ function likePost(postID, link) {
             $(likes).text(data + " people like this");
     	}
     });
+}
+
+/*
+ * Handles AJAX request for deleting a post. Accepts id as a parameter
+ * representing the post id of the post to delete.
+ */
+function deletePost(id) {
+    var url = "/posts/" + id;
+    // Callback for removing a post from the page after a user has deleted it
+    // Removes the post from the page
+    // A post can be identified by an id of "pid_<post.id>"
+	removePostCallback = function() {
+		$("#pid_"+id).remove()
+	}
+    
+    $.ajax(url, 
+	   {
+	       type: "DELETE", 
+           parameters: { id: id },
+	       complete: function(data) {
+		   if (status == "error")
+		       ajaxFailure(data);
+		   else {
+               removePostCallback()
+		   }    
+	       }
+	   });
 }
