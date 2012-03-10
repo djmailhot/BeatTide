@@ -38,24 +38,26 @@ function likePost(postID, link) {
  * Removes the post from the page
  * A post can be identified by an id of "pid_<post.id>"
  */
-function removePostCallback(id) {
-    $("#pid_"+id).remove()
-}
 
 /*
  * Handles AJAX request for deleting a post. Accepts id as a parameter
  * representing the post id of the post to delete.
  */
-function deletePost(id, successCallback) {
-    var url = "/posts/destroy/" + id;
+function deletePost(id) {
+    var url = "/posts/" + id;
+	removePostCallback = function() {
+		$("#pid_"+id).remove()
+	}
+    
     $.ajax(url, 
 	   {
 	       type: "DELETE", 
+           parameters: { id: id },
 	       complete: function(data) {
 		   if (status == "error")
 		       ajaxFailure(data);
 		   else {
-               successCallback(id)
+               removePostCallback()
 		   }    
 	       }
 	   });
