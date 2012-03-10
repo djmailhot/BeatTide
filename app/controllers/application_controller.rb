@@ -3,7 +3,7 @@
 #
 # Author::   Melissa Winstanley, Alex Miller
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+#  protect_from_forgery
   
   # Every single action should set the raw instance variable.
   before_filter :set_raw

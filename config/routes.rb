@@ -87,7 +87,9 @@ BeatTide::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'pages#index'
   match "home" => 'pages#index'
-
+  
+  # if they try to navigate to some non-routed place, force them home
+  match '*a' => 'pages#index' 
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
