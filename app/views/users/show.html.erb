@@ -24,12 +24,39 @@
 
 <div class="column left">
   <div class="module">
-    <%= @user.first_name %> <%= @user.last_name %><br>
-    Like Count: Like Count
+    <div class="user_info">
+      <span id="name_profiles"><%= @user.first_name %> <%= @user.last_name %></span><br>
+      <%= @user.like_count %>
+      <% if @user.like_count == 1 %>
+         like
+      <% else %>
+         likes 
+      <% end %>
+    </div>
   </div>
 
-  <div class="modul">
-    Subscription list here
+  <div class="module">
+
+      <% if @user.subscriptions.empty? %>
+         <h3><%= @user.username %> has not subscribed to anyone</h3>
+
+      <% else %>
+         <h2>
+	   <%= @user.username %>'s Subscriptions
+	 </h2>
+	 <table class="user_list">
+	   <th>Username</th>
+	   <th>Likes</th>
+
+	   <% @user.subscriptions.each do |subscription| %>
+             <tr id=<%= "#{subscription.subscribed.id}" %>>
+      	       <td><%= ajax_link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
+      	       <td><%= subscription.subscribed.like_count %></td>
+	     </tr>
+      <% end %>
+    </table>
+       
+    <% end %>
   </div>
 
 </div>
