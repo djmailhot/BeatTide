@@ -14,7 +14,11 @@ body {
 
 #header_container {
   background-image: url("header_background.png");
-	border-bottom: 3px solid #055271;
+  border-bottom: 3px solid #055271;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
 }
 
 #header {
@@ -27,6 +31,7 @@ body {
 }
 
 #content {
+    padding-top: 70px;
     width: 900px;
     margin: 20px auto 0 auto;
 }
