@@ -8,22 +8,36 @@
 <p id="notice"><%= notice %></p>
 
 <div class="module" id="user_header">
-  <h2><%= @user.username %>'s songs</h2>
-  
+  <h2><%= @user.username %>'s profile</h2>
+
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
   <% unless !current_user || current_user.id == @user.id %>
-    <div id="subscription_form">
-      <% if current_user.subscribing?(@user) %>
-        <%= link_to_function "Unsubscribe", "unsubscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
-      <% else %>
-        <%= link_to_function "Subscribe", "subscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
-      <% end %>
-    </div>
+  <div id="subscription_form">
+    <% if current_user.subscribing?(@user) %>
+    <%= link_to_function "Unsubscribe", "unsubscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
+    <% else %>
+    <%= link_to_function "Subscribe", "subscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
+    <% end %>
+  </div>
   <% end %>  
 </div>
 
-<div class="module">
-  <%= will_paginate @posts %>
-  <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
-  <%= will_paginate @posts %>
+<div class="column left">
+  <div class="module">
+    <%= @user.first_name %> <%= @user.last_name %><br>
+    Like Count: Like Count
+  </div>
+
+  <div class="modul">
+    Subscription list here
+  </div>
+
+</div>
+
+<div class="column right">
+  <div class="module">
+    <%= will_paginate @posts %>
+    <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
+    <%= will_paginate @posts %>
+  </div>
 </div>
