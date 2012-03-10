@@ -15,26 +15,6 @@ class UsersController < ApplicationController
     @title = "All users"
   end
 
-  # Accepts the user's information in params[:user] and
-  # creates and saves a new user with the information
-  def create
-    logger.info "User :: User creation request"
-    @user = User.new
-    if !params.nil?
-      @user.last_name = params[:last_name]
-      @user.first_name = params[:first_name]
-      @user.username = params[:first_name]
-      @user.facebook_id = params[:facebook_id]
-    end
-    if @user.valid?
-      @user.username = Utility.check_length_or_truncate(@user.username +
-                                                        " " + params[:last_name])
-      @user.save
-    else
-      flash.now[:error] = "Invalid user information."
-    end
-  end
-
   # Sets the user specified in params[:id] to @user and
   # responds to requests for a the specified user's information
   def show
