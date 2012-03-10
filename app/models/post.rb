@@ -56,8 +56,10 @@ class Post < ActiveRecord::Base
     this_like = Like.find(:all, :conditions => { :user_id => liking_user.id,
                                                  :post_id => self.id } )
     if (!this_like.nil?)
-      self.like_count = self.like_count - 1
-      self.likes.delete(this_like)
+      if (liking_user.id != self.id)
+        self.like_count = self.like_count - 1
+        self.likes.delete(this_like)
+      end
       song.unlike!
       self.user.unlike!
       self.save

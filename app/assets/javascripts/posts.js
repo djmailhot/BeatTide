@@ -39,7 +39,6 @@ function likePost(postID, link) {
  * A post can be identified by an id of "pid_<post.id>"
  */
 function removePostCallback(id) {
-    alert("deleted!")
     $("#pid_"+id).remove()
 }
 
@@ -48,7 +47,7 @@ function removePostCallback(id) {
  * representing the post id of the post to delete.
  */
 function deletePost(id, successCallback) {
-    var url = "/posts/" + id;
+    var url = "/posts/destroy/" + id;
     $.ajax(url, 
 	   {
 	       type: "DELETE", 

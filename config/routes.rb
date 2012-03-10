@@ -29,11 +29,11 @@ BeatTide::Application.routes.draw do
   post "grooveshark/songs_from_query"
 
   # routes for posts
-  resources :posts
+#  resources :post, :only => [:destroy]
   post "/posts/like"
   get "/posts/show_raw"
 
-  match "/posts/:id", :to => "posts#destroy", :via => "post"
+  match "/posts/destroy/:id", :to => "posts#destroy", :via => "post"
   match "/posts", :to => "posts#create", :via => "post"
   match "/posts/:id" => "posts#show"
 
