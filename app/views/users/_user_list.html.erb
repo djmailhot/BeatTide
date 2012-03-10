@@ -5,12 +5,8 @@
 %>
 
 <table class="user_list">
-  <tr><th>Name</th><th>Username</th><th>Likes</th></tr>
   <% users.each do |user| %>
     <tr>
-      <td>
-	      <%= ajax_link_to user.first_name + " " + user.last_name, user %>
-      </td>
       <td>
         <%= ajax_link_to user.username, user %>
       </td>
