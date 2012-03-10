@@ -21,13 +21,14 @@ function ajaxFailure(ajax, exception) {
  */  
 function showMessage(message) {
     var m = document.createElement("div");
-    m.innerHTML = message + " <a href='' id='close'>Close.</a>";
+    m.innerHTML = message;
     $(m).addClass("message");
-    $(m).addClass("module");
-    $(m).addClass("small_module");
     $("#message_container").html('');
     $("#message_container").append(m);
     $("#close").click(hideMessage);
+    $(m).delay(1000).fadeOut(1000, function() {
+        hideMessage();
+    });
 }
 
 /**
@@ -42,7 +43,7 @@ function hideMessage() {
  * asynchronously. Relies on '#!' prefixing every path.
  */
 function loadPartial() {
-    $("#dynamic_content_container").html('<div class="loading"><img src="assets/load.gif" /></div>');
+    $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="assets/load.gif" /></div>');
     $.ajax({
 	url: window.location.hash.replace("#!", ""),
 	success: function(data) {
@@ -69,4 +70,4 @@ $(document).ready(function() {
     Path.map("#!//:a/:b").to(loadPartial);
     Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
-})
+});

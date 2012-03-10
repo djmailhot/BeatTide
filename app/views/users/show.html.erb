@@ -14,11 +14,9 @@
   <% unless !current_user || current_user.id == @user.id %>
     <div id="subscription_form">
       <% if current_user.subscribing?(@user) %>
-        You are subscribed to <%= @user.username %>.
-        <%= link_to_function "Unsubscribe.", "unsubscribe(#{@user.id}, showUnsubscribeCallback)" %>	
+        <%= link_to_function "Unsubscribe", "unsubscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
       <% else %>
-        You are not subscribed to <%= @user.username %>.
-        <%= link_to_function "Subscribe!", "subscribe(#{@user.id}, showSubscribeCallback)" %>	
+        <%= link_to_function "Subscribe", "subscribe(#{@user.id}, '#{@user.username}'); return false;", :id => 'subscribe' %>	
       <% end %>
     </div>
   <% end %>  
