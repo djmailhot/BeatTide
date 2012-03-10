@@ -60,8 +60,15 @@ class PostsController < ApplicationController
   # page.
   # * params[id] : the ID of the post to show
   def destroy
-    logger.info "Post :: Post destruction request by user
-                 #{current_user.username}."
+    logger.info "Post :: Post destruction request by user " <<
+                "#{current_user.username}."
+    post = current_user.posts.find_by_id(params[:id])
+    if is_valid?(post)
+      target_id = post.id
+      post.destroy
+      logger.info "Post :: user #{current_user.username} destroyed " <<
+                  "post #{target_id}"
+    end
   end
 
   # Toggles likes. If the specified post is liked by the current user,
@@ -72,14 +79,25 @@ class PostsController < ApplicationController
   # * params[id] : the ID of the post to show
   def like
     logger.info "Post :: Post like toggle request by user #{current_user.username}."
-    if (signed_in?)
-      p = Post.find(params[:id])
-      if !p.liked_by?(current_user)
-        p.like!(current_user)
-      else
-        p.unlike!(current_user)
-      end
-      render :text => p.like_count
+    p = Post.find_by_id(params[:id])
+    if is_valid?(p) and !p.liked_by?(current_user)
+      p.like!(current_user)
+    else
+      p.unlike!(current_user)
     end
+    render :text => p.like_count
+  end
+
+  private
+
+  # Returns false if the specified post doesn't exist, and preps
+  # an appropriate error and log message
+  def is_valid?(post)
+    valid = !post.nil?
+    if !valid
+      flash.now[:error] = "No post by specified id under the current user.";
+      logger.error "Post :: No post by specified id under the current user."
+    end
+    return valid
   end
 end

@@ -18,7 +18,7 @@ class GroovesharkController < ApplicationController
     # Rails automatically renders the corresponding "search" view.
     render :layout => false
   end
-  
+
   # Displays a grooveshark Flash widget, given a comma separated list of song
   # id's.
   def player
@@ -42,8 +42,12 @@ class GroovesharkController < ApplicationController
                             song_json["ArtistID"], song_json["ArtistName"])
       end
       logger.info "Grooveshark :: query results #{@song_results}."
-      render :partial => 'songs/song_list', :locals => {:songs => @song_results},
-              :layout => false
+      if @song_results.empty?
+        render :text => "No results were found."
+      else
+        render :partial => 'songs/song_list', :locals => {:songs => @song_results},
+                :layout => false
+      end
     else
       render :text => "No query."
     end

@@ -4,7 +4,7 @@
 #
 # Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
-  POSTS_PER_PAGE = 50
+  MAX_NUMBER_POSTS = 500
 
   before_filter :authenticate
 
@@ -13,24 +13,6 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @title = "All users"
-  end
-
-  # Accepts the user's information in params[:user] and
-  # creates and saves a new user with the information
-  def create
-    logger.info "User :: User creation request"
-    @user = User.new
-    if !params.nil?
-      @user.last_name = params[:last_name]
-      @user.first_name = params[:first_name]
-      @user.username = params[:first_name] + " " + params[:last_name]
-      @user.facebook_id = params[:facebook_id]
-    end
-    if @user.valid?
-      @user.save
-    else
-      flash.now[:error] = "Invalid user information."
-    end
   end
 
   # Sets the user specified in params[:id] to @user and
@@ -43,7 +25,7 @@ class UsersController < ApplicationController
     else
       logger.info "User :: User show info request for user #{@user.username}"
       page = params[:page] ||= 1
-      @posts = @user.posts.paginate(:page => page, :per_page => POSTS_PER_PAGE)
+      @posts = @user.posts[0..MAX_NUMBER_POSTS]
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @user }
@@ -61,6 +43,7 @@ class UsersController < ApplicationController
   # Updates the user's attributes based on the user parameter, then
   # redirects to the edit action.
   def update
+    logger.info "User :: User update request"
     if current_user.update_attributes(params[:user])
       flash[:notice] = "Your profile was updated!"
       redirect_to :action => "edit"
@@ -75,7 +58,7 @@ class UsersController < ApplicationController
     logger.info "User :: User search request initiated."
     logger.info "User :: User query #{params[:query]}"
     if !params[:query].empty?
-      @results = User.search(params[:query]);
+      @results = User.search(params[:query], current_user);
 
       # If there are no results
       if @results.empty?

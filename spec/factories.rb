@@ -4,9 +4,11 @@
 # Included factories:
 #   user
 #   song
+#   album
+#   artist
 #   post
-#
 FactoryGirl.define do
+
   # Generate a user with a unique username and facebook id
   # with each call to the factory
   factory :user do
@@ -23,11 +25,15 @@ FactoryGirl.define do
     title              "I Want You Now"
   end
 
+  # Generate an album with a unique api id
+  # with each call to the factory
   factory :album do
     sequence(:api_id) { |n| 42 + n }
     title             "You Are Beautiful"
   end
 
+  # Generate an artist with a unique api id
+  # with each call to the factory
   factory :artist do
     sequence(:api_id) { |n| 42 + n }
     title             "MegaBeats"

@@ -12,7 +12,5 @@
 </div>
 
 <div class="module">
-  <%= will_paginate @feed %>
   <%= render :partial => "posts/post_list", :locals => {:posts => @feed} %>
-  <%= will_paginate @feed %>
 </div>

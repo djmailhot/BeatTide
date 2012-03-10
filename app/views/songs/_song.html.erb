@@ -11,7 +11,7 @@
   </button>
   
   <% if add %>
-  <button class="add_button" onclick="postSong(<%= song.api_id %>)">
+  <button class="add_button" onclick="postSong(<%= song.api_id %>, this)">
     <span>Add Song</span>
   </button>
   <% end %>

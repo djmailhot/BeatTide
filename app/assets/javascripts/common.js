@@ -1,7 +1,7 @@
 /**
  * A place for generic, common functions.
  *  
- * Authors: Harnoor Singh, Alex Miller
+ * Authors: Harnoor Singh, Alex Miller, Tyler Rigsby
  */
 
 /**
@@ -43,7 +43,7 @@ function hideMessage() {
  * asynchronously. Relies on '#!' prefixing every path.
  */
 function loadPartial() {
-    $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="assets/load.gif" /></div>');
+    $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="/assets/load.gif" /></div>');
     $.ajax({
 	url: window.location.hash.replace("#!", ""),
 	success: function(data) {
