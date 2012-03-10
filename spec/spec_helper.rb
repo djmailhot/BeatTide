@@ -35,4 +35,11 @@ RSpec.configure do |config|
   def test_sign_in(user)
     controller.sign_in(user)
   end
+
+  # Set default timeout on tests to be 2 seconds.
+  config.around(:each) do |example|
+    Timeout::timeout(2) {
+      example.run
+    }
+  end
 end
