@@ -21,7 +21,7 @@ describe SessionsController do
 
     shared_examples "login_error" do
       it "should have an error message" do
-        flash.now[:error].should =~ /improper/i
+        flash[:error].should =~ /improper/i
       end
 
       it "should not be signed in" do
@@ -29,7 +29,7 @@ describe SessionsController do
       end
 
       it "should redirect to the root page" do
-        response.should redirect_to(root_url)
+        response.should redirect_to("/error")
       end
     end
 
@@ -162,7 +162,7 @@ describe SessionsController do
       end
 
       it "should have an error message if already logged in" do
-        flash.now[:error].should =~ /signed out/i        
+        flash.now[:error].should =~ /sign out/i
       end
 
       it "should still sign a user out" do

@@ -17,8 +17,8 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to root_path, :notice => "Signed in!"
     else
-      flash.now[:error] = "Improper authentication credentials."
-      redirect_to root_path, notice => "Improper authentication."
+      flash[:error] = "You tried to log in with improper authentication credentials."
+      redirect_to "/error"
       logger.error "Session :: Improper authentication credentials."
     end
   end
