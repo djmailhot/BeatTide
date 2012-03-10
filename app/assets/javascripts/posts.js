@@ -10,11 +10,16 @@ function postSong(songID) {
             if ($("#your_songs .post_list").length != 0) {
                 $("#your_songs .post_list").prepend(post);
             }
-            showMessage("Song was added!");
+            var songName = $(post).find("h3").text();
+            showMessage("'" + songName + "' was added to your posts!");
         });
-    });   
+    });
 }
-  
+
+/**
+ * Submits a like / unlike request to the database and updates the view to
+ * reflect the like count.
+ */
 function likePost(postID, link) {
     var likes = $(link).closest(".info").children(".like_count");
     var you = $(link).closest(".info").children(".you_like");
