@@ -4,16 +4,20 @@
  * 
  * Authors: Alex Miller
  */
-function postSong(songID) {
-    $.post("/posts", {api_id: songID}, function(data, textStatus, jqXHR) {
-        $.get("/posts/show_raw", {id: data.id}, function(post, textStatus, jqXHR) {
-            if ($("#your_songs .post_list").length != 0) {
-                $("#your_songs .post_list").prepend(post);
-            }
-            var songName = $(post).find("h3").text();
-            showMessage("'" + songName + "' was added to your posts!");
+function postSong(songID, element) {
+    if (!$(element).hasClass("added")) {
+        $(element).addClass("added");
+        $.post("/posts", {api_id: songID}, function(data, textStatus, jqXHR) {
+            $.get("/posts/show_raw", {id: data.id}, function(post, textStatus, jqXHR) {
+                if ($("#your_songs .post_list").length != 0) {
+                    $("#your_songs .post_list").prepend(post);
+                    $("#your_songs .post_list").children().first().css("background-color", "#FFF212").animate({ backgroundColor: "#f7f7f7"}, 500);
+                }
+                var songName = $(post).find("h3").text();
+                showMessage("'" + songName + "' was added to your posts!");
+            });
         });
-    });
+    }
 }
 
 /**

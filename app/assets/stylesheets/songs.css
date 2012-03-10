@@ -63,8 +63,16 @@
   float: left;
 }
 
+.added {
+  background-position: -68px;
+}
+
 .add_button:hover, .play_button:hover {
   background-position: -34px;
+}
+
+.added:hover {
+  background-position: -68px;   
 }
 
 .add_button span {
