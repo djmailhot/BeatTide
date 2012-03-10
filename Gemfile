@@ -27,6 +27,7 @@ gem 'omniauth-facebook'
 
 # For RSpec testing framework
 group :development do
+  gem 'selenium-client', ">=1.2.16"
   gem 'rspec-rails', '2.6.1'
   gem 'simplecov'
 end
