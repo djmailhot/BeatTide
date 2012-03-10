@@ -8,22 +8,66 @@
 <p id="notice"><%= notice %></p>
 
 <div class="module" id="user_header">
-  <h2><%= @user.username %>'s songs</h2>
-  
+  <h2><%= @user.username %>'s profile</h2>
+
   <!-- Subscribe/Unsubscribe buttons if the user isn't the current user -->
   <% unless !current_user || current_user.id == @user.id %>
+
     <div id="subscription_form">
       <% if current_user.subscribing?(@user) %>
         <%= link_to_function "Unsubscribe", "showUnsubscribe(#{@user.id}, '#{@user.username}')", :id => 'subscribe' %>	
       <% else %>
         <%= link_to_function "Subscribe", "showSubscribe(#{@user.id}, '#{@user.username}')", :id => 'subscribe' %>	
-      <% end %>
-    </div>
+    <% end %>
+  </div>
   <% end %>  
 </div>
 
-<div class="module">
-  <%= will_paginate @posts %>
-  <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
-  <%= will_paginate @posts %>
+<div class="column left">
+  <div class="module">
+    <div class="user_info">
+      <span id="name_profiles"><%= @user.first_name %> <%= @user.last_name %></span><br>
+      <%= @user.like_count %>
+      <% if @user.like_count == 1 %>
+         like
+      <% else %>
+         likes 
+      <% end %>
+    </div>
+  </div>
+
+  <div class="module">
+
+      <% if @user.subscriptions.empty? %>
+         <h3><%= @user.username %> has not subscribed to anyone</h3>
+
+      <% else %>
+         <h2>
+	   <%= @user.username %>'s Subscriptions
+	 </h2>
+	 <table class="user_list">
+	   <th>Username</th>
+	   <th>Likes</th>
+
+	   <% @user.subscriptions.each do |subscription| %>
+             <tr id=<%= "#{subscription.subscribed.id}" %>>
+      	       <td><%= ajax_link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
+      	       <td><%= subscription.subscribed.like_count %></td>
+	     </tr>
+      <% end %>
+    </table>
+       
+    <% end %>
+  </div>
+
 </div>
+
+
+<div class="column right">
+  <div class="module">
+    <%= will_paginate @posts %>
+    <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
+    <%= will_paginate @posts %>
+  </div>
+</div>
+

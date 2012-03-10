@@ -29,10 +29,9 @@ BeatTide::Application.routes.draw do
   post "grooveshark/songs_from_query"
 
   # routes for posts
-  post "/posts/like"
   get "/posts/show_raw"
-  match "/posts", :to => "posts#create", :via => "post"
-  match "/posts/:id" => "posts#show"
+  post "/posts/like"
+  resources :posts, :only => [:destroy, :show, :create]
 
   match "/error", :to => "pages#error"
 

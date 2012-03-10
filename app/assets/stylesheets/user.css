@@ -30,3 +30,16 @@
 	-khtml-border-radius: 4px;
 	border-radius: 4px;
 }
+
+#user_info {
+    color: #CCC;
+    font-size: 15px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#name_profile {
+    color: #000;
+    font-size: 18px;
+    
+}
