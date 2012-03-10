@@ -5,6 +5,7 @@
 class User < ActiveRecord::Base
   attr_accessible :username, :first_name, :last_name, :age, :active
 
+  # there is a many-to-one relationship between posts and users
   has_many :posts, :dependent => :destroy, :order => "created_at DESC"
 
   # links users to the subscriptions table via subscriber id for their
@@ -21,24 +22,24 @@ class User < ActiveRecord::Base
   has_many :subscribers, :through => :reverse_subscriptions,
                          :source => :subscriber
 
-
+  # validation of user fields
   validates :facebook_id, :presence => true,
                           :uniqueness => true,
-                          :numericality => { :only_integer => true, :greater_than => 0 }
+                          :numericality => { :only_integer => true,
+                                             :greater_than => 0 }
   validates :username, :presence => true,
-                       :length => { :minimum => 3, :maximum => 25 }
+                       :length => { :minimum => 3,
+                                    :maximum => 25 }
   validates :first_name, :presence => true,
-                         :length => { :minimum => 1, :maximum => 200 }
+                         :length => { :minimum => 1,
+                                      :maximum => Utility::MAX_LENGTH }
   validates :last_name, :presence => true,
-                        :length => { :minimum => 1, :maximum => 200 }
+                        :length => { :minimum => 1,
+                                     :maximum => Utility::MAX_LENGTH }
 
   after_initialize :init
 
-  def init
-    self.like_count = 0 if self.like_count.nil?
-  end
-
-  # Search for a user given the query
+  # Search for a user given the query.
   # We split the query on spaces and serch for the tokens individually
   def self.search(query)
     words = query.split(" ")
@@ -46,9 +47,10 @@ class User < ActiveRecord::Base
     words.each do |search|
       users = users | find(:all, :conditions =>
         ['upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
-          upper(username) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%"])
+          upper(username) LIKE upper(?)',
+          "%#{search}%", "%#{search}%", "%#{search}%"])
     end
-    return users
+    users
   end
 
   # Returns whether or not the user has a username set.
@@ -57,16 +59,21 @@ class User < ActiveRecord::Base
   end
 
   # Creates a new user based on the authentication information given. Users
-  # are initialized with a Facebook ID, a first name, a last name.
+  # are initialized with a Facebook ID, a first name, a last name. If
+  # provided authentication info doesn't have all valid information, raises
+  # a RecordInvalid exception.
   #
   # Author:: Melissa Winstanley
   def self.create_with_omniauth(auth)
     create! do |user|
       if Utility.verify_fb_auth(auth)
         user.facebook_id = auth["uid"]
-        user.first_name = Utility.check_length_or_truncate(auth["info"]["first_name"], 200)
-        user.last_name = Utility.check_length_or_truncate(auth["info"]["last_name"], 200)
-        user.username = Utility.check_length_or_truncate(user.first_name + " " + user.last_name, 25)
+        user.first_name = Utility.check_length_or_truncate(auth["info"]["first_name"],
+                                                           Utility::MAX_LENGTH)
+        user.last_name = Utility.check_length_or_truncate(auth["info"]["last_name"],
+                                                          Utility::MAX_LENGTH)
+        user.username = Utility.check_length_or_truncate(user.first_name + " " +
+                                                         user.last_name, 25)
         user.like_count = 0
         logger.info "User :: New user saved to database #{user.attributes.inspect}"
       else
@@ -75,7 +82,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Subscribes a user to the user specified with subscribe_to
+  # Subscribes a user to the user specified with subscribe_to. Does nothing if
+  # the subscribe_to user is the same as this user.
   def subscribe!(subscribe_to)
     if self != subscribe_to
       self.subscriptions.create!(:subscribed_id => subscribe_to.id)
@@ -99,7 +107,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Returns an array representing a user's feed.
+  # Returns an array representing a user's feed. Posts are sorted
+  # by newest posts first.
   def feed
     Post.get_subscribed_posts(self)
   end
@@ -111,13 +120,24 @@ class User < ActiveRecord::Base
     logger.debug "User :: #{self.username} liked."
   end
 
-  # Decreases this user's number of likes by 1
+  # Decreases this user's number of likes by 1. If likes are 0,
+  # does nothing.
   def unlike!
-    self.like_count = self.like_count - 1
-    self.save
+    if self.like_count != 0
+      self.like_count = self.like_count - 1
+      self.save
+    end
   end
 
+  # Returns the top 5 users by descending like count.
   def self.top
     User.find_by_sql("SELECT u.* FROM users u ORDER BY like_count DESC LIMIT 5")
   end
+
+  private
+    # Ensure that the number of likes is never set to nil.
+    def init
+      self.like_count = 0 if self.like_count.nil?
+    end
+
 end

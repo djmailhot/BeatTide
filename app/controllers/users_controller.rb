@@ -23,10 +23,12 @@ class UsersController < ApplicationController
     if !params.nil?
       @user.last_name = params[:last_name]
       @user.first_name = params[:first_name]
-      @user.username = params[:first_name] + " " + params[:last_name]
+      @user.username = params[:first_name]
       @user.facebook_id = params[:facebook_id]
     end
     if @user.valid?
+      @user.username = Utility.check_length_or_truncate(@user.username +
+                                                        " " + params[:last_name])
       @user.save
     else
       flash.now[:error] = "Invalid user information."
