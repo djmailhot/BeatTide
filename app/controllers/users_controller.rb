@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   # Updates the user's attributes based on the user parameter, then
   # redirects to the edit action.
   def update
+    logger.info "User :: User update request"
     if current_user.update_attributes(params[:user])
       flash[:notice] = "Your profile was updated!"
       redirect_to :action => "edit"
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
     logger.info "User :: User search request initiated."
     logger.info "User :: User query #{params[:query]}"
     if !params[:query].empty?
-      @results = User.search(params[:query]);
+      @results = User.search(params[:query], current_user);
 
       # If there are no results
       if @results.empty?
