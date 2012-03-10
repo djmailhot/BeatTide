@@ -33,10 +33,6 @@ BeatTide::Application.routes.draw do
   post "/posts/like"
   resources :posts, :only => [:destroy, :show, :create]
 
-#  match "/posts/destroy", :to => "posts#destroy", :via => "post"
-#  match "/posts", :to => "posts#create", :via => "post"
-#  match "/posts/:id" => "posts#show"
-
   match "/error", :to => "pages#error"
 
   # The priority is based upon order of creation:

@@ -34,17 +34,14 @@ function likePost(postID, link) {
 }
 
 /*
- * Callback for removing a post from the page after a user has deleted it
- * Removes the post from the page
- * A post can be identified by an id of "pid_<post.id>"
- */
-
-/*
  * Handles AJAX request for deleting a post. Accepts id as a parameter
  * representing the post id of the post to delete.
  */
 function deletePost(id) {
     var url = "/posts/" + id;
+    // Callback for removing a post from the page after a user has deleted it
+    // Removes the post from the page
+    // A post can be identified by an id of "pid_<post.id>"
 	removePostCallback = function() {
 		$("#pid_"+id).remove()
 	}
