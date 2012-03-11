@@ -80,10 +80,12 @@ class PostsController < ApplicationController
   def like
     logger.info "Post :: Post like toggle request by user #{current_user.username}."
     p = Post.find_by_id(params[:id])
-    if is_valid?(p) and !p.liked_by?(current_user)
-      p.like!(current_user)
-    else
-      p.unlike!(current_user)
+    if is_valid?(p)
+      if !p.liked_by?(current_user)
+        p.like!(current_user)
+      else
+        p.unlike!(current_user)
+      end
     end
     render :text => p.like_count
   end
