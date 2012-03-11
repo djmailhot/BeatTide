@@ -53,7 +53,7 @@ function listUnsubscribe(id, username, element) {
  * AJAX request.
  */
 function unsubscribe(id, username) {
-    showMessage("Subscribed to " + username + ".");
+    showMessage("Unsubscribed from " + username + ".");
     var url = "/subscriptions/" + id;
     $.ajax({url: url, type: "DELETE"});
 }
