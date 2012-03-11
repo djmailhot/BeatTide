@@ -56,7 +56,7 @@ function loadPartial() {
 	dataType: "html"
     });	
 }
-  
+
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following
     // patterns, the page is not refreshed. instead, an asynchronous request 
@@ -70,4 +70,19 @@ $(document).ready(function() {
     Path.map("#!//:a/:b").to(loadPartial);
     Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
+    
+    var pathname = "" + window.location;
+
+    // _=_ #!/home
+    var home = new RegExp("#_=_");
+    var home2 = new RegExp("#!\/home");
+
+    if(home.test(pathname) || home2.test(pathname)){
+	var closest = $("#friend_feed").closest("play_button");
+	var feed = $("#friend_feed");
+	console.log(closest.attr("id"));
+	console.log(feed);
+    }
+
+    
 });
