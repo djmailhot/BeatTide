@@ -28,8 +28,6 @@ function performUserSearch() {
     console.log("Searching for user: " + searchString);
     var url = "users/find_user";
     $("#search_results").html('<img src="assets/load_small.gif" /> Loading...');
-    
-    $("#search_results").html('<img src="assets/load_small.gif" /> Loading...');
     $.post(url, {query: searchString}, function(data) {
         $("#search_results").html(data);
     });
