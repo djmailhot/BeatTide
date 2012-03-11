@@ -1,8 +1,12 @@
 /**
  * A place for generic, common functions.
- *  
+n *  
  * Authors: Harnoor Singh, Alex Miller, Tyler Rigsby
  */
+
+// Variable to manage song autoplay
+
+var hasAutoplayed = false;
 
 /**
  * Prints out an AJAX request failure for debugging.
@@ -48,6 +52,24 @@ function loadPartial() {
 	url: window.location.hash.replace("#!", ""),
 	success: function(data) {
 	    $("#dynamic_content_container").html(data);
+/*
+	    // Auto play song
+	    if(!hasAutoplayed){
+		var pathname = window.location;
+
+		var home = new RegExp("#!\/home");
+		console.log("autoplaying");
+		
+		if(home.test(pathname)){
+	
+		    //console.log(feed);
+		}
+
+
+		hasAutoplayed = true;
+	    }
+*/
+
 	},
 	error: function(data) {
 	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
@@ -55,13 +77,16 @@ function loadPartial() {
 	},
 	dataType: "html"
     });	
+
+
 }
-  
+
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following
     // patterns, the page is not refreshed. instead, an asynchronous request 
     // loads the content.
     Path.root("#!/home")
+
     // this is messy, but PathJS doesn't have powerful wildcard matching
     Path.map("#!/:a").to(loadPartial);
     Path.map("#!/:a/:b").to(loadPartial);
@@ -70,4 +95,7 @@ $(document).ready(function() {
     Path.map("#!//:a/:b").to(loadPartial);
     Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
+
+    
+    
 });
