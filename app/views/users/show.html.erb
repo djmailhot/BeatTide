@@ -64,7 +64,17 @@
 
 <div class="column right">
   <div class="module">
+    <div class="pagination_buttons">
+      <span class="text_left"><%= ajax_link_to "Previous Page", "/users/#{@user.id}?page=#{@page - 1}" unless @beginning %></span>
+      <span class="text_right"><%= ajax_link_to "Next Page", "/users/#{@user.id}?page=#{@page + 1}" unless @end %></span>
+    </div>
+    <div class="pagination_clear"></div>
     <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
+    <div class="pagination_buttons">
+      <span class="text_left"><%= ajax_link_to "Previous Page", "/users/#{@user.id}?page=#{@page - 1}" unless @beginning %></span>
+      <span class="text_right"><%= ajax_link_to "Next Page", "/users/#{@user.id}?page=#{@page + 1}" unless @end %></span>
+    </div>
+    <div class="pagination_clear"></div>
   </div>
 </div>
 

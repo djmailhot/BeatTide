@@ -25,6 +25,18 @@
   color: #a7a7a7;
 }
 
+.text_left {
+    float: left;
+}
+
+.text_right {
+    float: right;
+}
+
+.pagination_clear {
+    clear: both;
+}
+
 .delete_post {
   position: absolute;
   right: 10px;
