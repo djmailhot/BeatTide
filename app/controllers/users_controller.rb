@@ -78,14 +78,6 @@ class UsersController < ApplicationController
 
   private
 
-  def right_user
-    @user = User.find_by_id(params[:id])
-    if @user.nil? || !current_user?(@user)
-      flash[:error] = "Cannot access page: you are not the right user."
-      redirect_to "/error"
-    end
-  end
-
   # This method sorts a list of users by relevancy to the search query
   # @results is the array of users returned by the sql query
   def sort_users_by_relevancy(query)
