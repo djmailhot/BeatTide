@@ -61,10 +61,6 @@ function loadPartial() {
     });
 }
 
-$('.actions input').bind('ajax:success', function() {
-    alert("YEAH");
-});
-
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following
     // patterns, the page is not refreshed. instead, an asynchronous request 
