@@ -3,7 +3,7 @@
 # Author:: Alex Miller
 class PagesController < ApplicationController
 
-  MAX_NUMBER_POSTS = 50
+  MAX_NUMBER_POSTS = 30
 
   # Displays an index page for the entire site.
   def index
