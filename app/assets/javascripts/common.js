@@ -49,44 +49,23 @@ function hideMessage() {
 function loadPartial() {
     $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="/assets/load.gif" /></div>');
     $.ajax({
-	url: window.location.hash.replace("#!", ""),
-	success: function(data) {
-	    $("#dynamic_content_container").html(data);
-/*
-	    // Auto play song
-	    if(!hasAutoplayed){
-		var pathname = window.location;
-
-		var home = new RegExp("#!\/home");
-		console.log("autoplaying");
-		
-		if(home.test(pathname)){
-	
-		    //console.log(feed);
-		}
-
-
-		hasAutoplayed = true;
-	    }
-*/
-
-	},
-	error: function(data) {
-	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
-	    $("#dynamic_content_container").html(div);
-	},
-	dataType: "html"
+    	url: window.location.hash.replace("#!", ""),
+    	success: function(data) {
+    	    $("#dynamic_content_container").html(data);
+    	},
+    	error: function(data) {
+    	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
+    	    $("#dynamic_content_container").html(div);
+    	},
+    	dataType: "html"
     });	
-
-
 }
 
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following
     // patterns, the page is not refreshed. instead, an asynchronous request 
     // loads the content.
-    Path.root("#!/home")
-
+    Path.root("#!/home");
     // this is messy, but PathJS doesn't have powerful wildcard matching
     Path.map("#!/:a").to(loadPartial);
     Path.map("#!/:a/:b").to(loadPartial);
@@ -95,7 +74,4 @@ $(document).ready(function() {
     Path.map("#!//:a/:b").to(loadPartial);
     Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
-
-    
-    
 });

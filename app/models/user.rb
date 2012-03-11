@@ -47,8 +47,8 @@ class User < ActiveRecord::Base
     words.each do |search|
       users = users | find(:all, :conditions =>
         ['(upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
-          upper(username) LIKE upper(?)) AND id NOT LIKE (?)',
-          "%#{search}%", "%#{search}%", "%#{search}%", "%#{current_user.id}"])
+          upper(username) LIKE upper(?)) AND id != (?)',
+          "%#{search}%", "%#{search}%", "%#{search}%", "#{current_user.id}"])
     end
     users
   end

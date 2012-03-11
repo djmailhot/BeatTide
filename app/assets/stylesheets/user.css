@@ -4,14 +4,6 @@
  * Author: Alex Miller
  */
  
-#user_header {
-   background-color: #aa988b;
-   color: #000;
-   padding: 10px 0 10px 10px;
-   position: relative;
-   border: 1px solid #333;
-}
-
 #user_header h2 {
     margin: 0;
 }
@@ -40,6 +32,13 @@
 
 #name_profile {
     color: #000;
-    font-size: 18px;
-    
+    font-size: 18px;    
+}
+
+#user_header {
+   background-color: #aa988b;
+   color: #000;
+   padding: 10px 0 10px 10px;
+   position: relative;
+   border: 1px solid #333;
 }
