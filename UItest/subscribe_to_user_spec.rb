@@ -17,7 +17,6 @@ describe "UI for User Subscription" do
   before(:each) do
     selenium_driver.start_new_browser_session
     page.open "/"
-    page.click 'fb_button', :wait_for => :page    
   end
 
   # Closes down the browser  
