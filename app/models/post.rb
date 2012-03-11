@@ -32,14 +32,18 @@ class Post < ActiveRecord::Base
   # post, then the user's likes are not increased.
   def like!(liking_user)
     if check_user(liking_user) && !liked_by?(liking_user)
-      self.like_count = self.like_count + 1
-      song.like!
-      self.user.like!
-      self.likes.create!(:user_id => liking_user.id, :post_id => self.id)
-      self.save
       logger.info "Post :: User #{liking_user.username} liked post #{self.id}."
-      logger.debug "Post :: User #{liking_user.username} liked post
-                    #{self.attributes.inspect}"
+      self.like_count = self.like_count + 1
+      self.likes.create!(:user_id => liking_user.id, :post_id => self.id)
+      song.like!
+
+      if self.user != liking_user
+        self.user.like!
+        logger.info "Post :: User #{liking_user.username} liked their own post."
+      end
+      self.save
+      logger.debug "Post :: User #{liking_user.username} liked post " <<
+                   "#{self.attributes.inspect}"
     end
   end
 
@@ -52,11 +56,15 @@ class Post < ActiveRecord::Base
     this_like = Like.find(:all, :conditions => { :user_id => liking_user.id,
                                                  :post_id => self.id } )
     if (!this_like.nil?)
+      if (liking_user != self.user)
+        self.user.unlike!
+      end
       self.like_count = self.like_count - 1
       self.likes.delete(this_like)
       song.unlike!
-      self.user.unlike!
       self.save
+      logger.debug "Post :: User #{liking_user.username} unliked post " <<
+                   "#{self.attributes.inspect}"
     end
   end
 

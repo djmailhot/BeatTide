@@ -4,7 +4,7 @@
 #
 # Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
-  POSTS_PER_PAGE = 50
+  MAX_NUMBER_POSTS = 500
 
   before_filter :authenticate
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     else
       logger.info "User :: User show info request for user #{@user.username}"
       page = params[:page] ||= 1
-      @posts = @user.posts.paginate(:page => page, :per_page => POSTS_PER_PAGE)
+      @posts = @user.posts[0..MAX_NUMBER_POSTS]
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @user }

@@ -34,13 +34,42 @@ class Song < ActiveRecord::Base
     logger.debug "Song :: #{self.title} liked."
   end
 
-  # Subtracts one from the likes of this Song. If likes are 0, does nothing.
+  # Subtracts a specified amount, default 1, from the likes of this Song
   def unlike!
-    if self.like_count != 0
-      self.like_count = self.like_count - 1
-      self.save
-      logger.debug "Song :: #{self.title} unliked."
+    new_count = self.like_count - 1
+    if new_count < 0
+      logger.error "Song :: #{self.attributes.inspect} unliked by 1 " <<
+                   "would result in negative likes.  Defaulting to 0 likes."
+      new_count = 0
     end
+
+    self.like_count = new_count
+    self.save
+    logger.debug "Song :: #{self.title} unliked by 1."
+  end
+
+  # Returns the album that owns this song. If the album is unknown, then
+  # returns an album with a blank API ID and title "Unkonwn Album", not
+  # saved to the database.
+  def album
+    alb = super
+    if alb.nil?
+      alb = Album.new
+      alb.title = "Unknown Album"
+    end
+    alb
+  end
+
+  # Returns the artist that owns this song. If the artist is unknown, then
+  # returns an artist with a blank API ID and title "Unkonwn Artist", not
+  # saved to the database.
+  def artist
+    art = super
+    if art.nil?
+      art = Artist.new
+      art.title = "Unknown Artist"
+    end
+    art
   end
 
   # Searches for a song with the passed song API id. If no song is found, creates

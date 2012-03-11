@@ -3,11 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.0'
 gem 'grooveshark'
 
-gem 'sunspot_rails'
-gem 'sunspot_solr'
-gem 'sunspot_test'
-
-gem 'will_paginate'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

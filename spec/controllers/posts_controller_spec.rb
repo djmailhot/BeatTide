@@ -195,14 +195,14 @@ describe PostsController do
         Song.find(@song.id).like_count.should eq(1)
       end
 
-      it "should increment the user likes by 1" do
+      it "should not increment the user likes" do
         post :like, :id => @own_post.id
-        User.find(@curr_user.id).like_count.should eq(1)
+        User.find(@curr_user.id).like_count.should eq(0)
       end
     end
 
     # Like - can't like the same post more than once
-    describe "[failure] liking the same post multiple times" do
+    describe "liking the same post multiple times" do
 
       it "should not change total likes for the post" do
         post :like, :id => @post.id

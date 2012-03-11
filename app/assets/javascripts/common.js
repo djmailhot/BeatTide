@@ -30,7 +30,7 @@ function showMessage(message) {
     $("#message_container").html('');
     $("#message_container").append(m);
     $("#close").click(hideMessage);
-    $(m).delay(1000).fadeOut(1000, function() {
+    $(m).stop().delay(1000).fadeOut(1000, function() {
         hideMessage();
     });
 }

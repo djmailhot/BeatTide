@@ -8,13 +8,33 @@ body {
    font-family: helvetica, verdana, arial, sans-serif;
    background-color: #e3f4fc;
    line-height: 20px;
+   font-size: 12px;
    padding: 0;
    margin: 0;
 }
 
+a:link {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0090c6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7b3908;
+    text-decoration: underline;
+}
+
 #header_container {
   background-image: url("header_background.png");
-	border-bottom: 3px solid #055271;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 110px;
+  z-index: 50;
 }
 
 #header {
@@ -22,11 +42,59 @@ body {
     margin: 0 auto 0 auto;
     height: 65px;
     padding-top: 10px;
-	  position: relative;
-	
+	position: relative;
+}
+
+#navigation_container {
+    width: 880px;
+    margin: 0 auto 0 auto;
+    padding: 6px 5px 5px 5px;
+}
+
+#navigation_container #top_navigation, #navigation_container #user_navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navigation_container #top_navigation li, #navigation_container #user_navigation li {
+    float: left;
+    margin-right: 5px;
+    line-height: 15px;
+}
+
+#navigation_container li img {
+    position: relative;
+    top: 2px;
+}
+
+.nav_link a:link, .nav_link a:visited, .nav_link a:hover {
+    color: #FFF;
+    text-decoration: none;
+    background-color: #aa988b;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.nav_link a:hover {
+    background-color: #000;
+}
+
+#navigation_container #user_navigation {
+    float: right;
+}
+
+#signed_in_as {
+    padding: 2px 10px 0 0;
 }
 
 #content {
+    padding-top: 100px;
     width: 900px;
     margin: 20px auto 0 auto;
 }
@@ -42,7 +110,6 @@ body {
 	border-radius: 4px;
 	box-shadow: 2px 2px 0px #CCCCCC;
 }
-
 
 .small_module {
     background-color: #f8f8f8;
@@ -66,7 +133,6 @@ body {
 #fb_button:active {
     background-position: 0 -48px;
 }
-
 
 #fb_button span {
     display: none;
@@ -98,29 +164,15 @@ h2 {
 	margin-top: 20px;
 }
 
-a:link {
-    color: #0090c6;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #0090c6;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #7b3908;
-    text-decoration: underline;
-}
-
 .message {
-    background-color: #62B55A;
+    background-color: #FFFFFF;
     font-size: 12px;
     position: fixed;
     width: 100%;
     padding: 5px;
     z-index: 100;
     text-align: center;
+    top: 0;
 }
 
 .loading {

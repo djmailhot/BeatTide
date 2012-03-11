@@ -62,12 +62,9 @@
 
 </div>
 
-
 <div class="column right">
   <div class="module">
-    <%= will_paginate @posts %>
     <%= render :partial => "posts/post_list", :locals => {:posts => @posts} %>
-    <%= will_paginate @posts %>
   </div>
 </div>
 
