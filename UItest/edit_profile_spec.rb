@@ -36,11 +36,11 @@ describe "Page Editing" do
 
   it "should allow user to edit their page" do
     wait_for_ajax
-    page.type 'song_search_box', 'Friday'
-    page.click 'song_search_button'
+    page.click 'edit_profile'
     wait_for_ajax
-    page.click 'css=button.add_button'
-    wait_for_ajax
-    page.text?('added to your posts').should be_true
+    #page.text?('Username').should be_true
+    page.type 'user_username', 'bleh'
+    page.click 'css=input[name="commit"]'
+    
   end
 end
