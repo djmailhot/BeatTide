@@ -57,7 +57,8 @@ function loadPartial() {
     	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
     	    $("#dynamic_content_container").html(div);
     	},
-    	dataType: "html"
+    	dataType: "html",
+	timeout: 10000
     });	
 }
 
