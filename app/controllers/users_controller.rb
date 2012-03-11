@@ -4,7 +4,7 @@
 #
 # Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
-  MAX_NUMBER_POSTS = 500
+  MAX_NUMBER_POSTS = 30
 
   before_filter :authenticate
 
@@ -24,8 +24,12 @@ class UsersController < ApplicationController
       redirect_to "/error"
     else
       logger.info "User :: User show info request for user #{@user.username}"
-      page = params[:page] ||= 1
-      @posts = @user.posts[0..MAX_NUMBER_POSTS]
+      @page = params[:page].to_i ||= 0
+      max_index = (@page + 1) * MAX_NUMBER_POSTS - 1
+      min_index = @page * MAX_NUMBER_POSTS
+      @posts = @user.posts[min_index..max_index]
+      @beginning = (@page == 0)
+      @end = max_index > @user.posts.length
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @user }

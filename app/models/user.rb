@@ -47,8 +47,8 @@ class User < ActiveRecord::Base
     words.each do |search|
       users = users | find(:all, :conditions =>
         ['(upper(first_name) LIKE upper(?) OR upper(last_name) LIKE upper(?) OR
-          upper(username) LIKE upper(?)) AND id NOT LIKE (?)',
-          "%#{search}%", "%#{search}%", "%#{search}%", "%#{current_user.id}"])
+          upper(username) LIKE upper(?)) AND id != (?)',
+          "%#{search}%", "%#{search}%", "%#{search}%", "#{current_user.id}"])
     end
     users
   end
@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   def subscribe!(subscribe_to)
     if self != subscribe_to
       self.subscriptions.create!(:subscribed_id => subscribe_to.id)
-      logger.info "User :: user id #{self.subscriber.username} subscribed to user " <<
+      logger.info "User :: user id #{self.username} subscribed to user " <<
                   "#{subscribe_to.username}"
     end
   end

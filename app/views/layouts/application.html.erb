@@ -31,15 +31,16 @@ if !@raw
         <div id="navigation_container">
             <% if current_user %>
             <ul id="top_navigation">
-                <li><%= ajax_link_to image_tag("icons/home.png", :alt => "Home") + " Home", "home" %></li>
-                <li><%= ajax_link_to image_tag("icons/search.png", :alt => "User search") + " Find Friends", "users/search" %></li>
-                <li><%= ajax_link_to image_tag("icons/subscriptions.png", :alt => "User search") + " Your Subscriptions", "/subscriptions" %></li>
+                <li class="nav_link"><%= ajax_link_to image_tag("icons/home.png", :alt => "Home") + " Home", "home" %></li>
+                <li class="nav_link"><%= ajax_link_to image_tag("icons/search.png", :alt => "Find Friends") + " Find Friends", "users/search" %></li>
+                <li class="nav_link"><%= ajax_link_to image_tag("icons/subscriptions.png", :alt => "Your Subscriptions") + " Your Subscriptions", "/subscriptions" %></li>
+                <li class="nav_link"><%= ajax_link_to image_tag("icons/help.png", :alt => "Help") + " Help", "/tutorial" %></li>
             </ul>
-                <ul id="user_navigation">
-                    <li id="signed_in_as">Signed in as <strong><%= current_user.first_name %> <%= current_user.last_name %></strong></li>
-                    <li><%= ajax_link_to image_tag("icons/edit.png", :alt => "Home") + " Edit Profile", "/edit_profile" %></li>
-                    <li><%= link_to "Sign Out", signout_path %></li>
-                </ul>
+            <ul id="user_navigation">
+                <li id="signed_in_as">Signed in as <strong><%= ajax_link_to current_user.username, current_user %></strong></li>
+                <li class="nav_link"><%= ajax_link_to image_tag("icons/edit.png", :alt => "Home") + " Edit Profile", "/edit_profile" %></li>
+                <li class="nav_link"><%= link_to "Sign Out", signout_path %></li>
+            </ul>
             <% else %>
               <strong>Not signed in.</strong>
             <% end %>
@@ -51,7 +52,6 @@ if !@raw
         </div>
         
         <div id="dynamic_content_container">
-          <%= yield %>
         </div>
         
         <div class="small_module module" id="footer"><%= ajax_link_to "Tutorial", "/tutorial" %> • <%= ajax_link_to "FAQ", "/faq"%> • <%= ajax_link_to "About", "/about" %><br>Copyright BeatTide</div>
