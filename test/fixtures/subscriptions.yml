@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  subscriber_id: 
-  subscribed_id: 
-
-two:
-  subscriber_id: 
-  subscribed_id: 

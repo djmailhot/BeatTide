@@ -49,7 +49,7 @@
 	   <% @user.subscriptions.each do |subscription| %>
              <tr id=<%= "#{subscription.subscribed.id}" %>>
       	       <td><%= ajax_link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
-      	       <td><%= subscription.subscribed.like_count %></td>
+      	       <td><%= subscription.subscribed.like_count %> Likes</td>
 	     </tr>
       <% end %>
     </table>

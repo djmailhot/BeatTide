@@ -25,7 +25,7 @@
         <%= ajax_link_to "See More...", "feed" if current_user.feed.length > 10 %> 
     	<script>
     	  if (!hasAutoplayed) {
-             var closest = $(".play_button").first();
+             var closest = $("#friend_feed .play_button").first();
     	     makePlaylist(closest);
     	     hasAutoplayed = true;
     	  }
