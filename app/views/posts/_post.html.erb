@@ -6,11 +6,12 @@
 <div class="post" id="pid_<%= post.id %>">
   <div class="posted_by">
   <% if current_user == post.user %>
-    You posted: (
-    <span class="delete_post"><strong>
-    <%= link_to_function "Remove", "deletePost(#{post.id})" %>
-    </strong></span>
-    )
+    <span class="delete_post">
+        <strong>
+            <%= link_to_function "X", "deletePost(#{post.id}, '#{post.song.title}')" %>
+        </strong>
+    </span>
+    You posted:
   <% else %>
     <strong><%= ajax_link_to post.user.username, post.user %></strong> posted:
   <% end %>
