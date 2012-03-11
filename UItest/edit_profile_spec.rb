@@ -1,18 +1,16 @@
 require 'selenium/client'
-require 'spec_helper.rb'
+require 'ui_spec_helper'
 
-def wait_for_ajax(timeout=5000)
-  js_condition = 'selenium.browserbot.getUserWindow().jQuery.active == 0'
-  @selenium_driver.wait_for_condition(js_condition, timeout)
-end
 
-describe "Page Editing" do
+# UI automation testing for the user editing their profile.
+#
+# Author: Brett Webber
+describe "UI for Editing Profile" do
   attr_reader :selenium_driver
   alias :page :selenium_driver
 
-  before(:all) do 
-    @verification_errors = []
-    
+  # Sets up the browser for the UI testing  
+  before(:all) do     
     @selenium_driver = Selenium::Client::Driver.new(
     :host => "localhost",
     :port => 4444,
@@ -21,6 +19,7 @@ describe "Page Editing" do
     :timeout_in_second => 60)
   end
 
+  # Starts up the browser and logs in the user  
   before(:each) do
     selenium_driver.start_new_browser_session
     page.open "/"
@@ -30,17 +29,30 @@ describe "Page Editing" do
     page.click 'loginbutton', :wait_for => :page
   end
 
+  # Closes down the browser  
   after(:each) do
     @selenium_driver.close_current_browser_session
   end
 
+  # Tries to edit the username of a user, and checks to see if the
+  # username is successfully changed.
   it "should allow user to edit their page" do
     wait_for_ajax
-    page.click 'edit_profile'
+    page.click 'css=#edit_profile a'
     wait_for_ajax
-    #page.text?('Username').should be_true
+    page.text?('Edit Your Profile').should be_true
     page.type 'user_username', 'bleh'
     page.click 'css=input[name="commit"]'
+    page.click 'css=#signed_in_as a'
+    wait_for_ajax
+    page.text?('bleh').should be_true
     
+    page.click 'css=#edit_profile a'
+    wait_for_ajax
+    page.text?('Edit Your Profile').should be_true
+    page.type 'user_username', 'rebeccablack'
+    page.click 'css=input[name="commit"]'
+    page.click 'css=#signed_in_as a'
+    page.text?('rebeccablack').should be_true
   end
 end

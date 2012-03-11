@@ -1,10 +1,5 @@
 require 'selenium/client'
-require 'spec_helper.rb'
-
-def wait_for_ajax(timeout=5000)
-  js_condition = 'selenium.browserbot.getUserWindow().jQuery.active == 0'
-  @selenium_driver.wait_for_condition(js_condition, timeout)
-end
+require 'ui_spec_helper'
 
 describe "Song posting" do
   attr_reader :selenium_driver
@@ -28,6 +23,8 @@ describe "Song posting" do
     page.type 'email', 'beatertider@gmail.com'
     page.type 'pass', 'honeybadger'
     page.click 'loginbutton', :wait_for => :page
+    wait_for_ajax
+    page.text?('Signed in as').should be_true    
   end
 
   after(:each) do
@@ -35,7 +32,6 @@ describe "Song posting" do
   end
 
   it "should allow user to post a song" do
-    wait_for_ajax
     page.type 'song_search_box', 'Friday'
     page.click 'song_search_button'
     wait_for_ajax
