@@ -67,7 +67,7 @@ function deletePost(id, element) {
 	       type: "DELETE", 
            parameters: { id: id },
 	       complete: function(data) {
-    		   if (status == "error")
+    		   if (status == "error") {
     		       ajaxFailure(data);
     		   } else {
                    removePostCallback();
