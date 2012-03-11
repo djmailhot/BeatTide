@@ -1,6 +1,3 @@
-require 'simplecov'
-SimpleCov.start 'rails'
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -35,10 +32,25 @@ RSpec.configure do |config|
     controller.sign_in(user)
   end
 
-  # Set default timeout on tests to be 2 seconds.
-#  config.around(:each) do |example|
-#    Timeout::timeout(2) {
-#      example.run
-#    }
-#  end
+# HELPER METHODS FOR UI TESTING
+
+  # Waits for all ajax requests that are currently happening to cease
+  def wait_for_ajax(timeout=5000)
+    js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
+    @selenium_driver.wait_for_condition(js_condition, timeout)
+  end
+
+  # Sets up the browser for testing
+  def setup_browser
+    @selenium_driver = Selenium::Client::Driver.new(
+    :host => "localhost",
+    :port => 4444,
+    :browser => "*firefox",
+    :url => "http://localhost:3000/",
+    :timeout_in_second => 60)
+    @elements = Selenium::Client::JavascriptExpressionBuilder.new()
+  end
+
+  
+  
 end
