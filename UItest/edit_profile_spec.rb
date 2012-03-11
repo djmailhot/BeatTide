@@ -6,7 +6,7 @@ def wait_for_ajax(timeout=5000)
   @selenium_driver.wait_for_condition(js_condition, timeout)
 end
 
-describe "Song posting" do
+describe "Page Editing" do
   attr_reader :selenium_driver
   alias :page :selenium_driver
 
@@ -34,7 +34,7 @@ describe "Song posting" do
     @selenium_driver.close_current_browser_session
   end
 
-  it "should allow user to post a song" do
+  it "should allow user to edit their page" do
     wait_for_ajax
     page.type 'song_search_box', 'Friday'
     page.click 'song_search_button'
@@ -42,12 +42,5 @@ describe "Song posting" do
     page.click 'css=button.add_button'
     wait_for_ajax
     page.text?('added to your posts').should be_true
-  end
-
-  it "should allow user to delete a song" do
-    wait_for_ajax
-    page.click 'css=span.delete_post a'
-    wait_for_ajax
-    page.text?('Deleted').should be_true
   end
 end
