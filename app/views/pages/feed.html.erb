@@ -12,5 +12,15 @@
 </div>
 
 <div class="module">
-  <%= render :partial => "posts/post_list", :locals => {:posts => @feed} %>
+    <div class="pagination_buttons">
+      <span class="text_left"><%= ajax_link_to "Previous Page", "/feed?page=#{@page - 1}" unless @beginning %></span>
+      <span class="text_right"><%= ajax_link_to "Next Page", "/feed?page=#{@page + 1}" unless @end %></span>
+    </div>
+    <div class="pagination_clear"></div>
+    <%= render :partial => "posts/post_list", :locals => {:posts => @feed} %>
+    <div class="pagination_buttons">
+      <span class="text_left"><%= ajax_link_to "Previous Page", "/feed?page=#{@page - 1}" unless @beginning %></span>
+      <span class="text_right"><%= ajax_link_to "Next Page", "/feed?page=#{@page + 1}" unless @end %></span>
+    </div>
+    <div class="pagination_clear"></div>
 </div>
