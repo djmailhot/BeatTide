@@ -1,8 +1,12 @@
 /**
  * A place for generic, common functions.
- *  
+n *  
  * Authors: Harnoor Singh, Alex Miller, Tyler Rigsby
  */
+
+// Variable to manage song autoplay
+
+var hasAutoplayed = false;
 
 /**
  * Prints out an AJAX request failure for debugging.
@@ -48,6 +52,24 @@ function loadPartial() {
 	url: window.location.hash.replace("#!", ""),
 	success: function(data) {
 	    $("#dynamic_content_container").html(data);
+/*
+	    // Auto play song
+	    if(!hasAutoplayed){
+		var pathname = window.location;
+
+		var home = new RegExp("#!\/home");
+		console.log("autoplaying");
+		
+		if(home.test(pathname)){
+	
+		    //console.log(feed);
+		}
+
+
+		hasAutoplayed = true;
+	    }
+*/
+
 	},
 	error: function(data) {
 	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
@@ -55,6 +77,8 @@ function loadPartial() {
 	},
 	dataType: "html"
     });	
+
+
 }
 
 $(document).ready(function() {
@@ -62,6 +86,7 @@ $(document).ready(function() {
     // patterns, the page is not refreshed. instead, an asynchronous request 
     // loads the content.
     Path.root("#!/home")
+
     // this is messy, but PathJS doesn't have powerful wildcard matching
     Path.map("#!/:a").to(loadPartial);
     Path.map("#!/:a/:b").to(loadPartial);
@@ -70,19 +95,7 @@ $(document).ready(function() {
     Path.map("#!//:a/:b").to(loadPartial);
     Path.map("#!//:a/:b/:c").to(loadPartial);
     Path.listen();
+
     
-    var pathname = "" + window.location;
-
-    // _=_ #!/home
-    var home = new RegExp("#_=_");
-    var home2 = new RegExp("#!\/home");
-
-    if(home.test(pathname) || home2.test(pathname)){
-	var closest = $("#friend_feed").closest("play_button");
-	var feed = $("#friend_feed");
-	console.log(closest.attr("id"));
-	console.log(feed);
-    }
-
     
 });
