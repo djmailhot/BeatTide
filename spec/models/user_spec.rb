@@ -86,7 +86,7 @@ describe User do
   describe "first name validation" do
     it_should_behave_like "name validation" do
       let(:field) { :first_name }
-      let(:max_length) { Utility::MAX_LENGTH }
+      let(:max_length) { 30 }
       let(:min_length) { 1 }
     end
   end
@@ -95,7 +95,7 @@ describe User do
   describe "last name validation" do
     it_should_behave_like "name validation" do
       let(:field) { :last_name }
-      let(:max_length) { Utility::MAX_LENGTH }
+      let(:max_length) { 30 }
       let(:min_length) { 1 }
     end
   end
