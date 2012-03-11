@@ -68,7 +68,7 @@ a:hover {
     top: 2px;
 }
 
-#navigation_container a:link, #navigation_container a:visited, #navigation_container a:hover {
+.nav_link a:link, .nav_link a:visited, .nav_link a:hover {
     color: #FFF;
     text-decoration: none;
     background-color: #aa988b;
@@ -81,7 +81,7 @@ a:hover {
 	border-radius: 4px;
 }
 
-#navigation_container a:hover {
+.nav_link a:hover {
     background-color: #000;
 }
 
@@ -190,4 +190,3 @@ h2 {
 h3 {
     font-weight: normal;
 }
-
