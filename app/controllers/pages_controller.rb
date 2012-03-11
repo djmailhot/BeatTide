@@ -3,7 +3,7 @@
 # Author:: Alex Miller
 class PagesController < ApplicationController
 
-  MAX_NUMBER_POSTS = 500
+  MAX_NUMBER_POSTS = 50
 
   # Displays an index page for the entire site.
   def index
@@ -23,8 +23,12 @@ class PagesController < ApplicationController
 
   # Sets the user's paginated feed to @feed
   def feed
-    page = params[:page] ||= 1
-    @feed = current_user.feed[0..MAX_NUMBER_POSTS]
+    @page = params[:page].to_i ||= 0
+    min_index = @page * MAX_NUMBER_POSTS
+    max_index = (@page + 1) * MAX_NUMBER_POSTS - 1
+    @feed = current_user.feed[min_index..max_index]
+    @beginning = (@page == 0)
+    @end = max_index > current_user.feed.length
     render "feed"
   end
 
