@@ -44,11 +44,4 @@ describe "UI for Song Posting" do
     wait_for_ajax
     page.text?('added to your posts').should be_true
   end
-
-  it "should allow user to delete a song" do
-    wait_for_ajax
-    page.click 'css=span.delete_post a'
-    wait_for_ajax
-    page.text?('Deleted').should be_true
-  end
 end

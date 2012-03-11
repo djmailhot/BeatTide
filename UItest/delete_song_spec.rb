@@ -35,24 +35,15 @@ describe "UI for Song Posting" do
     @selenium_driver.close_current_browser_session
   end
 
-  # Walkthrough where the user tries to post a song to their feed.
-  it "should allow user to post a song" do
-    page.type 'song_search_box', 'Friday'
-    page.click 'song_search_button'
-    wait_for_ajax
-    page.click 'css=button.add_button'
-    wait_for_ajax
-    page.text?('added to your posts').should be_true
-  end
-
-  # Walkthrough where the user tries to delete a song from their feed.  First posts, 
+  # Walkthrough where the user tries to delete a song from their feed.
+  # First posts, a song to ensure that there is a song to delete.
   it "should allow user to delete a song" do
     page.type 'song_search_box', 'Friday'
     page.click 'song_search_button'
     wait_for_ajax
     page.click 'css=button.add_button'
     wait_for_ajax
-    page.text?('added to your posts').should be_true    
+    page.text?('added to your posts').should be_true
     page.click 'css=span.delete_post a'
     wait_for_ajax
     page.text?('Deleted').should be_true

@@ -53,6 +53,7 @@ describe "UI for Editing Profile" do
     page.type 'user_username', 'rebeccablack'
     page.click 'css=input[name="commit"]'
     page.click 'css=#signed_in_as a'
+    wait_for_ajax
     page.text?('rebeccablack').should be_true
   end
 end
