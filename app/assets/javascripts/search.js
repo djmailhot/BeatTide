@@ -9,15 +9,13 @@
  * Runs with the document is loaded. Sets up the search interface and positions
  * the user's cursor within the search box.
  */
-$(document).ready(function() {
-    $(document).delegate('#song_search_box', 'keypress', function(event){
-        if(event.keyCode == 13){
-            performSearch();
-        }
-    });
-    $(document).delegate('#song_search_button', 'click', performSearch);
-});
 
+$(document).delegate('#song_search_box', 'keypress', function(event){
+    if(event.keyCode == 13){
+        performSearch();
+    }
+});
+$(document).delegate('#song_search_button', 'click', performSearch);
 
 /**
  * Retrieves the search query from the search input box and then loads the 
