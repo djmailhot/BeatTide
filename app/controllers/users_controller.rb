@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       min_index = @page * MAX_NUMBER_POSTS
       @posts = @user.posts[min_index..max_index]
       @beginning = (@page == 0)
-      @end = max_index > @user.posts.length
+      @end = max_index >= @user.posts.length - 1
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @user }

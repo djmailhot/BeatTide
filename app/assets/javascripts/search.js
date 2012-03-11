@@ -26,7 +26,16 @@ function performSearch() {
     var searchString = $('#song_search_box').val();
     var url = "grooveshark/songs_from_query";
     $("#search_results").html('<img src="assets/load_small.gif" /> Loading...');
-    $.get(url, {query: searchString}, function(data) {
-        $("#search_results").html(data);
+    $.ajax({
+	url: url, 
+	type: "get",
+	data: {query: searchString}, 
+	success: function(data) {
+            $("#search_results").html(data);
+	},
+	error: function(data) {
+	    $("#search_results").text("Search could not be completed. Please try again later.");
+	},
+	timeout: 10000	  
     });
 }

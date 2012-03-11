@@ -57,13 +57,10 @@ function loadPartial() {
     	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
     	    $("#dynamic_content_container").html(div);
     	},
-    	dataType: "html"
-    });
+    	dataType: "html",
+	timeout: 10000
+    });	
 }
-
-$('.actions input').bind('ajax:success', function() {
-    alert("YEAH");
-});
 
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following

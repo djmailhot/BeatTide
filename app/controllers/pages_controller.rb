@@ -28,7 +28,7 @@ class PagesController < ApplicationController
     max_index = (@page + 1) * MAX_NUMBER_POSTS - 1
     @feed = current_user.feed[min_index..max_index]
     @beginning = (@page == 0)
-    @end = max_index > current_user.feed.length
+    @end = max_index >= current_user.feed.length - 1
     render "feed"
   end
 
