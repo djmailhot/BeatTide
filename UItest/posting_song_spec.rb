@@ -41,6 +41,13 @@ describe "Song posting" do
     wait_for_ajax
     page.click 'css=button.add_button'
     wait_for_ajax
-    page.text?('Song was added!').should be_true
+    page.text?('Added!').should be_true
+  end
+
+  it "should allow user to delete a song" do
+    wait_for_ajax
+    page.click 'css=delete_post'
+    wait_for_ajax
+    page.text?('Deleted').should be_true
   end
 end

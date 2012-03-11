@@ -1,5 +1,5 @@
 require 'selenium/client'
-require 'spec_helper.rb'
+require 'spec_helper'
 
 def wait_for_ajax(timeout=5000)
   js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
@@ -39,7 +39,7 @@ describe "Subscribe to User" do
     wait_for_ajax
   end
 
-  it "should allow user to post a song" do
+  it "should allow a user to subscribe to another user" do
     page.type 'email', 'beatstides@gmail.com'
     page.type 'pass', 'honeybadger'
     page.click 'loginbutton', :wait_for => :page
@@ -47,12 +47,19 @@ describe "Subscribe to User" do
     wait_for_ajax
     page.click 'link=Find Friends'
     wait_for_ajax
-    page.type 'user_search_box', 'Beatzzle'
+    page.type 'user_search_box', 'Beat'
     page.click 'user_search_button'    
-    page.type 'link=Beatzzle Tideizzle'
+    page.click 'link=Beat Tide'
     wait_for_ajax
-    # page.click 'css=button.add_button'
-    # wait_for_ajax
-    # page.text?('Song was added!').should be_true
+    page.click 'subscribe'
+    if page.text?('Subscribe')
+      page.click 'subscribe'
+      wait_for_ajax
+      page.text?('Subscribed to').should be_true
+    else 
+      page.click 'subscribe'
+      wait_for_ajax
+      page.text?('Unsubscribed from').should be_true
+    end
   end
 end

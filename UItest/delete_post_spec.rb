@@ -1,12 +1,12 @@
-require "selenium/client"
-require 'spec_helper.rb'
+require 'selenium/client'
+require 'spec_helper'
 
 def wait_for_ajax(timeout=5000)
   js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
   @selenium_driver.wait_for_condition(js_condition, timeout)
 end
 
-describe "Signin page" do
+describe "Deleting a Post" do
   attr_reader :selenium_driver
   alias :page :selenium_driver
 
@@ -25,18 +25,6 @@ describe "Signin page" do
     selenium_driver.start_new_browser_session
     page.open "/"
     page.text?('Hello, music lover!').should be_true
-  end
-
-  after(:each) do
-    @selenium_driver.close_current_browser_session
-  end
-
-  def wait_for_ajax(timeout=5000)
-    js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
-    @selenium_driver.wait_for_condition(js_condition, timeout)
-  end
-
-  it "should accept valid login" do
     page.click 'fb_button', :wait_for => :page
     page.type 'email', 'beattide@gmail.com'
     page.type 'pass', 'honeybadger'
@@ -44,10 +32,8 @@ describe "Signin page" do
     page.text?('Signed in as').should be_true
   end
 
-  it "should allow user to access FAQ before signing in by clicking the link" do
-    page.click 'link=FAQ'
-    wait_for_ajax
-    page.text?('What is BeatTide?').should be_true
+  after(:each) do
+    @selenium_driver.close_current_browser_session
   end
 
   it "should not allow user to access tutorial before signing in" do
