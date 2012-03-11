@@ -3,7 +3,7 @@
 #
 # Authors:: Tyler Rigsby, Brett Webber, David Mailhot
 class User < ActiveRecord::Base
-  attr_accessible :username, :first_name, :last_name, :age, :active
+  attr_accessible :username, :first_name, :last_name, :active
 
   # there is a many-to-one relationship between posts and users
   has_many :posts, :dependent => :destroy, :order => "created_at DESC"
