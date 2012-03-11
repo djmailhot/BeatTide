@@ -58,8 +58,12 @@ function loadPartial() {
     	    $("#dynamic_content_container").html(div);
     	},
     	dataType: "html"
-    });	
+    });
 }
+
+$('.actions input').bind('ajax:success', function() {
+    alert("YEAH");
+});
 
 $(document).ready(function() {
     // set up all the path listeners. when a path matches one of the following
