@@ -22,6 +22,7 @@ The high level features implemented in the BeatTide beta are the ability to:
 - A fluid, intuitive music-playing experience with a single Grooveshark widget.
 - Play a playlist of music, either from your posts or the posts made by users you
   are subscribed to (your "feed").
+- Music begins to play automatically when you sign in (from your feed).
 - Listen to music while navigating around the site.
 - The ability to delete posts made to your profile.
 - Paginate the posts so that you only see 10 at a time.
