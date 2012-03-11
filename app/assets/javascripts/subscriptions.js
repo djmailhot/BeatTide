@@ -43,7 +43,7 @@ function showUnsubscribe(id, username) {
  */
 function listUnsubscribe(id, username, element) {
     var row = $(element);
-    row.text("Unsubscribed!");
+    row.parent().html("Unsubscribed!");
     unsubscribe(id, username);
 }
 

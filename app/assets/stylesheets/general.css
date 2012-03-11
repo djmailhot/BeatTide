@@ -95,8 +95,19 @@ a:hover {
 
 #content {
     padding-top: 100px;
+    margin: 20px auto 20px auto;
+    width: 1220px;
+    clear: both;
+}
+
+#dynamic_content_container {
     width: 900px;
-    margin: 20px auto 0 auto;
+    margin-left: 160px;
+}
+
+#ad_space_left {
+    float: left;
+    margin-bottom: 100px;
 }
 
 .module {
@@ -147,6 +158,10 @@ a:hover {
     clear: both;
     text-align: center;
     font-size: 13px;
+    padding: 10px;
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    background-color: #FFF;
 }
 
 h2 {
@@ -180,11 +195,6 @@ h2 {
     text-align: center;
     background-color: #FFF;
     width: 400px;
-}
-
-#ad_space {
-    position: absolute;
-    left: 40px;
 }
 
 h3 {

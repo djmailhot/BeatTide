@@ -4,7 +4,7 @@
 # Author:: Brett Webber 
 %>
 
-<div class="small_module module" id="footer">
+<div class="small_module module">
     <%= ajax_link_to "Tutorial", "/tutorial" %> • <%= ajax_link_to "FAQ", "/faq"%> • <%= ajax_link_to "About", "/about" %>
 </div>
 
@@ -13,6 +13,17 @@
 </div>
 
 <div class="module">
+  <div class="module">
+    <h3 id="Navigation">Navigation</h3>
+    <%= image_tag("tutorial/navigation.png", :alt => "Navigation") %>
+    <p class="explanation">
+      Click on the links on the navigation bar to move around the site. The "home"
+      button will return you to your home page; the "Find Friends" link allows
+      you to browse and search for other users to subscribe to; the
+      "Your subscriptions" link shows you all the users you are subscribed to; and
+      the "Help" link shows you information to help you understand BeatTide.
+    </p>
+    </div>
   <div class="module">
     <h3 id="SongSearch">Adding a Song</h3>
     <%= image_tag("tutorial/song_search.png", :alt => "Song Search Image") %>
@@ -48,6 +59,18 @@
     </p>
   </div>  
   <div class="module">
+    <h3 id="Player">Music Player</h3>
+    <%= image_tag("tutorial/player.png", :alt => "Music Player") %>
+    <p class="explanation">
+      This flash widget in the upper right corner of the page is
+      used for playing your music. Whenever you select songs to play
+      from your posts playlist or aggregated playlist, it plays the
+      entire playlist. You can click the pause button to stop playback.
+      The player will continue to play your music while you navigate
+      to other pages of the app.
+    </p>
+  </div>  
+  <div class="module">
     <h3 id="TopUsers">Top Songs and Users</h3>
     <%= image_tag("tutorial/top_users.png", :alt => "Top Users") %>
     <p class="explanation">
@@ -63,7 +86,8 @@
       This button allows you to subscribe to a user.  Once you are
       subscribed to someone, the songs that they post will come up in
       your aggregated playlist.  To unsubscribe to someone, go to
-      their profile page and click the “unsubscribe” button.
+      their profile page and click the “unsubscribe” button that
+      appears for users you are subscribed to.
     </p>
   </div>
   <div class="module">

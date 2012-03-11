@@ -48,6 +48,7 @@ function hideMessage() {
  */
 function loadPartial() {
     $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="/assets/load.gif" /></div>');
+    window.scrollTo(0, 0);
     $.ajax({
     	url: window.location.hash.replace("#!", ""),
     	success: function(data) {
