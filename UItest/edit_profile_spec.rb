@@ -11,22 +11,14 @@ describe "UI for Editing Profile" do
 
   # Sets up the browser for the UI testing  
   before(:all) do     
-    @selenium_driver = Selenium::Client::Driver.new(
-    :host => "localhost",
-    :port => 4444,
-    :browser => "*firefox",
-    :url => "http://localhost:3000/",
-    :timeout_in_second => 60)
+    setup_browser
   end
 
   # Starts up the browser and logs in the user  
   before(:each) do
     selenium_driver.start_new_browser_session
     page.open "/"
-    page.click 'fb_button', :wait_for => :page
-    page.type 'email', 'beatertider@gmail.com'
-    page.type 'pass', 'honeybadger'
-    page.click 'loginbutton', :wait_for => :page
+    signin_user('beatertider@gmail.com', 'honeybadger')
   end
 
   # Closes down the browser  
@@ -37,7 +29,6 @@ describe "UI for Editing Profile" do
   # Tries to edit the username of a user, and checks to see if the
   # username is successfully changed.
   it "should allow user to edit their page" do
-    wait_for_ajax
     page.click 'css=#edit_profile a'
     wait_for_ajax
     page.text?('Edit Your Profile').should be_true

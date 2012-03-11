@@ -12,13 +12,7 @@ describe "UI for Signin Page" do
 
   # Sets up the browser for the UI testing
   before(:all) do 
-    @selenium_driver = Selenium::Client::Driver.new(
-    :host => "localhost",
-    :port => 4444,
-    :browser => "*firefox",
-    :url => "http://localhost:3000/",
-    :timeout_in_second => 60)
-    @elements = Selenium::Client::JavascriptExpressionBuilder.new()
+    setup_browser
   end
 
   # Starts up the browser and logs in the user  
@@ -37,11 +31,7 @@ describe "UI for Signin Page" do
   # is signed in, then tries to sign out the user and ensures that
   # they are signed out
   it "should accept valid login" do
-    page.click 'fb_button', :wait_for => :page
-    page.type 'email', 'beattide@gmail.com'
-    page.type 'pass', 'honeybadger'
-    page.click 'loginbutton', :wait_for => :page
-    wait_for_ajax
+    signin_user('beattide@gmail.com', 'honeybadger')
     page.text?('Signed in as').should be_true
     page.click 'css=#sign_out a', :wait_for => :page
     page.element?('welcome').should be_true

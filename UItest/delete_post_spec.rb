@@ -10,12 +10,7 @@ describe "Deleting a Post" do
     
   # Sets up the browser for the UI testing
   before(:all) do 
-    @selenium_driver = Selenium::Client::Driver.new(
-    :host => "localhost",
-    :port => 4444,
-    :browser => "*firefox",
-    :url => "http://localhost:3000/",
-    :timeout_in_second => 60)
+    setup_browser
   end
 
   # Starts up the browser and logs in the user
