@@ -4,7 +4,7 @@
 #
 # Author:: David Mailhot, Tyler Rigsby, Brett Webber
 class UsersController < ApplicationController
-  MAX_NUMBER_POSTS = 50
+  MAX_NUMBER_POSTS = 30
 
   before_filter :authenticate
 
