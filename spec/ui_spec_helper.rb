@@ -36,7 +36,8 @@ RSpec.configure do |config|
 
   # Waits for all ajax requests that are currently happening to cease
   def wait_for_ajax(timeout=5000)
-    js_condition = 'selenium.browserbot.getCurrentWindow().jQuery.active == 0'
+    @selenium_driver.wait_for_condition("selenium.browserbot.getUserWindow().jQuery != 'undefined'", timeout)
+    js_condition = 'selenium.browserbot.getUserWindow().jQuery.active == 0'
     @selenium_driver.wait_for_condition(js_condition, timeout)
   end
 
@@ -51,6 +52,13 @@ RSpec.configure do |config|
     @elements = Selenium::Client::JavascriptExpressionBuilder.new()
   end
 
-  
+  # Signs in a user with an email and password
+  def signin_user(email, password)
+    page.click 'fb_button', :wait_for => :page
+    page.type 'email', email
+    page.type 'pass', password
+    page.click 'loginbutton', :wait_for => :page
+    wait_for_ajax    
+  end
   
 end

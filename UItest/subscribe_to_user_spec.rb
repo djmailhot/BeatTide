@@ -10,12 +10,7 @@ describe "UI for User Subscription" do
 
   # Sets up the browser for the UI testing  
   before(:all) do     
-    @selenium_driver = Selenium::Client::Driver.new(
-    :host => "localhost",
-    :port => 4444,
-    :browser => "*firefox",
-    :url => "http://localhost:3000/",
-    :timeout_in_second => 60)
+    setup_browser    
   end
 
   # Starts up the browser and logs in the user  
@@ -33,10 +28,7 @@ describe "UI for User Subscription" do
   # Signs in the first user that is going to be subscribed to to
   # ensure that they are in the sites database.
   it "should allow first user to sign in" do
-    page.type 'email', 'beattide@gmail.com'
-    page.type 'pass', 'honeybadger'
-    page.click 'loginbutton', :wait_for => :page
-    wait_for_ajax
+    signin_user('beattide@gmail.com', 'honeybadger')
     page.text?('Signed in as').should be_true
   end
 
@@ -44,10 +36,7 @@ describe "UI for User Subscription" do
   # to the other if they are subscribed.  If they are already
   # subscribed, also tries to unsubscribe them.
   it "should allow a user to subscribe to another user" do
-    page.type 'email', 'beatstides@gmail.com'
-    page.type 'pass', 'honeybadger'
-    page.click 'loginbutton', :wait_for => :page
-    wait_for_ajax
+    signin_user('beatstides@gmail.com', 'honeybadger')
     page.text?('Signed in as').should be_true
     wait_for_ajax
     page.click 'link=Find Friends'
