@@ -8,7 +8,7 @@
 #
 # Author:: Tyler Rigsby
 
-EMAILS="aimlessrose@gmail.com,alexmiller@gmail.com,tjrigs@gmail.com,hsingh09@gmail.com,brettw07@gmail.com,djmailhot@gmail.com"
+EMAILS="aimlessrose@gmail.com,alexmiller@gmail.com,tjrigs@gmail.com,harnoor28@gmail.com,brettw07@gmail.com,djmailhot@gmail.com"
 DATE=`date +%D`
 SUBJECT=$DATE":BeatTide_Daily_Test_Results"
 RAILS_ENV=test; source /home/serverman/.rvm/scripts/rvm;

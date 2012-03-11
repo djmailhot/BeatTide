@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   def subscribe!(subscribe_to)
     if self != subscribe_to
       self.subscriptions.create!(:subscribed_id => subscribe_to.id)
-      logger.info "User :: user id #{self.subscriber.username} subscribed to user " <<
+      logger.info "User :: user id #{self.username} subscribed to user " <<
                   "#{subscribe_to.username}"
     end
   end

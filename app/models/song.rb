@@ -48,6 +48,30 @@ class Song < ActiveRecord::Base
     logger.debug "Song :: #{self.title} unliked by 1."
   end
 
+  # Returns the album that owns this song. If the album is unknown, then
+  # returns an album with a blank API ID and title "Unkonwn Album", not
+  # saved to the database.
+  def album
+    alb = super
+    if alb.nil?
+      alb = Album.new
+      alb.title = "Unknown Album"
+    end
+    alb
+  end
+
+  # Returns the artist that owns this song. If the artist is unknown, then
+  # returns an artist with a blank API ID and title "Unkonwn Artist", not
+  # saved to the database.
+  def artist
+    art = super
+    if art.nil?
+      art = Artist.new
+      art.title = "Unknown Artist"
+    end
+    art
+  end
+
   # Searches for a song with the passed song API id. If no song is found, creates
   # a new song. Returns the song. The song that is returned is always guaranteed
   # to be in the database. If the provided API IDs are invalid (nil, negative,

@@ -202,24 +202,24 @@ describe PostsController do
     end
 
     # Like - can't like the same post more than once
-    describe "[failure] liking the same post multiple times" do
+    describe "liking the same post multiple times" do
 
-      it "should not change total likes for the post more than 1" do
+      it "should not change total likes for the post" do
         post :like, :id => @post.id
         post :like, :id => @post.id
-        Post.find(@post.id).like_count.should eq(1)
+        Post.find(@post.id).like_count.should eq(0)
       end
 
-      it "should not change total likes for the song more than 1" do
+      it "should not change total likes for the song" do
         post :like, :id => @post.id
         post :like, :id => @post.id
-        Song.find(@song.id).like_count.should eq(1)
+        Song.find(@song.id).like_count.should eq(0)
       end
 
-      it "should not change total likes for the user more than 1" do
+      it "should not change total likes for the user" do
         post :like, :id => @post.id
         post :like, :id => @post.id
-        User.find(@owner.id).like_count.should eq(1)
+        User.find(@owner.id).like_count.should eq(0)
       end
     end
   end

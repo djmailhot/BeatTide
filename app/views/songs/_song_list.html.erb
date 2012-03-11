@@ -6,7 +6,11 @@
 %>
 
 <div class="song_list playlist_container">
-<% songs.each do |song| %>
-  <%= render :partial => "songs/song", :locals => {:song => song, :add => true} %>
+<% if songs.empty? %>
+  <p>No songs match your search!</p>
+<% else %>
+  <% songs.each do |song| %>
+    <%= render :partial => "songs/song", :locals => {:song => song, :add => true} %>
+  <% end %>
 <% end %>
 </div>
