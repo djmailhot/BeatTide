@@ -56,13 +56,15 @@ class Post < ActiveRecord::Base
     this_like = Like.find(:all, :conditions => { :user_id => liking_user.id,
                                                  :post_id => self.id } )
     if (!this_like.nil?)
-      if (liking_user.id != self.id)
-        self.like_count = self.like_count - 1
-        self.likes.delete(this_like)
+      if (liking_user != self.user)
+        self.user.unlike!
       end
+      self.like_count = self.like_count - 1
+      self.likes.delete(this_like)
       song.unlike!
-      self.user.unlike!
       self.save
+      logger.debug "Post :: User #{liking_user.username} unliked post " <<
+                   "#{self.attributes.inspect}"
     end
   end
 

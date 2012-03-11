@@ -4,6 +4,10 @@
 # Author:: Brett Webber 
 %>
 
+<div class="small_module module" id="footer">
+    <%= ajax_link_to "Tutorial", "/tutorial" %> • <%= ajax_link_to "FAQ", "/faq"%> • <%= ajax_link_to "About", "/about" %>
+</div>
+
 <div class="module" id="user_header">
   <h2>Tutorial</h2>
 </div>
@@ -11,28 +15,29 @@
 <div class="module">
   <div class="module">
     <h3 id="SongSearch">Adding a Song</h3>
-    <img src="images/tutorial/song_search.png">
-    <% song_search = image_tag("tutorial/song_search.png", :alt => "Song Search Image") %>
+    <%= image_tag("tutorial/song_search.png", :alt => "Song Search") %>
     <p class="explanation">
       Search bar under "Add Song" allows you to search for
       songs. Enter the name of a song, artist, or album and press
       “Enter” or click “Search” to search for it. The search results
       will appear below the box. You can listen to the songs you’ve
-      searched for, and press “+ add” to post it to your profile.
+      searched for, and press “+” to post it to your profile.
     </p>
-  </div>
+    </div>
   <div class="module">
     <h3 id="YourPlaylist">Your Playlist</h3>
+    <%= image_tag("tutorial/posted_songs.png", :alt => "Posted Songs") %>
     <p class="explanation">
       This box contains the songs you’ve posted to your profile. You
       can play the songs you’ve posted, build a playlist from them, or
-      remove them from your profile. By default, the 10 most recent
+      remove them from your profile using the "x" in the corner. By default, the 10 most recent
       songs you’ve posted will appear here; click “See more...” to
       view more.
     </p>
   </div>
   <div class="module">
-    <h3 id="AggregatedPlaylist">Aggregated Playlist</h3>    
+    <h3 id="AggregatedPlaylist">Aggregated Playlist</h3>
+    <%= image_tag("tutorial/friend_feed.png", :alt => "Friend Feed") %>
     <p class="explanation">
       This box contains the songs your friends have posted to their
       profile. You can play the songs they’ve posted, build a playlist
@@ -43,7 +48,8 @@
     </p>
   </div>  
   <div class="module">
-    <h3 id="TopUsers">Top Users</h3>    
+    <h3 id="TopUsers">Top Songs and Users</h3>
+    <%= image_tag("tutorial/top_users.png", :alt => "Top Users") %>
     <p class="explanation">
       This box contains the users and songs that have received the
       most likes from all users of BeatTide. You can play songs or
@@ -51,7 +57,8 @@
     </p>
   </div>  
   <div class="module">
-    <h3 id="SubscribeButton">Subscribe Button</h3>    
+    <h3 id="SubscribeButton">Subscribe Button</h3>
+    <%= image_tag("tutorial/subscribe.png", :alt => "Subscribe") %>
     <p class="explanation">
       This button allows you to subscribe to a user.  Once you are
       subscribed to someone, the songs that they post will come up in
@@ -61,6 +68,7 @@
   </div>
   <div class="module">
     <h3 id="LikeButton">Like Button</h3>
+    <%= image_tag("tutorial/like.png", :alt => "Like") %>
     <p class="explanation">
       Liking a song shows someone that you enjoyed their post, and
       contributes to their overall “likes” count.  If you wish to
