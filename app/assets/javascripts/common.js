@@ -48,16 +48,15 @@ function hideMessage() {
  */
 function loadPartial() {
     $("#dynamic_content_container").html('<div class="module loading"><h2>Loading...</h2><img src="/assets/load.gif" /></div>');
+    window.scrollTo(0, 0);
     $.ajax({
     	url: window.location.hash.replace("#!", ""),
     	success: function(data) {
     	    $("#dynamic_content_container").html(data);
-    	    window.scrollTo(0, 0);
     	},
     	error: function(data) {
     	    var div = $("<div class='module'><h2>Requested page could not be loaded</h2><a href='/#!/home'>Go home</a></div>");
     	    $("#dynamic_content_container").html(div);
-    	    window.scrollTo(0, 0);
     	},
     	dataType: "html",
 	    timeout: 10000
