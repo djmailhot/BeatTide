@@ -52,8 +52,9 @@ function likePost(postID, link) {
  * Handles AJAX request for deleting a post. Accepts id as a parameter
  * representing the post id of the post to delete.
  */
-function deletePost(id, name) {
-    showMessage("Deleted '" + name + "' from your posted songs.")
+function deletePost(id, element) {
+    console.log(element);
+    showMessage("Deleted '' from your posted songs.")
     var url = "/posts/" + id;
     // Callback for removing a post from the page after a user has deleted it
     // Removes the post from the page

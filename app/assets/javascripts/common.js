@@ -58,8 +58,8 @@ function loadPartial() {
     	    $("#dynamic_content_container").html(div);
     	},
     	dataType: "html",
-	timeout: 10000
-    });	
+	    timeout: 10000
+    });
 }
 
 $(document).ready(function() {
