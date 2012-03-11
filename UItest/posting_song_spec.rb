@@ -10,24 +10,20 @@ describe "UI for Song Posting" do
 
   # Sets up the browser for the UI testing    
   before(:all) do     
-    @selenium_driver = Selenium::Client::Driver.new(
-    :host => "localhost",
-    :port => 4444,
-    :browser => "*firefox",
-    :url => "http://localhost:3000/",
-    :timeout_in_second => 60)
+    setup_browser
   end
 
   # Starts up the browser and logs in the user    
   before(:each) do
     selenium_driver.start_new_browser_session
     page.open "/"
+    page.element?('welcome').should be_true
     page.click 'fb_button', :wait_for => :page
     page.type 'email', 'beatertider@gmail.com'
     page.type 'pass', 'honeybadger'
     page.click 'loginbutton', :wait_for => :page
     wait_for_ajax
-    page.text?('Signed in as').should be_true    
+    page.text?('Signed in as').should be_true
   end
 
   # Closes down the browser  
@@ -42,6 +38,7 @@ describe "UI for Song Posting" do
     wait_for_ajax
     page.click 'css=button.add_button'
     wait_for_ajax
-    page.text?('added to your posts').should be_true
+    @elements.find_element('message_container').should_not be_nil
+    @elements.find_element('29480889').should_not be_nil    
   end
 end
