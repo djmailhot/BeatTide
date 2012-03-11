@@ -66,6 +66,7 @@ $(document).ready(function() {
     // patterns, the page is not refreshed. instead, an asynchronous request 
     // loads the content.
     Path.root("#!/home");
+    Path.map("#_=_").to(loadPartial);
     // this is messy, but PathJS doesn't have powerful wildcard matching
     Path.map("#!/:a").to(loadPartial);
     Path.map("#!/:a/:b").to(loadPartial);
