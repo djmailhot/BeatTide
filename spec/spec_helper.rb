@@ -37,9 +37,9 @@ RSpec.configure do |config|
   end
 
   # Set default timeout on tests to be 2 seconds.
-  config.around(:each) do |example|
-    Timeout::timeout(2) {
-      example.run
-    }
-  end
+#  config.around(:each) do |example|
+#    Timeout::timeout(2) {
+#      example.run
+#    }
+#  end
 end
