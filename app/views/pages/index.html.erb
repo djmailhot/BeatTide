@@ -23,14 +23,14 @@
 	    <div id="friend_feed">
         <%= render :partial => "posts/post_list", :locals => {:posts => current_user.feed[0..9]} %>
         <%= ajax_link_to "See More...", "feed" if current_user.feed.length > 10 %> 
-	<script>
-	  if(!hasAutoplayed){
+    	<script>
+    	  if (!hasAutoplayed) {
              var closest = $(".play_button").first();
-	     makePlaylist(closest);
-	     console.log("hello");
-	     hasAutoplayed = true;
-	  }
-	</script>
+    	     makePlaylist(closest);
+    	     console.log("hello");
+    	     hasAutoplayed = true;
+    	  }
+    	</script>
       </div>
       <br />
       <h2><%= ajax_link_to "See All Users", "users" %></h2>
