@@ -3,6 +3,10 @@
 #   dynamically using AJAX. See javascripts/search.js.
 %>
 
+<div class="small_module module" id="footer">
+    <%= ajax_link_to "Search for Users", "/users/search" %> • <%= ajax_link_to "All Users", "users"%>
+</div>
+
 <div class="module">
   <h2>Find a Friend</h2>
   <div id="search_form">

@@ -32,10 +32,10 @@ class User < ActiveRecord::Base
                                     :maximum => 25 }
   validates :first_name, :presence => true,
                          :length => { :minimum => 1,
-                                      :maximum => Utility::MAX_LENGTH }
+                                      :maximum => 30 }
   validates :last_name, :presence => true,
                         :length => { :minimum => 1,
-                                     :maximum => Utility::MAX_LENGTH }
+                                     :maximum => 30 }
 
   after_initialize :init
 
@@ -69,9 +69,9 @@ class User < ActiveRecord::Base
       if Utility.verify_fb_auth(auth)
         user.facebook_id = auth["uid"]
         user.first_name = Utility.check_length_or_truncate(auth["info"]["first_name"],
-                                                           Utility::MAX_LENGTH)
+                                                           30)
         user.last_name = Utility.check_length_or_truncate(auth["info"]["last_name"],
-                                                          Utility::MAX_LENGTH)
+                                                          30)
         user.username = Utility.check_length_or_truncate(user.first_name + " " +
                                                          user.last_name, 25)
         user.like_count = 0

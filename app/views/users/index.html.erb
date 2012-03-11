@@ -4,23 +4,13 @@
 #    Author:: Alex Miller
 %>
 
+<div class="small_module module" id="footer">
+    <%= ajax_link_to "Search for Users", "/users/search" %> • <%= ajax_link_to "All Users", "users"%>
+</div>
+
 <div class="module">
 <h2>All Users</h1>
 
-<table class="user_list">
-  <th>Name</th>
-  <th>Likes</th>
-  <th>Username</th>
-  <th>Profile page</th>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.first_name %> <%= user.last_name %></td>
-    <td><%= user.like_count %></td>
-    <td><%= user.username %></td>
-    <td><%= ajax_link_to 'Show', user %></td>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => "users/user_list", :locals => {:users => User.all} %>
 
 </div>
