@@ -8,7 +8,7 @@
   <% if current_user == post.user %>
     <span class="delete_post">
         <strong>
-            <%= link_to_function "X", "deletePost(#{post.id}, '#{post.song.title}')" %>
+            <%= link_to_function "X", "deletePost(#{post.id}, this)" %>
         </strong>
     </span>
     You posted:
