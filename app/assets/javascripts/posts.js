@@ -53,8 +53,8 @@ function likePost(postID, link) {
  * representing the post id of the post to delete.
  */
 function deletePost(id, element) {
-    console.log(element);
-    showMessage("Deleted '' from your posted songs.")
+    var name = $(element).closest(".post").find("h3").text();
+    showMessage("Deleted '" + name + "' from your posted songs.")
     var url = "/posts/" + id;
     // Callback for removing a post from the page after a user has deleted it
     // Removes the post from the page
@@ -62,7 +62,6 @@ function deletePost(id, element) {
 	removePostCallback = function() {
 		$("#pid_"+id).remove()
 	}
-    
     $.ajax(url, 
 	   {
 	       type: "DELETE", 

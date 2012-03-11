@@ -46,9 +46,6 @@
 	   <%= @user.username %>'s Subscriptions
 	 </h2>
 	 <table class="user_list">
-	   <th>Username</th>
-	   <th>Likes</th>
-
 	   <% @user.subscriptions.each do |subscription| %>
              <tr id=<%= "#{subscription.subscribed.id}" %>>
       	       <td><%= ajax_link_to "#{subscription.subscribed.username}", "/users/#{subscription.subscribed.id}" %></td>
